@@ -4,8 +4,13 @@
         "@babel/preset-env": "^7.16.0",
         "@babel/preset-react": "^7.22.5",
         "@symfony/webpack-encore": "^4.0.0",
+        "@types/react": "^18.2.18",
+        "@types/react-dom": "^18.2.7",
         "autoprefixer": "^10.4.14",
         "core-js": "^3.23.0",
+        "eslint": "^8.46.0",
+        "eslint-plugin-react": "^7.33.1",
+        "eslint-webpack-plugin": "^4.0.1",
         "fork-ts-checker-webpack-plugin": "^7.3.0",
         "postcss-loader": "^7.3.3",
         "regenerator-runtime": "^0.13.9",
@@ -32,5 +37,8 @@
     },
     "browserslist": [
         "defaults"
-    ]
+    ],
+    "eslintConfig": {
+        "extends": ["eslint:recommended", "plugin:react/recommended"]
+    }
 }
