@@ -10,6 +10,7 @@ import './styles/app.css';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import Home from './pages/Home';
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
@@ -17,17 +18,7 @@ document.body.innerHTML = '<div id="app"></div>';
 // Render your React component instead
 const root = createRoot(document.getElementById('app'));
 root.render(
-    <article>
-        <h1>My First Component</h1>
-        <ol>
-            <li>Components: UI Building Blocks</li>
-            <li>Defining a Component</li>
-            <li>Using a Component</li>
-        </ol>
-    </article>
-);
-
-  export default function Profile() {
-    return <img src="https://i.imgur.com/jA8hHMpm.jpg"  />;
-  }
-  
+<>
+  <h1>OKTOPUCE</h1>
+  <Home/>
+</>);
