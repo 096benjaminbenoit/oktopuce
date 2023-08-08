@@ -43,6 +43,10 @@ class Equipement
     private ?bool $leak_detection = null;
 
     #[ORM\Column]
+    private ?\DateTimeImmutable $lastLeakDetection = null;
+    
+
+    #[ORM\Column]
     private ?\DateTimeImmutable $next_leak_control = null;
 
     #[ORM\Column]
@@ -180,6 +184,27 @@ class Equipement
         $this->leak_detection = $leak_detection;
 
         return $this;
+    }
+
+    public function getLastLeakDetection ($leak_detection): ?\DateTimeImmutable
+    {
+        if ($leak_detection == true ){
+            return $this->lastLeakDetection;
+        };
+    }
+
+    public function setLastLeakDetection(\DateTimeImmutable $lastLeakDetection ){
+        $this->lastLeakDetection = $lastLeakDetection;
+        return $this;
+
+    }
+
+    private function calculNextLeakControl($lastLeakDetection, $intervention_date): ?\DateTimeImmutable
+    {
+        if ($lastLeakDetection >= $intervention_date){
+            
+        }
+
     }
 
     public function getNextLeakControl(): ?\DateTimeImmutable
