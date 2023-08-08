@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\NfcTagRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\NfcTagRepository;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: NfcTagRepository::class)]
+#[ApiResource]
+
 class NfcTag
 {
     #[ORM\Id]
