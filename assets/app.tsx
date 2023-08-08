@@ -11,6 +11,7 @@ import './styles/app.scss';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Home from './pages/Home';
+import Connexion from './pages/Connexion';
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
@@ -19,6 +20,5 @@ document.body.innerHTML = '<div id="app"></div>';
 const root = createRoot(document.getElementById('app'));
 root.render(
 <>
-  <h1 className="m-5">OKTOPUCE</h1>
-  <Home/>
+  <Connexion/>
 </>);
