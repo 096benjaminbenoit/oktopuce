@@ -10,12 +10,16 @@ $primary: rgb(0, 154, 61);
 $secondary: rgb(0, 159, 143);
 $tertiary: rgb(0, 116, 49);
 $black: rgb(16, 24, 32);
+$white: rgb(255, 255, 255);
+$dark-black: rgb(0, 0, 0);
 
 $custom-colors: (
     "primary": $primary,
     "secondary": $secondary,
     "tertiary": $tertiary,
-    "black": $black
+    "black": $black,
+    "white": $white,
+    "black-dark": $dark-black
 );
 
 // 3. Include remainder of required Bootstrap stylesheets
@@ -50,19 +54,20 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 body {
     background-color: $black;
+    width: 100%;
+}
+
+.fullHome {
+    height: 100vh;
 }
 
 // TITRE ACCUEIL
-h1{
+.homeTitle {
     text-align: center;
     color: $primary;
 }
 
 // LOGO
 .logoHome {
-    width: 128px;
+    min-width: 140px;
 }
-
-// BOUTONS ACCUEIL
-
-

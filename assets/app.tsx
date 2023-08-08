@@ -19,6 +19,6 @@ document.body.innerHTML = '<div id="app"></div>';
 const root = createRoot(document.getElementById('app'));
 root.render(
 <>
-  <h1 className="m-5">OKTOPUCE</h1>
   <Home/>
-</>);
+</>
+);
