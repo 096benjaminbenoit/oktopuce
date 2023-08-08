@@ -19,7 +19,7 @@ class Brand
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $sav_number = null;
+    private ?string $savNumber = null;
 
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Equipement::class)]
     private Collection $equipements;
@@ -52,12 +52,12 @@ class Brand
 
     public function getSavNumber(): ?string
     {
-        return $this->sav_number;
+        return $this->savNumber;
     }
 
-    public function setSavNumber(string $sav_number): static
+    public function setSavNumber(string $savNumber): static
     {
-        $this->sav_number = $sav_number;
+        $this->savNumber = $savNumber;
 
         return $this;
     }
