@@ -57,17 +57,40 @@ body {
     width: 100%;
 }
 
+// PAGE D'ACCUEIL
+
 .fullHome {
     height: 100vh;
+    
+    // TITRE ACCUEIL
+    h1 {
+        text-align: center;
+        color: $primary;
+    }
+
+    // LOGO
+    .logoHome {
+        min-width: 150px;
+    }
 }
 
-// TITRE ACCUEIL
-.homeTitle {
-    text-align: center;
-    color: $primary;
-}
+// PAGE POUR SCANNER LA PUCE
+.fullScanPage {
+    height: 95vh;
+    
+    // TITRE NAVBAR, À RETIRER QUAND LA NAVBAR SERA INTÉGRÉE
+    h1 {
+        text-align: center;
+        color: $primary;
+    }
 
-// LOGO
-.logoHome {
-    min-width: 140px;
+    // Sous-titre 
+    .subtitleScanPage {
+        color: $secondary;
+    }
+
+    .logoScanPage {
+        width: 200px;
+    }
+
 }
