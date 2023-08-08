@@ -11,7 +11,7 @@ export default function scanPage(){
             <h1 className='homeTitle text-uppercase m-3'>Oktopuce</h1>
             <Logo className='m-5 logoScanPage'></Logo>
             <div className='m-5'>
-                <h2 className='subtitleScanPage text-uppercase'>Flash ton poulpe</h2>
+                <h2 className='subtitleScanPage text-uppercase'>Flashe ton poulpe</h2>
             </div>
         </section>
     </>
