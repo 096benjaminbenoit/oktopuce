@@ -30,7 +30,7 @@ class PersonTest extends KernelTestCase
         $user->setPhone('1234567890');
         $user->setPassword('test');
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_TECHNICIEN']);
-        $person->setUser($user);
+        // $person->setUser($user);
 
         $this->entityManager->persist($person);
         $this->entityManager->persist($user);

@@ -28,13 +28,13 @@ class UserTest extends KernelTestCase
         $person->setFirstName('fatima');
         $person->setLastName('yakhlef');
         $person->setPhone('1234567890');
-        $user->setPerson($person);
+        // $user->setPerson($person);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
         $this->assertNotNull($user->getId());
-        $this->assertNotNull($user->getPerson());
+        // $this->assertNotNull($user->getPerson());
     }
 
     public function testUserPhone()

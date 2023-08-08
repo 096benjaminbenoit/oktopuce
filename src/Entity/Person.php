@@ -84,17 +84,17 @@ class Person
         return $this->user;
     }
 
-    public function setUser(User $user): static
-    {
-        // set the owning side of the relation if necessary
-        if ($user->getPerson() !== $this) {
-            $user->setPerson($this);
-        }
+    // public function setUser(User $user): static
+    // {
+    //     // set the owning side of the relation if necessary
+    //     if ($user->getPerson() !== $this) {
+    //         $user->setPerson($this);
+    //     }
 
-        $this->user = $user;
+    //     $this->user = $user;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Intervention>
