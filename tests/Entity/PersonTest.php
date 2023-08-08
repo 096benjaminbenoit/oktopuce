@@ -2,7 +2,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Person;
-use App\Entity\Users;
+use App\Entity\User;
 use App\Entity\Intervention;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -25,12 +25,12 @@ class PersonTest extends KernelTestCase
         $person->setFirstName('fatima');
         $person->setPhone('1234567890');
 
-        // Create and associate a Users
-        $user = new Users();
+        // Create and associate a User
+        $user = new User();
         $user->setPhone('1234567890');
         $user->setPassword('test');
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_TECHNICIEN']);
-        $person->setUsers($user);
+        $person->setUser($user);
 
         $this->entityManager->persist($person);
         $this->entityManager->persist($user);
