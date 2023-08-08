@@ -5,10 +5,17 @@
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "~bootstrap/scss/functions";
 
-// 2. Include any default variable overrides heree
-$tertiary: #570075;
+// 2. Include any default variable overrides here
+$primary: rgb(0, 154, 61);
+$secondary: rgb(0, 159, 143);
+$tertiary: rgb(0, 116, 49);
+$black: rgb(16, 24, 32);
+
 $custom-colors: (
-  "tertiary": $tertiary,
+    "primary": $primary,
+    "secondary": $secondary,
+    "tertiary": $tertiary,
+    "black": $black
 );
 
 // 3. Include remainder of required Bootstrap stylesheets
