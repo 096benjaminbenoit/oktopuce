@@ -46,7 +46,7 @@ class ClientTest extends KernelTestCase
         $client->setAddress('123 Main Street');
         $client->setPostCode('12345');
         $client->setCity('City');
-        $client->setPhone('555-1234');
+        $client->setPhone('1234567890');
         $client->setEmail('client@example.com');
 
         $person = new Person();
