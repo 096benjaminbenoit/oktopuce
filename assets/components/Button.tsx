@@ -1,7 +1,8 @@
 import React from "react";
 
-export default function Button({text}) {
+export default function Button({text, variant, className = ""}) {
     return (
-        <button style="text-transform: uppercase;">{text}</button>
+        // Autre façon d'écrire les variables : {"btn btn-" + variant + " " + className}
+        <button className={`btn btn-${variant} ${className}`}>{ text }</button>
     );
 }

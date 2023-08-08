@@ -41,6 +41,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "~bootstrap/scss/containers";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/helpers";
+@import "~bootstrap";
 
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "~bootstrap/scss/utilities/api";
@@ -48,10 +49,14 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 
 body {
-    background-color: white;
+    background-color: $black;
 }
 
+// TITRE ACCUEIL
 h1{
     text-align: center;
-    color: rgb(0, 154,  61);
+    color: $primary;
 }
+
+
+
