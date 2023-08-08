@@ -43,6 +43,7 @@ class Equipement
     private ?bool $leakDetection = null;
 
     #[ORM\Column]
+    #[ORM\HasLifecycleCallbacks]
     private ?\DateTimeImmutable $lastLeakDetection = null;
     
 
@@ -186,24 +187,14 @@ class Equipement
         return $this;
     }
 
-    public function getLastLeakDetection ($leak_detection): ?\DateTimeImmutable
+    public function getLastLeakDetection (): ?\DateTimeImmutable
     {
-        if ($leak_detection == true ){
-            return $this->lastLeakDetection;
-        };
+        return $this->lastLeakDetection;
     }
 
     public function setLastLeakDetection(\DateTimeImmutable $lastLeakDetection ){
         $this->lastLeakDetection = $lastLeakDetection;
         return $this;
-
-    }
-
-    private function calculNextLeakControl($lastLeakDetection, $intervention_date): ?\DateTimeImmutable
-    {
-        if ($lastLeakDetection >= $intervention_date){
-            
-        }
 
     }
 
