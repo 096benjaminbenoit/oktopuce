@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\PersonRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PersonRepository;
+use ApiPlatform\Metadata\ApiResource;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
+#[ApiResource]
+
 class Person
 {
     #[ORM\Id]
@@ -25,7 +28,7 @@ class Person
     private ?string $phone = null;
 
     #[ORM\OneToOne(mappedBy: 'person', cascade: ['persist', 'remove'])]
-    private ?Users $users = null;
+    private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'person', targetEntity: Intervention::class)]
     private Collection $interventions;
@@ -76,19 +79,19 @@ class Person
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(Users $users): static
+    public function setUser(User $user): static
     {
         // set the owning side of the relation if necessary
-        if ($users->getPerson() !== $this) {
-            $users->setPerson($this);
+        if ($user->getPerson() !== $this) {
+            $user->setPerson($this);
         }
 
-        $this->users = $users;
+        $this->user = $user;
 
         return $this;
     }

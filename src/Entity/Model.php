@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ModelRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ModelRepository;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
+#[ApiResource]
+
 class Model
 {
     #[ORM\Id]

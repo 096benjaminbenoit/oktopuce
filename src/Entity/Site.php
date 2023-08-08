@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SiteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SiteRepository;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
+#[ApiResource]
+
 class Site
 {
     #[ORM\Id]
