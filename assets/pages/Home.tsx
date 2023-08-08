@@ -7,7 +7,7 @@ export default function Home(){
     return (<>
 
         <section className='d-flex flex-column align-items-center'>
-            <Logo className="mb-5"></Logo>
+            <Logo className="mb-5 logoHome"></Logo>
             <Button className='mb-3' variant="primary" text="J'ai un compte"/>
             <Button variant="primary" text="Je n'ai pas de compte"/>
         </section>
