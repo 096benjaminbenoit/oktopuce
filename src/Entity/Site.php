@@ -23,7 +23,7 @@ class Site
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $post_code = null;
+    private ?string $postCode = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -65,12 +65,12 @@ class Site
 
     public function getPostCode(): ?string
     {
-        return $this->post_code;
+        return $this->postCode;
     }
 
-    public function setPostCode(string $post_code): static
+    public function setPostCode(string $postCode): static
     {
-        $this->post_code = $post_code;
+        $this->postCode = $postCode;
 
         return $this;
     }

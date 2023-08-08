@@ -19,31 +19,31 @@ class Equipement
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $installation_date = null;
+    private ?\DateTimeImmutable $installationDate = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $serial_number = null;
+    private ?string $serialNumber = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $location_detail = null;
+    private ?string $locationDetail = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $product_type = null;
+    private ?string $productType = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $placement_type = null;
+    private ?string $placementType = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $remote_number = null;
+    private ?string $remoteNumber = null;
 
     #[ORM\Column]
-    private ?float $gas_weight = null;
+    private ?float $gasWeight = null;
 
     #[ORM\Column]
-    private ?bool $leak_detection = null;
+    private ?bool $leakDetection = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $next_leak_control = null;
+    private ?\DateTimeImmutable $nextLeakControl = null;
 
     #[ORM\Column]
     private array $finality = [];
@@ -88,108 +88,108 @@ class Equipement
 
     public function getInstallationDate(): ?\DateTimeImmutable
     {
-        return $this->installation_date;
+        return $this->installationDate;
     }
 
-    public function setInstallationDate(\DateTimeImmutable $installation_date): static
+    public function setInstallationDate(\DateTimeImmutable $installationDate): static
     {
-        $this->installation_date = $installation_date;
+        $this->installationDate = $installationDate;
 
         return $this;
     }
 
     public function getSerialNumber(): ?string
     {
-        return $this->serial_number;
+        return $this->serialNumber;
     }
 
-    public function setSerialNumber(string $serial_number): static
+    public function setSerialNumber(string $serialNumber): static
     {
-        $this->serial_number = $serial_number;
+        $this->serialNumber = $serialNumber;
 
         return $this;
     }
 
     public function getLocationDetail(): ?string
     {
-        return $this->location_detail;
+        return $this->locationDetail;
     }
 
-    public function setLocationDetail(string $location_detail): static
+    public function setLocationDetail(string $locationDetail): static
     {
-        $this->location_detail = $location_detail;
+        $this->locationDetail = $locationDetail;
 
         return $this;
     }
 
     public function getProductType(): ?string
     {
-        return $this->product_type;
+        return $this->productType;
     }
 
-    public function setProductType(string $product_type): static
+    public function setProductType(string $productType): static
     {
-        $this->product_type = $product_type;
+        $this->productType = $productType;
 
         return $this;
     }
 
     public function getPlacementType(): ?string
     {
-        return $this->placement_type;
+        return $this->placementType;
     }
 
     public function setPlacementType(string $placement_type): static
     {
-        $this->placement_type = $placement_type;
+        $this->placementType = $placement_type;
 
         return $this;
     }
 
     public function getRemoteNumber(): ?string
     {
-        return $this->remote_number;
+        return $this->remoteNumber;
     }
 
-    public function setRemoteNumber(string $remote_number): static
+    public function setRemoteNumber(string $remoteNumber): static
     {
-        $this->remote_number = $remote_number;
+        $this->remoteNumber = $remoteNumber;
 
         return $this;
     }
 
     public function getGasWeight(): ?float
     {
-        return $this->gas_weight;
+        return $this->gasWeight;
     }
 
-    public function setGasWeight(float $gas_weight): static
+    public function setGasWeight(float $gasWeight): static
     {
-        $this->gas_weight = $gas_weight;
+        $this->gasWeight = $gasWeight;
 
         return $this;
     }
 
     public function isLeakDetection(): ?bool
     {
-        return $this->leak_detection;
+        return $this->leakDetection;
     }
 
-    public function setLeakDetection(bool $leak_detection): static
+    public function setLeakDetection(bool $leakDetection): static
     {
-        $this->leak_detection = $leak_detection;
+        $this->leakDetection = $leakDetection;
 
         return $this;
     }
 
     public function getNextLeakControl(): ?\DateTimeImmutable
     {
-        return $this->next_leak_control;
+        return $this->nextLeakControl;
     }
 
-    public function setNextLeakControl(\DateTimeImmutable $next_leak_control): static
+    public function setNextLeakControl(\DateTimeImmutable $nextLeakControl): static
     {
-        $this->next_leak_control = $next_leak_control;
+        $this->nextLeakControl = $nextLeakControl;
 
         return $this;
     }
