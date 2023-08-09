@@ -23,8 +23,8 @@ class Intervention
     #[ORM\Column(length: 255)]
     private ?string $entreprise = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    #[ORM\Column(type: 'json')]
+    private ?array $type = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $interventionDate = null;
@@ -66,12 +66,12 @@ class Intervention
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?array
     {
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(array $type): static
     {
         $this->type = $type;
 
