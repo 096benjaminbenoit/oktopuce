@@ -1,6 +1,7 @@
 import React from "react";
 /** @ts-ignore */
 import logo from '../images/logo.svg';
+
 export default function Logo({className = ''}) {
     return (
 
