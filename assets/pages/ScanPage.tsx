@@ -1,5 +1,4 @@
 import React from "react";
-/** @ts-ignore */
 import Logo from '../components/Logo';
 import NavBar from "../components/NavBar";
 

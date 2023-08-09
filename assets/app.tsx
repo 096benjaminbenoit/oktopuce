@@ -22,7 +22,7 @@ const root = createRoot(document.getElementById('app'));
 root.render(
 <>
   {/* <Home/> */}
-  {/* <Connexion/> */}
-  <ScanPage/>
+  <Connexion/>
+  {/* <ScanPage/> */}
 </>
 );
