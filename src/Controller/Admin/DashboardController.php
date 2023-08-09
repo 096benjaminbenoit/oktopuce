@@ -31,8 +31,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Oktopuce')
-            ->renderContentMaximized();
+            ->setTitle('Oktopuce');
+            // ->renderContentMaximized();
     }
 
     public function configureMenuItems(): iterable
@@ -44,7 +44,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les équipements', 'fas fa-box', Equipement::class);
         yield MenuItem::linkToCrud('Les gaz', 'fas fa-fire-flame-simple', GasTypes::class);
         yield MenuItem::linkToCrud('Les interventions', 'fas fa-clipboard', Intervention::class);
-        yield MenuItem::linkToCrud('Les lieux', 'fas fa-location-dot', Location::class);
+        yield MenuItem::linkToCrud('Les emplacements', 'fas fa-location-dot', Location::class);
         yield MenuItem::linkToCrud('Les modèles', 'fas fa-tags', Model::class);
         yield MenuItem::linkToCrud('Les puces NFC', 'fa-brands fa-nfc-symbol', NfcTag::class);
         yield MenuItem::linkToCrud('Les personnes', 'fas fa-user', Person::class);

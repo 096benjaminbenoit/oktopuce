@@ -24,6 +24,11 @@ class Location
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Equipement::class)]
     private Collection $equipements;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();

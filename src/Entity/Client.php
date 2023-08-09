@@ -39,6 +39,11 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Site::class)]
     private Collection $sites;
 
+    public function __toString()
+    {
+        return $this->person;
+    }
+
     public function __construct()
     {
         $this->sites = new ArrayCollection();
