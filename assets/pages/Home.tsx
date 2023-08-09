@@ -10,8 +10,8 @@ export default function Home(){
             <h1 className='homeTitle text-uppercase'>Oktopuce</h1>
             <Logo className="mt-5 p-5 logoHome"></Logo>
             <div className="btnDiv my-auto d-flex flex-column">
-                <Button className='text-uppercase btnHome mb-3' variant="primary">J'ai un compte</Button>
-                <Button className='text-uppercase btnHome' variant="primary">Je n'ai pas de compte</Button>
+                <Button.Link path='/login' className='text-uppercase btnHome mb-3' variant="primary">J'ai un compte</Button.Link>
+                <Button className='text-uppercase btnHome' variant="primary">Je n'ai pas de compte"</Button>
             </div>
         </section>
     </>);
