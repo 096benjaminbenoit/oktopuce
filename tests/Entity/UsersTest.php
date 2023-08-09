@@ -1,11 +1,11 @@
 <?php
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 
-class UsersTest extends KernelTestCase
+class UserTest extends KernelTestCase
 {
     private $entityManager;
 
@@ -19,7 +19,7 @@ class UsersTest extends KernelTestCase
 
     public function testCreateUser()
     {
-        $user = new Users();
+        $user = new User();
         $user->setPhone('1234567890');
         $user->setPassword('test');
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_TECHNICIEN']);
@@ -39,7 +39,7 @@ class UsersTest extends KernelTestCase
 
     public function testUserPhone()
     {
-        $user = new Users();
+        $user = new User();
         $user->setPhone('1234567890');
 
         $this->assertSame('1234567890', $user->getPhone());
@@ -47,7 +47,7 @@ class UsersTest extends KernelTestCase
 
     public function testUserRoles()
     {
-        $user = new Users();
+        $user = new User();
         $user->setRoles(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_TECHNICIEN']);
 
         $this->assertSame(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_TECHNICIEN'], $user->getRoles());

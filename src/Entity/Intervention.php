@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
 
@@ -32,6 +33,8 @@ class Intervention
     private ?Equipement $equipement = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
+    #[JoinColumn(nullable: true)]
+
     private ?Person $person = null;
 
     public function getId(): ?int

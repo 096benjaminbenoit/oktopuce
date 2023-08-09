@@ -27,15 +27,23 @@ class Person
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
-    #[ORM\OneToOne(mappedBy: 'person', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
+    // #[ORM\OneToOne(mappedBy: 'person', cascade: ['persist', 'remove'])]
+    // private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'person', targetEntity: Intervention::class)]
     private Collection $interventions;
 
+    #[ORM\OneToOne(mappedBy: 'person', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->firstName." ".$this->lastName ;
     }
 
     public function getId(): ?int
@@ -79,22 +87,22 @@ class Person
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+    // public function getUser(): ?User
+    // {
+    //     return $this->user;
+    // }
 
-    public function setUser(User $user): static
-    {
-        // set the owning side of the relation if necessary
-        if ($user->getPerson() !== $this) {
-            $user->setPerson($this);
-        }
+    // public function setUser(User $user): static
+    // {
+    //     // set the owning side of the relation if necessary
+    //     if ($user->getPerson() !== $this) {
+    //         $user->setPerson($this);
+    //     }
 
-        $this->user = $user;
+    //     $this->user = $user;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Intervention>
@@ -122,6 +130,23 @@ class Person
                 $intervention->setPerson(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): static
+    {
+        // set the owning side of the relation if necessary
+        if ($user->getPerson() !== $this) {
+            $user->setPerson($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
