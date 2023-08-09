@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\NfcTagRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -19,6 +20,16 @@ class NfcTag
 
     #[ORM\Column(type: Types::GUID)]
     private ?string $uid = null;
+
+    public function __toString()
+    {
+        return $this->uid;
+    }
+
+    public function __construct()
+    {
+     $this->uid = Uuid::v4();   
+    }
 
     public function getId(): ?int
     {
