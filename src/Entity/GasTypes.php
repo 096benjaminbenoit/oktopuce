@@ -27,6 +27,11 @@ class GasTypes
     #[ORM\OneToMany(mappedBy: 'gas', targetEntity: Equipement::class)]
     private Collection $equipements;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();

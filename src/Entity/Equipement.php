@@ -75,6 +75,11 @@ class Equipement
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $equipements;
 
+    public function __toString()
+    {
+        return $this->serial_number;
+    }
+
     public function __construct()
     {
         $this->intervention = new ArrayCollection();
