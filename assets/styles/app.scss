@@ -73,12 +73,14 @@ body {
         min-width: 150px;
     }
 }
+$navbar-logo-size: 64px;
+$page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 2));
 .NavBarLogo {
-    width: 100px;
+    width: $navbar-logo-size;
 }
 // PAGE POUR SCANNER LA PUCE
 .fullScanPage {
-    height: 95vh;
+    height: $page-with-navbar-size;
     
     // TITRE NAVBAR, À RETIRER QUAND LA NAVBAR SERA INTÉGRÉE
     h1 {

@@ -10,7 +10,7 @@ function NavBar() {
     <Navbar collapseOnSelect expand="lg" className="bg-secondary navbar-dark">
       <Container>
         <Logo className='bg-white rounded-circle m-2 p-2 NavBarLogo'></Logo>
-        <Navbar.Brand href="#home">Oktopuce</Navbar.Brand>
+        <Navbar.Brand href="#home"><h1 className='homeTitle text-uppercase'>Oktopuce</h1></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
