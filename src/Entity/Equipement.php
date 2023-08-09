@@ -77,7 +77,7 @@ class Equipement
 
     public function __toString()
     {
-        return $this->serial_number;
+        return $this->serialNumber;
     }
 
     public function __construct()
