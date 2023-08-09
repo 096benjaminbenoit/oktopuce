@@ -33,7 +33,7 @@ class EquipementTest extends KernelTestCase
         $equipement->setGasWeight(2,5);
         $equipement->setLeakDetection(true);
         $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality(['radiateur','plancher chauffant']);
+        $equipement->setFinality('radiateur','plancher chauffant');
         $equipement->setCapacity(35);
         $equipement->setPicto('https://example.com/image.png');
         $equipement->setNfc(new NfcTag);

@@ -5,8 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\EquipementRepository;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: EquipementRepository::class)]
 #[ApiResource]
@@ -43,15 +46,14 @@ class Equipement
     private ?bool $leakDetection = null;
 
     #[ORM\Column]
-    #[ORM\HasLifecycleCallbacks]
     private ?\DateTimeImmutable $lastLeakDetection = null;
     
 
-    #[ORM\Column]
+    #[ORM\Column (type: "datetime_immutable", nullable: true)]
     private ?\DateTimeImmutable $nextLeakControl = null;
 
     #[ORM\Column]
-    private array $finality = [];
+    private ?string $finality = null;
 
     #[ORM\Column]
     private ?float $capacity = null;
@@ -82,7 +84,7 @@ class Equipement
 
     public function __toString()
     {
-        return $this->serial_number;
+        return $this->serialNumber;
     }
 
     public function __construct()
@@ -208,19 +210,19 @@ class Equipement
         return $this->nextLeakControl;
     }
 
-    public function setNextLeakControl(\DateTimeImmutable $nextLeakControl): static
+    public function setNextLeakControl(?\DateTimeImmutable $nextLeakControl): static
     {
         $this->nextLeakControl = $nextLeakControl;
 
         return $this;
     }
 
-    public function getFinality(): array
+    public function getFinality(): string
     {
         return $this->finality;
     }
 
-    public function setFinality(array $finality): static
+    public function setFinality(string $finality): static
     {
         $this->finality = $finality;
 

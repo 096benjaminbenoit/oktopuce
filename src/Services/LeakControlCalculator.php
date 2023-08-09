@@ -32,7 +32,8 @@ class LeakControlCalculator
             if($TCO2 < 50_000) {
                 return '+ 2 years';
             } elseif ($TCO2 < 500_000) {
-                return '+ 1 years';
+            
+            return "+ 6 months";
             } else {
                 return '+ 6 months';
             }

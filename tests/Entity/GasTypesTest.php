@@ -37,7 +37,7 @@ class GasTypesTest extends KernelTestCase
         $equipement->setGasWeight(12,33);
         $equipement->setLeakDetection(true);
         $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality([1,2,3]);
+        $equipement->setFinality(1,2,3);
         $equipement->setCapacity(3 ."");
         $equipement->setPicto('https://example.com/image.png');
         $equipement->setNfc(new NfcTag);
