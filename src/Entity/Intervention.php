@@ -27,7 +27,7 @@ class Intervention
     private ?string $type = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $intervention_date = null;
+    private ?\DateTimeImmutable $interventionDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'intervention')]
     private ?Equipement $equipement = null;
@@ -80,12 +80,12 @@ class Intervention
 
     public function getInterventionDate(): ?\DateTimeImmutable
     {
-        return $this->intervention_date;
+        return $this->interventionDate;
     }
 
-    public function setInterventionDate(\DateTimeImmutable $intervention_date): static
+    public function setInterventionDate(\DateTimeImmutable $interventionDate): static
     {
-        $this->intervention_date = $intervention_date;
+        $this->interventionDate = $interventionDate;
 
         return $this;
     }

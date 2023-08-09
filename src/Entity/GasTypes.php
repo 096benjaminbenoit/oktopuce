@@ -22,7 +22,7 @@ class GasTypes
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?float $eq_co2_per_kg = null;
+    private ?float $eqCo2PerKg = null;
 
     #[ORM\OneToMany(mappedBy: 'gas', targetEntity: Equipement::class)]
     private Collection $equipements;
@@ -56,12 +56,12 @@ class GasTypes
 
     public function getEqCo2PerKg(): ?float
     {
-        return $this->eq_co2_per_kg;
+        return $this->eqCo2PerKg;
     }
 
-    public function setEqCo2PerKg(float $eq_co2_per_kg): static
+    public function setEqCo2PerKg(float $eqCo2PerKg): static
     {
-        $this->eq_co2_per_kg = $eq_co2_per_kg;
+        $this->eqCo2PerKg = $eqCo2PerKg;
 
         return $this;
     }
