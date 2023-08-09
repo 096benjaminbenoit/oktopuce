@@ -12,6 +12,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Home from './pages/Home';
 import Connexion from './pages/Connexion';
+import ScanPage from './pages/ScanPage';
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
@@ -20,6 +21,8 @@ document.body.innerHTML = '<div id="app"></div>';
 const root = createRoot(document.getElementById('app'));
 root.render(
 <>
-  <Home/>
+  {/* <Home/> */}
+  {/* <Connexion/> */}
+  <ScanPage/>
 </>
 );
