@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230810133443 extends AbstractMigration
+final class Version20230810140340 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -30,7 +30,7 @@ final class Version20230810133443 extends AbstractMigration
         $this->addSql('CREATE TABLE finality (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE gas_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, eq_co2_per_kg DOUBLE PRECISION NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE intervention (id INT AUTO_INCREMENT NOT NULL, person_id INT DEFAULT NULL, equipment_id INT DEFAULT NULL, technician VARCHAR(255) DEFAULT NULL, enterprise VARCHAR(255) DEFAULT NULL, response JSON NOT NULL, INDEX IDX_D11814AB217BBB47 (person_id), INDEX IDX_D11814AB517FE9FE (equipment_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE intervention_question (id INT AUTO_INCREMENT NOT NULL, question TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE intervention_question (id INT AUTO_INCREMENT NOT NULL, question VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE intervention_type (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE intervention_type_intervention_question (intervention_type_id INT NOT NULL, intervention_question_id INT NOT NULL, INDEX IDX_9BBD1BB68EA2F8F6 (intervention_type_id), INDEX IDX_9BBD1BB660D47778 (intervention_question_id), PRIMARY KEY(intervention_type_id, intervention_question_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE location (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

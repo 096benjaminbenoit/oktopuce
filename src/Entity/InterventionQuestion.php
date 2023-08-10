@@ -18,7 +18,7 @@ class InterventionQuestion
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?bool $question = null;
+    private ?string $question = null;
 
     #[ORM\ManyToMany(targetEntity: InterventionType::class, mappedBy: 'interventionQuestion')]
     private Collection $interventionTypes;
@@ -33,12 +33,12 @@ class InterventionQuestion
         return $this->id;
     }
 
-    public function isQuestion(): ?bool
+    public function type(): ?string
     {
         return $this->question;
     }
 
-    public function setQuestion(bool $question): static
+    public function setQuestion(string $question): static
     {
         $this->question = $question;
 
