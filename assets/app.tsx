@@ -23,6 +23,8 @@ const root = createRoot(document.getElementById('app'));
 root.render(
 <>
   {/* <Home/> */}
-  <ScanPage/>
+  {/* <Connexion/> */}
+  {/* <ScanPage/> */}
+  <Error404/>
 </>
 );
