@@ -51,10 +51,10 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "~bootstrap/scss/utilities/api";
 
 
-
 body {
     background-color: $black;
     width: 100%;
+    font-family: 'Source Sans 3', sans-serif;
 }
 
 // PAGE D'ACCUEIL
@@ -104,5 +104,6 @@ $page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
 
 // PAGE ERROR 404
 .error404 {
-    height: 100vh;
+    height: $page-with-navbar-size;
+    // font-family: 'Source Sans Bold', 'Times New Roman';
 }
