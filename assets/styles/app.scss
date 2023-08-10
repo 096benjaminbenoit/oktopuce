@@ -74,13 +74,21 @@ body {
     }
 }
 
+$navbar-logo-size: 64px;
+$page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
+.NavBarLogo {
+    width: $navbar-logo-size;
+}
+
+// PAGE CONNEXION
+
+
 // PAGE POUR SCANNER LA PUCE
 .fullScanPage {
-    height: 95vh;
+    height: $page-with-navbar-size;
     
-    // TITRE NAVBAR, À RETIRER QUAND LA NAVBAR SERA INTÉGRÉE
-    h1 {
-        text-align: center;
+    // TITRE ACCUEIL
+    homeTitle {
         color: $primary;
     }
 
@@ -90,7 +98,7 @@ body {
     }
 
     .logoScanPage {
-        width: 200px;
+        width: 150px;
     }
 }
 

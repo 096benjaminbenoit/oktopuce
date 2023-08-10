@@ -1,4 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
+const { ProvidePlugin } = require("webpack");
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -62,6 +63,9 @@ Encore
 
     // uncomment if you use React
     .enableReactPreset()
+    .addPlugin(
+        new ProvidePlugin({React: "react"})
+    )
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher

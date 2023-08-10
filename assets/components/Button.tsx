@@ -1,8 +1,16 @@
 import React from "react";
 
-export default function Button({text, variant, className = ""}) {
+
+
+type ButtonProps = {
+    children?: React.ReactNode;
+    variant: string;
+    className?: string;
+};
+
+export default function Button({children, variant, className = ""}: ButtonProps) {
     return (
         // Autre façon d'écrire les variables : {"btn btn-" + variant + " " + className}
-        <button className={`btn btn-${variant} ${className}`}>{ text }</button>
+        <button className={`btn btn-${variant} ${className}`}>{ children }</button>
     );
 }

@@ -3,5 +3,6 @@
         "jsx": "react",
         "noImplicitAny": false,
         "esModuleInterop": true,
+        "allowUmdGlobalAccess": true,
     }
 }
