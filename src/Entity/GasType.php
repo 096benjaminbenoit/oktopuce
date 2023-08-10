@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\GasTypesRepository;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\GasTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GasTypesRepository::class)]
+#[ORM\Entity(repositoryClass: GasTypeRepository::class)]
 #[ApiResource]
-
-class GasTypes
+class GasType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,17 +23,12 @@ class GasTypes
     #[ORM\Column]
     private ?float $eqCo2PerKg = null;
 
-    #[ORM\OneToMany(mappedBy: 'gas', targetEntity: Equipement::class)]
-    private Collection $equipements;
-
-    public function __toString()
-    {
-        return $this->name;
-    }
+    #[ORM\OneToMany(mappedBy: 'gas', targetEntity: Equipment::class)]
+    private Collection $equipment;
 
     public function __construct()
     {
-        $this->equipements = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,29 +61,29 @@ class GasTypes
     }
 
     /**
-     * @return Collection<int, Equipement>
+     * @return Collection<int, Equipment>
      */
-    public function getEquipements(): Collection
+    public function getEquipment(): Collection
     {
-        return $this->equipements;
+        return $this->equipment;
     }
 
-    public function addEquipement(Equipement $equipement): static
+    public function addEquipment(Equipment $equipment): static
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements->add($equipement);
-            $equipement->setGas($this);
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment->add($equipment);
+            $equipment->setGas($this);
         }
 
         return $this;
     }
 
-    public function removeEquipement(Equipement $equipement): static
+    public function removeEquipment(Equipment $equipment): static
     {
-        if ($this->equipements->removeElement($equipement)) {
+        if ($this->equipment->removeElement($equipment)) {
             // set the owning side to null (unless already changed)
-            if ($equipement->getGas() === $this) {
-                $equipement->setGas(null);
+            if ($equipment->getGas() === $this) {
+                $equipment->setGas(null);
             }
         }
 

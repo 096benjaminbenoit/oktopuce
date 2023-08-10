@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ModelRepository;
 use ApiPlatform\Metadata\ApiResource;
+use App\Repository\ModelRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
 #[ApiResource]
-
 class Model
 {
     #[ORM\Id]
@@ -18,6 +17,9 @@ class Model
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $manuelLink = null;
 
     #[ORM\ManyToOne(inversedBy: 'models')]
     private ?Brand $brand = null;
@@ -35,6 +37,18 @@ class Model
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getManuelLink(): ?string
+    {
+        return $this->manuelLink;
+    }
+
+    public function setManuelLink(?string $manuelLink): static
+    {
+        $this->manuelLink = $manuelLink;
 
         return $this;
     }
