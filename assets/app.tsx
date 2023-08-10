@@ -12,7 +12,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Home from './pages/Home';
 import ScanPage from './pages/ScanPage';
-import Illustration from './components/Illustration';
+import Error404 from './pages/Error404';
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
@@ -23,6 +23,6 @@ root.render(
 <>
   {/* <Home/> */}
   {/* <ScanPage/> */}
-  <Illustration/>
+  <Error404/>
 </>
 );
