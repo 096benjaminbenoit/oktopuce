@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\SiteRepository;
 use ApiPlatform\Metadata\ApiResource;
+use App\Repository\SiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SiteRepository::class)]
 #[ApiResource]
-
 class Site
 {
     #[ORM\Id]
@@ -31,8 +32,13 @@ class Site
     #[ORM\ManyToOne(inversedBy: 'sites')]
     private ?Client $client = null;
 
-    #[ORM\ManyToOne(inversedBy: 'site')]
-    private ?Contact $contact = null;
+    #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'site')]
+    private Collection $contacts;
+
+    public function __construct()
+    {
+        $this->contacts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -99,14 +105,29 @@ class Site
         return $this;
     }
 
-    public function getContact(): ?Contact
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
     {
-        return $this->contact;
+        return $this->contacts;
     }
 
-    public function setContact(?Contact $contact): static
+    public function addContact(Contact $contact): static
     {
-        $this->contact = $contact;
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            $contact->removeSite($this);
+        }
 
         return $this;
     }
