@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Equipement;
+use App\Entity\Equipment;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Doctrine\DBAL\Types\DateTimeType;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EquipementType extends AbstractType
+class EquipmentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -45,7 +45,7 @@ class EquipementType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Equipement::class,
+            'data_class' => Equipment::class,
         ]);
     }
 }
