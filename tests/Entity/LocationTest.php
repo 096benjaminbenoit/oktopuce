@@ -5,7 +5,7 @@ use App\Entity\Brand;
 use App\Entity\NfcTag;
 use App\Entity\GasTypes;
 use App\Entity\Location;
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class LocationTest extends KernelTestCase
@@ -25,41 +25,41 @@ class LocationTest extends KernelTestCase
         $location = new Location();
         $location->setName('Example Location');
 
-        // Créez une instance d'Equipement associée à cette Location
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('Location Detail');
-        $equipement->setProductType('clim');
-        $equipement->setPlacementType('chambre');
-        $equipement->setRemoteNumber('telecommande 1234');
-        $equipement->setGasWeight(2,5);
-        $equipement->setLeakDetection(true);
-        $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality(['radiateur','plancher chauffant']);
-        $equipement->setCapacity(35);
-        $equipement->setPicto('https://example.com/image.png');
-        $equipement->setNfc(new NfcTag);
-        $equipement->setLocation(new Location);
-        $equipement->setGas(new GasTypes);
-        $equipement->setBrand(new Brand);
+        // Créez une instance d'equipment associée à cette Location
+        $equipment = new equipment();
+        $equipment->setInstallationDate(new \DateTimeImmutable());
+        $equipment->setSerialNumber('12345');
+        $equipment->setLocationDetail('Location Detail');
+        $equipment->setProductType('clim');
+        $equipment->setPlacementType('chambre');
+        $equipment->setRemoteNumber('telecommande 1234');
+        $equipment->setGasWeight(2,5);
+        $equipment->setLeakDetection(true);
+        $equipment->setNextLeakControl(new \DateTimeImmutable());
+        $equipment->setFinality(['radiateur','plancher chauffant']);
+        $equipment->setCapacity(35);
+        $equipment->setPicto('https://example.com/image.png');
+        $equipment->setNfc(new NfcTag);
+        $equipment->setLocation(new Location);
+        $equipment->setGas(new GasTypes);
+        $equipment->setBrand(new Brand);
 
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipement->setNfc($nfcTag);
+        $equipment->setNfc($nfcTag);
 
         $gas = new GasTypes();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
-        $equipement->setGas($gas);
+        $equipment->setGas($gas);
 
         $brand = new Brand ();
         $brand->setName('test');
         $brand->setSavNumber('123456');
-        $equipement->setBrand($brand);
-        $location->addEquipement($equipement);
+        $equipment->setBrand($brand);
+        $location->addequipment($equipment);
 
-        $this->entityManager->persist($equipement);
+        $this->entityManager->persist($equipment);
         $this->entityManager->persist($location);
         $this->entityManager->persist($nfcTag);
         $this->entityManager->persist($gas);

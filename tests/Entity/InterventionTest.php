@@ -6,7 +6,7 @@ use App\Entity\NfcTag;
 use App\Entity\Person;
 use App\Entity\GasTypes;
 use App\Entity\Location;
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use App\Entity\Intervention;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -30,46 +30,46 @@ class InterventionTest extends KernelTestCase
         $intervention->setType('Maintenance');
         $intervention->setInterventionDate(new \DateTimeImmutable());
 
-        // Créez une instance d'Equipement associée à cette intervention
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('test');
-        $equipement->setProductType('clim');
-        $equipement->setPlacementType('exterieur');
-        $equipement->setRemoteNumber('1234');
-        $equipement->setGasWeight(12,33);
-        $equipement->setLeakDetection(true);
-        $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality([1,2,3]);
-        $equipement->setCapacity(3 ."");
-        $equipement->setPicto('https://example.com/image.png');
-        $equipement->setNfc(new NfcTag);
-        $equipement->setLocation(new Location);
-        $equipement->setGas(new GasTypes);
-        $equipement->setBrand(new Brand);
+        // Créez une instance d'equipment associée à cette intervention
+        $equipment = new equipment();
+        $equipment->setInstallationDate(new \DateTimeImmutable());
+        $equipment->setSerialNumber('12345');
+        $equipment->setLocationDetail('test');
+        $equipment->setProductType('clim');
+        $equipment->setPlacementType('exterieur');
+        $equipment->setRemoteNumber('1234');
+        $equipment->setGasWeight(12,33);
+        $equipment->setLeakDetection(true);
+        $equipment->setNextLeakControl(new \DateTimeImmutable());
+        $equipment->setFinality([1,2,3]);
+        $equipment->setCapacity(3 ."");
+        $equipment->setPicto('https://example.com/image.png');
+        $equipment->setNfc(new NfcTag);
+        $equipment->setLocation(new Location);
+        $equipment->setGas(new GasTypes);
+        $equipment->setBrand(new Brand);
 
         // Set other properties...
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipement->setNfc($nfcTag);
+        $equipment->setNfc($nfcTag);
 
         $location = new Location();
         $location->setName('Roger');
-        $equipement->setLocation($location);
+        $equipment->setLocation($location);
 
         $gas = new GasTypes();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
-        $equipement->setGas($gas);
+        $equipment->setGas($gas);
 
         $brand = new Brand ();
         $brand->setName('test');
         $brand->setSavNumber('123456');
-        $equipement->setBrand($brand);
+        $equipment->setBrand($brand);
 
 
-        $intervention->setEquipement($equipement);
+        $intervention->setequipment($equipment);
 
         // Créez une instance de Person associée à cette intervention
         $person = new Person();
@@ -81,7 +81,7 @@ class InterventionTest extends KernelTestCase
         $intervention->setPerson($person);
 
         $this->entityManager->persist($intervention);
-        $this->entityManager->persist($equipement);
+        $this->entityManager->persist($equipment);
         $this->entityManager->persist($person);
         $this->entityManager->persist($nfcTag);
         $this->entityManager->persist($location);
@@ -90,7 +90,7 @@ class InterventionTest extends KernelTestCase
         $this->entityManager->flush();
 
         $this->assertNotNull($intervention->getId());
-        $this->assertNotNull($equipement->getId());
+        $this->assertNotNull($equipment->getId());
         $this->assertNotNull($person->getId());
     }
 
