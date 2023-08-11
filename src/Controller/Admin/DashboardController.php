@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Brand;
 use App\Entity\Client;
 use App\Entity\Contact;
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use App\Entity\GasTypes;
 use App\Entity\Intervention;
 use App\Entity\Location;
@@ -41,7 +41,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les marques', 'fas fa-tag', Brand::class);
         yield MenuItem::linkToCrud('Les clients', 'fas fa-users', Client::class);
         yield MenuItem::linkToCrud('Les contacts', 'fas fa-phone', Contact::class);
-        yield MenuItem::linkToCrud('Les équipements', 'fas fa-box', Equipement::class);
+        yield MenuItem::linkToCrud('Les équipements', 'fas fa-box', equipment::class);
         yield MenuItem::linkToCrud('Les gaz', 'fas fa-fire-flame-simple', GasTypes::class);
         yield MenuItem::linkToCrud('Les interventions', 'fas fa-clipboard', Intervention::class);
         yield MenuItem::linkToCrud('Les emplacements', 'fas fa-location-dot', Location::class);

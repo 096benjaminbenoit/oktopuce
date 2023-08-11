@@ -5,11 +5,11 @@ use App\Entity\Brand;
 use App\Entity\NfcTag;
 use App\Entity\GasTypes;
 use App\Entity\Location;
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use App\Entity\Intervention;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class EquipementTest extends KernelTestCase
+class equipmentTest extends KernelTestCase
 {
     private $entityManager;
 
@@ -21,96 +21,96 @@ class EquipementTest extends KernelTestCase
         $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
     }
 
-    public function testCreateEquipement()
+    public function testCreateequipment()
     {
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('Location Detail');
-        $equipement->setProductType('clim');
-        $equipement->setPlacementType('chambre');
-        $equipement->setRemoteNumber('telecommande 1234');
-        $equipement->setGasWeight(2,5);
-        $equipement->setLeakDetection(true);
-        $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality('radiateur','plancher chauffant');
-        $equipement->setCapacity(35);
-        $equipement->setPicto('https://example.com/image.png');
-        $equipement->setNfc(new NfcTag);
-        $equipement->setLocation(new Location);
-        $equipement->setGas(new GasTypes);
-        $equipement->setBrand(new Brand);
+        $equipment = new equipment();
+        $equipment->setInstallationDate(new \DateTimeImmutable());
+        $equipment->setSerialNumber('12345');
+        $equipment->setLocationDetail('Location Detail');
+        $equipment->setProductType('clim');
+        $equipment->setPlacementType('chambre');
+        $equipment->setRemoteNumber('telecommande 1234');
+        $equipment->setGasWeight(2,5);
+        $equipment->setLeakDetection(true);
+        $equipment->setNextLeakControl(new \DateTimeImmutable());
+        $equipment->setFinality('radiateur','plancher chauffant');
+        $equipment->setCapacity(35);
+        $equipment->setPicto('https://example.com/image.png');
+        $equipment->setNfc(new NfcTag);
+        $equipment->setLocation(new Location);
+        $equipment->setGas(new GasTypes);
+        $equipment->setBrand(new Brand);
 
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipement->setNfc($nfcTag);
+        $equipment->setNfc($nfcTag);
 
         $location = new Location();
         $location->setName('Roger');
-        $equipement->setLocation($location);
+        $equipment->setLocation($location);
 
         $gas = new GasTypes();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
-        $equipement->setGas($gas);
+        $equipment->setGas($gas);
 
         $brand = new Brand ();
         $brand->setName('test');
         $brand->setSavNumber('123456');
-        $equipement->setBrand($brand);
+        $equipment->setBrand($brand);
 
-        $this->entityManager->persist($equipement);
+        $this->entityManager->persist($equipment);
         $this->entityManager->persist($nfcTag);
         $this->entityManager->persist($location);
         $this->entityManager->persist($gas);
         $this->entityManager->persist($brand);
         $this->entityManager->flush();
 
-        $this->assertNotNull($equipement->getId());
-        $this->assertEquals($nfcTag->getId(), $equipement->getNfc()->getId());
+        $this->assertNotNull($equipment->getId());
+        $this->assertEquals($nfcTag->getId(), $equipment->getNfc()->getId());
     }
 
     public function testAddRemoveIntervention()
     {
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('Location Detail');
+        $equipment = new equipment();
+        $equipment->setInstallationDate(new \DateTimeImmutable());
+        $equipment->setSerialNumber('12345');
+        $equipment->setLocationDetail('Location Detail');
         
 
         $intervention = new Intervention();
         // Set intervention properties...
 
-        $equipement->addIntervention($intervention);
+        $equipment->addIntervention($intervention);
 
-        $this->assertCount(1, $equipement->getIntervention());
+        $this->assertCount(1, $equipment->getIntervention());
 
-        $equipement->removeIntervention($intervention);
+        $equipment->removeIntervention($intervention);
 
-        $this->assertCount(0, $equipement->getIntervention());
+        $this->assertCount(0, $equipment->getIntervention());
     }
 
-    public function testAddRemoveEquipement()
+    public function testAddRemoveequipment()
     {
-        $parentEquipement = new Equipement();
-        $parentEquipement->setInstallationDate(new \DateTimeImmutable());
-        $parentEquipement->setSerialNumber('ParentEquip');
-        $parentEquipement->setLocationDetail('Parent Location Detail');
+        $parentequipment = new equipment();
+        $parentequipment->setInstallationDate(new \DateTimeImmutable());
+        $parentequipment->setSerialNumber('ParentEquip');
+        $parentequipment->setLocationDetail('Parent Location Detail');
         // Set other properties...
 
-        $childEquipement = new Equipement();
-        $childEquipement->setInstallationDate(new \DateTimeImmutable());
-        $childEquipement->setSerialNumber('ChildEquip');
-        $childEquipement->setLocationDetail('Child Location Detail');
+        $childequipment = new equipment();
+        $childequipment->setInstallationDate(new \DateTimeImmutable());
+        $childequipment->setSerialNumber('ChildEquip');
+        $childequipment->setLocationDetail('Child Location Detail');
         // Set other properties...
 
-        $parentEquipement->addEquipement($childEquipement);
+        $parentequipment->addequipment($childequipment);
 
-        $this->assertCount(1, $parentEquipement->getEquipements());
+        $this->assertCount(1, $parentequipment->getequipments());
 
-        $parentEquipement->removeEquipement($childEquipement);
+        $parentequipment->removeequipment($childequipment);
 
-        $this->assertCount(0, $parentEquipement->getEquipements());
+        $this->assertCount(0, $parentequipment->getequipments());
     }
 
     protected function tearDown(): void

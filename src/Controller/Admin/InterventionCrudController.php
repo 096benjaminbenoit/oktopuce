@@ -31,7 +31,7 @@ class InterventionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('equipement')->setLabel('N° de série'),
+            AssociationField::new('equipment')->setLabel('N° de série'),
             AssociationField::new('person')->setLabel('Prénom / Nom'),
             TextField::new('technicien'),
             TextField::new('entreprise'),

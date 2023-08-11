@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -14,18 +14,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class EquipementCrudController extends AbstractCrudController
+class equipmentCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Equipement::class;
+        return equipment::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInSingular('un équipement')
-            ->setEntityLabelInPlural('Equipements');
+            ->setEntityLabelInPlural('equipments');
     }
 
     public function configureFields(string $pageName): iterable
