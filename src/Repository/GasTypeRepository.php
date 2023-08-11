@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\GasTypes;
+use App\Entity\GasType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<GasTypes>
+ * @extends ServiceEntityRepository<GasType>
  *
- * @method GasTypes|null find($id, $lockMode = null, $lockVersion = null)
- * @method GasTypes|null findOneBy(array $criteria, array $orderBy = null)
- * @method GasTypes[]    findAll()
- * @method GasTypes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GasType|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GasType|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GasType[]    findAll()
+ * @method GasType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GasTypesRepository extends ServiceEntityRepository
+class GasTypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GasTypes::class);
+        parent::__construct($registry, GasType::class);
     }
 
 //    /**
-//     * @return GasTypes[] Returns an array of GasTypes objects
+//     * @return GasType[] Returns an array of GasType objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class GasTypesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?GasTypes
+//    public function findOneBySomeField($value): ?GasType
 //    {
 //        return $this->createQueryBuilder('g')
 //            ->andWhere('g.exampleField = :val')

@@ -2,14 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
-#[ApiResource]
-
 class Intervention
 {
     #[ORM\Id]
@@ -17,87 +13,46 @@ class Intervention
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $technicien = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $technician = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $entreprise = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $type = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $interventionDate = null;
-
-    #[ORM\ManyToOne(inversedBy: 'intervention')]
-    private ?Equipement $equipement = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enterprise = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[JoinColumn(nullable: true)]
-
     private ?Person $person = null;
+
+    #[ORM\ManyToOne(inversedBy: 'interventions')]
+    private ?Equipment $equipment = null;
+
+    #[ORM\Column]
+    private array $response = [];
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTechnicien(): ?string
+    public function getTechnician(): ?string
     {
-        return $this->technicien;
+        return $this->technician;
     }
 
-    public function setTechnicien(string $technicien): static
+    public function setTechnician(?string $technician): static
     {
-        $this->technicien = $technicien;
+        $this->technician = $technician;
 
         return $this;
     }
 
-    public function getEntreprise(): ?string
+    public function getEnterprise(): ?string
     {
-        return $this->entreprise;
+        return $this->enterprise;
     }
 
-    public function setEntreprise(string $entreprise): static
+    public function setEnterprise(?string $enterprise): static
     {
-        $this->entreprise = $entreprise;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getInterventionDate(): ?\DateTimeImmutable
-    {
-        return $this->interventionDate;
-    }
-
-    public function setInterventionDate(\DateTimeImmutable $interventionDate): static
-    {
-        $this->interventionDate = $interventionDate;
-
-        return $this;
-    }
-
-    public function getEquipement(): ?Equipement
-    {
-        return $this->equipement;
-    }
-
-    public function setEquipement(?Equipement $equipement): static
-    {
-        $this->equipement = $equipement;
+        $this->enterprise = $enterprise;
 
         return $this;
     }
@@ -110,6 +65,30 @@ class Intervention
     public function setPerson(?Person $person): static
     {
         $this->person = $person;
+
+        return $this;
+    }
+
+    public function getEquipment(): ?Equipment
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(?Equipment $equipment): static
+    {
+        $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    public function getResponse(): array
+    {
+        return $this->response;
+    }
+
+    public function setResponse(array $response): static
+    {
+        $this->response = $response;
 
         return $this;
     }

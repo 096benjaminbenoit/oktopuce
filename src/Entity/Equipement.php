@@ -5,11 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\EquipementRepository;
-use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: EquipementRepository::class)]
 #[ApiResource]
@@ -46,14 +43,10 @@ class Equipement
     private ?bool $leakDetection = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $lastLeakDetection = null;
-    
-
-    #[ORM\Column (type: "datetime_immutable", nullable: true)]
     private ?\DateTimeImmutable $nextLeakControl = null;
 
     #[ORM\Column]
-    private ?string $finality = null;
+    private array $finality = [];
 
     #[ORM\Column]
     private ?float $capacity = null;
@@ -84,7 +77,7 @@ class Equipement
 
     public function __toString()
     {
-        return $this->serialNumber;
+        return $this->serial_number;
     }
 
     public function __construct()
@@ -194,35 +187,24 @@ class Equipement
         return $this;
     }
 
-    public function getLastLeakDetection (): ?\DateTimeImmutable
-    {
-        return $this->lastLeakDetection;
-    }
-
-    public function setLastLeakDetection(\DateTimeImmutable $lastLeakDetection ){
-        $this->lastLeakDetection = $lastLeakDetection;
-        return $this;
-
-    }
-
     public function getNextLeakControl(): ?\DateTimeImmutable
     {
         return $this->nextLeakControl;
     }
 
-    public function setNextLeakControl(?\DateTimeImmutable $nextLeakControl): static
+    public function setNextLeakControl(\DateTimeImmutable $nextLeakControl): static
     {
         $this->nextLeakControl = $nextLeakControl;
 
         return $this;
     }
 
-    public function getFinality(): string
+    public function getFinality(): array
     {
         return $this->finality;
     }
 
-    public function setFinality(string $finality): static
+    public function setFinality(array $finality): static
     {
         $this->finality = $finality;
 
