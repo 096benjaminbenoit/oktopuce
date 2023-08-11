@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\InterventionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\InterventionRepository;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
+#[ApiResource]
 class Intervention
 {
     #[ORM\Id]
