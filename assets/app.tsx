@@ -14,10 +14,22 @@ import Home from './pages/Home';
 import Connexion from './pages/Connexion';
 import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+// Create the router
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <Connexion />,
+  },
+])
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
-
 // Render your React component instead
 const root = createRoot(document.getElementById('app'));
 root.render(
@@ -25,6 +37,9 @@ root.render(
   {/* <Home/> */}
   {/* <Connexion/> */}
   {/* <ScanPage/> */}
-  <Error404/>
+  {/* <Error404/> */}
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 </>
 );
