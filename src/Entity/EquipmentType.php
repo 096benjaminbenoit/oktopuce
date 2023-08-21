@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\LocationRepository;
+use App\Repository\EquipmentTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LocationRepository::class)]
+#[ORM\Entity(repositoryClass: EquipmentTypeRepository::class)]
 #[ApiResource]
-class Location
+class EquipmentType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,9 +18,9 @@ class Location
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $type = null;
 
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Equipment::class)]
+    #[ORM\OneToMany(mappedBy: 'equipmentType', targetEntity: Equipment::class)]
     private Collection $equipment;
 
     public function __construct()
@@ -33,14 +33,14 @@ class Location
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getType(): ?string
     {
-        return $this->name;
+        return $this->type;
     }
 
-    public function setName(string $name): static
+    public function setType(string $type): static
     {
-        $this->name = $name;
+        $this->type = $type;
 
         return $this;
     }
@@ -57,7 +57,7 @@ class Location
     {
         if (!$this->equipment->contains($equipment)) {
             $this->equipment->add($equipment);
-            $equipment->setLocation($this);
+            $equipment->setEquipmentType($this);
         }
 
         return $this;
@@ -67,8 +67,8 @@ class Location
     {
         if ($this->equipment->removeElement($equipment)) {
             // set the owning side to null (unless already changed)
-            if ($equipment->getLocation() === $this) {
-                $equipment->setLocation(null);
+            if ($equipment->getEquipmentType() === $this) {
+                $equipment->setEquipmentType(null);
             }
         }
 
