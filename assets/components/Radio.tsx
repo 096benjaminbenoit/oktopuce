@@ -1,14 +1,26 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 
-function Radio(props) {
+type Option = {
+  label?: string,
+  value?: string,
+}
+type RadioProps = {
+  options: Option[],
+  onChange?: (event: React.ChangeEvent) => void;
+  defaultValue?: string,
+  name?: string,
+}
+
+function Radio({ options, defaultValue, name, onChange }: RadioProps) {
   return (
     <>
-      <InputGroup className="mb-3">
-        <InputGroup.Radio aria-label="Radio button for following text input" />
-        <Form.Control {...props} aria-label="Text input with radio button" />
-      </InputGroup>
+    <Form.Select aria-label="Radio" onChange={onChange} defaultValue={defaultValue}>
+      {options.map((option, index) => (
+        <Form.Check key={index} value={option.value} label={option.label} name={name}>
+        </Form.Check>
+      ))}
+    </Form.Select>    
     </>
   );
 }

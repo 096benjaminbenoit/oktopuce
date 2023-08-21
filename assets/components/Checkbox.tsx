@@ -1,19 +1,16 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 
 type CheckboxProps = {
   name?: string,
-  value?: string, 
+  value?: string,
+  label?: string,
 }
 
-function Checkbox({ props, name, value }) {
+function Checkbox({ name, value, label }: CheckboxProps) {
   return (
     <>
-      <InputGroup className="mb-3">
-        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-        <Form.Control {...props} aria-label="Text input with checkbox" />
-      </InputGroup>
+  <Form.Check type="checkbox" label={label} value={value} name={name} />
     </>
   );
 }
