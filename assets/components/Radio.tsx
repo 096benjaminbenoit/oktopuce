@@ -10,7 +10,7 @@ type RadioProps = {
   onChange?: (event: React.ChangeEvent) => void;
   defaultValue?: string,
   name?: string,
-}
+} 
 
 function Radio({ options, defaultValue, name, onChange }: RadioProps) {
   return (

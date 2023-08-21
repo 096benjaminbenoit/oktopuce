@@ -10,7 +10,7 @@ function Input(props) {
         </InputGroup.Text>
         <Form.Control {...props}
           aria-label="Default"
-          aria-describedby="inputGroup-sizing-default"
+          aria-describedby="inputGroup-sizing-defasult"
         />
       </InputGroup>
     </>

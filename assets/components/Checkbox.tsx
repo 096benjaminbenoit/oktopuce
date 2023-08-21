@@ -7,12 +7,13 @@ type CheckboxProps = {
   label?: string,
 }
 
-function Checkbox({ name, value, label }: CheckboxProps) {
+function Checkbox({ ...rest }: CheckboxProps) {
   return (
     <>
-  <Form.Check type="checkbox" label={label} value={value} name={name} />
+  <Form.Check type="checkbox" {...rest} />
     </>
   );
 }
+
 
 export default Checkbox;
