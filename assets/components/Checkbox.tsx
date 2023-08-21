@@ -2,7 +2,12 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-function Checkbox(props) {
+type CheckboxProps = {
+  name?: string,
+  value?: string, 
+}
+
+function Checkbox({ props, name, value }) {
   return (
     <>
       <InputGroup className="mb-3">
