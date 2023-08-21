@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html {% block html_attr %}{% endblock %}>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="bg-dark bg-black text-light">
+    <body {# class="bg-dark bg-black text-light" #}>
         {% block body %}{% endblock %}
     </body>
 </html>
