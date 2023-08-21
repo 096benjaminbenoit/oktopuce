@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\LocationRepository;
+use App\Repository\FinalityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LocationRepository::class)]
+#[ORM\Entity(repositoryClass: FinalityRepository::class)]
 #[ApiResource]
-class Location
+class Finality
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,7 +20,7 @@ class Location
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Equipment::class)]
+    #[ORM\ManyToMany(targetEntity: Equipment::class, mappedBy: 'finality')]
     private Collection $equipment;
 
     public function __construct()
@@ -57,7 +57,7 @@ class Location
     {
         if (!$this->equipment->contains($equipment)) {
             $this->equipment->add($equipment);
-            $equipment->setLocation($this);
+            $equipment->addFinality($this);
         }
 
         return $this;
@@ -66,10 +66,7 @@ class Location
     public function removeEquipment(Equipment $equipment): static
     {
         if ($this->equipment->removeElement($equipment)) {
-            // set the owning side to null (unless already changed)
-            if ($equipment->getLocation() === $this) {
-                $equipment->setLocation(null);
-            }
+            $equipment->removeFinality($this);
         }
 
         return $this;
