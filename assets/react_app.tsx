@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     path: "/scan",
     element: <ScanPage />,
   }
-])
+]);
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
@@ -40,9 +40,8 @@ document.body.innerHTML = '<div id="app"></div>';
 const root = createRoot(document.getElementById('app'));
 root.render(
 <>
-  <FormInformations />
-  {/* <React.StrictMode>
+  <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode> */}
+  </React.StrictMode>
 </>
 );
