@@ -4,5 +4,6 @@
         "noImplicitAny": false,
         "esModuleInterop": true,
         "allowUmdGlobalAccess": true,
+        "types": ["jest"],
     }
 }
