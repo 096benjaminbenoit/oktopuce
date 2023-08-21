@@ -14,9 +14,9 @@ import Home from './pages/Home';
 import Connexion from './pages/Connexion';
 import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
-import Information from './pages/Informations';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Informations from './pages/Informations';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import FormInformations from './components/FormInformations';
 // Create the router
 
 const router = createBrowserRouter([
@@ -29,8 +29,8 @@ const router = createBrowserRouter([
     element: <Connexion />,
   },
   {
-    path: "/informations",
-    element: <Informations/>
+    path: "/scan",
+    element: <ScanPage />,
   }
 ])
 
@@ -40,11 +40,7 @@ document.body.innerHTML = '<div id="app"></div>';
 const root = createRoot(document.getElementById('app'));
 root.render(
 <>
-  {/* <Home/> */}
-  {/* <Connexion/> */}
-  {/* <ScanPage/> */}
-  {/* <Error404/> */}
-  {/* <Informations/> */}
+  {/* <FormInformations /> */}
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>

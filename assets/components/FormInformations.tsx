@@ -1,17 +1,14 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import NavBar from '../components/NavBar';
-import Checkbox from '../components/Checkbox';
-import Input from '../components/Input';
-import { Link } from "react-router-dom";
-import Radio from '../components/Radio';
-import Select from '../components/Select';
+import { Link } from 'react-router-dom';
+import Checkbox from './Checkbox';
+import Input from './Input';
+import Radio from './Radio';
+import Select from './Select';
 
-export default function Informations() {
-  return (<>
-    <NavBar></NavBar>
-    
-    {/* <Form>
+function FormInformations() {
+  return (
+    <>
         <Checkbox></Checkbox>
         <Input></Input>
         <Radio></Radio>
@@ -29,7 +26,8 @@ export default function Informations() {
             <Form.Control type="email" placeholder="name@example.com" />
         </Form.Group>
         <Link to={''}></Link>
-      </Form> */}
     </>
   );
 }
+
+export default FormInformations;

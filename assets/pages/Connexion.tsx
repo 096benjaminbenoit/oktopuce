@@ -8,7 +8,7 @@ export default function Connexion(){
     <h1 className='m-3  homeTitle text-uppercase'>Oktopuce</h1>
       <h2 className="m-5">Connexion</h2>
       <FormConnexion></FormConnexion>
-      <Button className='mt-5' variant="primary">Connexion</Button>
+      <Button.Link path='/scan' className='text-uppercase btnHome mt-5' variant="primary">Connexion</Button.Link>
     </section>
   </>
   );
