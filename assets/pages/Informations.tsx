@@ -10,8 +10,7 @@ import Select from '../components/Select';
 export default function Informations() {
   return (<>
     <NavBar></NavBar>
-    
-    {/* <Form>
+    <Form>
         <Checkbox></Checkbox>
         <Input></Input>
         <Radio></Radio>
@@ -29,7 +28,7 @@ export default function Informations() {
             <Form.Control type="email" placeholder="name@example.com" />
         </Form.Group>
         <Link to={''}></Link>
-      </Form> */}
+      </Form>
     </>
   );
 }
