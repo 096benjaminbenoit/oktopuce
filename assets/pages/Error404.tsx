@@ -3,7 +3,7 @@ import React from "react";
 import Illustration from '../components/Illustration';
 import NavBar from "../components/NavBar";
 
-export default function scanPage(){
+export default function Error404(){
     return (
     <>
         {/* AJOUTER LA NAVBAR */}
