@@ -6,15 +6,24 @@ import Input from './Input';
 import Radio from './Radio';
 import Select from './Select';
 import Button from './Button';
+import NavBar from './NavBar';
 
 function FormInformations() {
   return (
     <>
-        <Select options={[{
-            label: "Bonjour",
-            value: "bjr"
-        }]}/>
-        <Link to={''}></Link>   
+      <NavBar></NavBar>
+      
+      <Input></Input>
+      <Radio options={[]}></Radio>
+      <Select aria-label="Type" options={[]}></Select>
+      <Link to={''}></Link>
+      <Checkbox></Checkbox>
+      <Select options={[{
+          label: "Bonjour",
+          value: "bjr"
+      }]}/>
+      <Link to={''}></Link>
+      <Button variant={''}></Button>
     </>
   );
 }

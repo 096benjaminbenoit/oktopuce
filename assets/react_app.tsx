@@ -31,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/scan",
     element: <ScanPage />,
+  },
+  {
+    path: "/infos",
+    element: <Informations />,
   }
 ]);
 
