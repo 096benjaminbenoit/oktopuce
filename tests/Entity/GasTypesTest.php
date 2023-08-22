@@ -27,20 +27,19 @@ class GasTypeTest extends KernelTestCase
         $GasType->setEqCo2PerKg(0.5);
 
         // Créez une instance d'equipment associée à ce type de gaz
-        $equipment = new equipment();
+        $equipment = new Equipment();
         $equipment->setInstallationDate(new \DateTimeImmutable());
         $equipment->setSerialNumber('12345');
         $equipment->setLocationDetail('test');
-        $equipment->setProductType('clim');
-        $equipment->setPlacementType('exterieur');
+        $equipment->getEquipmentType();
+        $equipment->setLocationDetail('exterieur');
         $equipment->setRemoteNumber('1234');
         $equipment->setGasWeight(12,33);
-        $equipment->setLeakDetection(true);
-        $equipment->setNextLeakControl(new \DateTimeImmutable());
-        $equipment->setFinality(1,2,3);
+        $equipment->sethasLeakDetection(true);
+        $equipment->setNextLeakDetection(new \DateTimeImmutable());
         $equipment->setCapacity(3 ."");
         $equipment->setPicto('https://example.com/image.png');
-        $equipment->setNfc(new NfcTag);
+        $equipment->setNfcTag(new NfcTag);
         $equipment->setLocation(new Location);
         $equipment->setGas(new GasType);
         $equipment->setBrand(new Brand);
@@ -50,7 +49,7 @@ class GasTypeTest extends KernelTestCase
         // Set other properties...
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipment->setNfc($nfcTag);
+        $equipment->setNfcTag($nfcTag);
 
         $location = new Location();
         $location->setName('Roger');
@@ -78,7 +77,7 @@ class GasTypeTest extends KernelTestCase
 
         $this->assertNotNull($GasType->getId());
         $this->assertNotNull($equipment->getId());
-        $this->assertEquals($nfcTag->getId(), $equipment->getNfc()->getId());
+        $this->assertEquals($nfcTag->getId(), $equipment->getNfcTag()->getId());
     }
 
     protected function tearDown(): void
