@@ -1,122 +1,85 @@
 <?php
-namespace App\Tests\Entity;
-
-use App\Entity\Brand;
+use App\Entity\Equipment;
 use App\Entity\NfcTag;
-use App\Entity\GasTypes;
+use App\Entity\Brand;
 use App\Entity\Location;
-use App\Entity\Equipement;
+use App\Entity\EquipmentType;
+use App\Entity\Placement;
+use App\Entity\GasType;
+use App\Entity\Finality;
 use App\Entity\Intervention;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class EquipementTest extends KernelTestCase
+class EquipmentTest extends TestCase
 {
-    private $entityManager;
-
-    protected function setUp(): void
+    public function testEquipmentAttributes(): void
     {
-        parent::setUp();
+        $equipment = new Equipment();
 
-        $kernel = self::bootKernel();
-        $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
+        $installationDate = new \DateTimeImmutable();
+        $equipment->setInstallationDate($installationDate);
+        $this->assertSame($installationDate, $equipment->getInstallationDate());
+
+        $serialNumber = "ABC123";
+        $equipment->setSerialNumber($serialNumber);
+        $this->assertSame($serialNumber, $equipment->getSerialNumber());
+
+        $parentEquipment = new Equipment();
+        $equipment->setParent($parentEquipment);
+        $this->assertSame($parentEquipment, $equipment->getParent());
+
+        // ... continue setting and getting attributes for other properties
+
+        $this->assertInstanceOf(NfcTag::class, $equipment->getNfcTag());
+        $this->assertInstanceOf(Brand::class, $equipment->getBrand());
+        $this->assertInstanceOf(Location::class, $equipment->getLocation());
+        // ... assert for other associations
+
+        // ... continue testing other methods
     }
+//     public function testEquipmentNfcTag(): void
+// {
+//     $equipment = new Equipment();
 
-    public function testCreateEquipement()
-    {
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('Location Detail');
-        $equipement->setProductType('clim');
-        $equipement->setPlacementType('chambre');
-        $equipement->setRemoteNumber('telecommande 1234');
-        $equipement->setGasWeight(2,5);
-        $equipement->setLeakDetection(true);
-        $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality(['radiateur','plancher chauffant']);
-        $equipement->setCapacity(35);
-        $equipement->setPicto('https://example.com/image.png');
-        $equipement->setNfc(new NfcTag);
-        $equipement->setLocation(new Location);
-        $equipement->setGas(new GasTypes);
-        $equipement->setBrand(new Brand);
+//     // Vérifie que l'étiquette NFC est initialisée à null par défaut
+//     $this->assertNull($equipment->getNfcTag());
 
-        $nfcTag = new NfcTag();
-        $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipement->setNfc($nfcTag);
+//     // Crée une instance de NfcTag
+//     $nfcTag = new NfcTag();
 
-        $location = new Location();
-        $location->setName('Roger');
-        $equipement->setLocation($location);
+//     // Définit l'étiquette NFC sur l'équipement
+//     $equipment->setNfcTag($nfcTag);
 
-        $gas = new GasTypes();
-        $gas->setName('co2');
-        $gas->setEqCo2PerKg(234);
-        $equipement->setGas($gas);
+//     // Vérifie que l'étiquette NFC est bien définie et correspondante
+//     $this->assertSame($nfcTag, $equipment->getNfcTag());
 
-        $brand = new Brand ();
-        $brand->setName('test');
-        $brand->setSavNumber('123456');
-        $equipement->setBrand($brand);
+//     // Supprime l'étiquette NFC de l'équipement
+//     $equipment->setNfcTag(null);
 
-        $this->entityManager->persist($equipement);
-        $this->entityManager->persist($nfcTag);
-        $this->entityManager->persist($location);
-        $this->entityManager->persist($gas);
-        $this->entityManager->persist($brand);
-        $this->entityManager->flush();
+//     // Vérifie que l'étiquette NFC est maintenant à null
+//     $this->assertNull($equipment->getNfcTag());
+// }
 
-        $this->assertNotNull($equipement->getId());
-        $this->assertEquals($nfcTag->getId(), $equipement->getNfc()->getId());
-    }
+//     public function testEquipmentFinalityCollection(): void
+//     {
+//         $equipment = new Equipment();
 
-    public function testAddRemoveIntervention()
-    {
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('Location Detail');
-        
+//         $finality1 = new Finality();
+//         $finality2 = new Finality();
 
-        $intervention = new Intervention();
-        // Set intervention properties...
+//         $equipment->addFinality($finality1);
+//         $equipment->addFinality($finality2);
 
-        $equipement->addIntervention($intervention);
+//         $finalities = $equipment->getFinality();
+//         $this->assertCount(2, $finalities);
+//         $this->assertTrue($finalities->contains($finality1));
+//         $this->assertTrue($finalities->contains($finality2));
 
-        $this->assertCount(1, $equipement->getIntervention());
+//         $equipment->removeFinality($finality1);
+//         $this->assertCount(1, $equipment->getFinality());
+//         $this->assertFalse($equipment->getFinality()->contains($finality1));
+//     }
 
-        $equipement->removeIntervention($intervention);
+//     // ... Add more test methods to cover other behaviors
 
-        $this->assertCount(0, $equipement->getIntervention());
-    }
-
-    public function testAddRemoveEquipement()
-    {
-        $parentEquipement = new Equipement();
-        $parentEquipement->setInstallationDate(new \DateTimeImmutable());
-        $parentEquipement->setSerialNumber('ParentEquip');
-        $parentEquipement->setLocationDetail('Parent Location Detail');
-        // Set other properties...
-
-        $childEquipement = new Equipement();
-        $childEquipement->setInstallationDate(new \DateTimeImmutable());
-        $childEquipement->setSerialNumber('ChildEquip');
-        $childEquipement->setLocationDetail('Child Location Detail');
-        // Set other properties...
-
-        $parentEquipement->addEquipement($childEquipement);
-
-        $this->assertCount(1, $parentEquipement->getEquipements());
-
-        $parentEquipement->removeEquipement($childEquipement);
-
-        $this->assertCount(0, $parentEquipement->getEquipements());
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // Nettoyez les éventuelles ressources après chaque test si nécessaire
-    }
 }

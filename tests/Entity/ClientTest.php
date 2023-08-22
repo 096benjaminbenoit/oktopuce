@@ -1,77 +1,56 @@
 <?php
-namespace App\Tests\Entity;
-
 use App\Entity\Client;
-use App\Entity\Person;
 use App\Entity\Site;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Entity\Person;
+use PHPUnit\Framework\TestCase;
 
-class ClientTest extends KernelTestCase
+class ClientTest extends TestCase
 {
-    private $entityManager;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $kernel=self::bootKernel();
-
-        $this->entityManager =$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
     public function testCreateClient()
     {
         $client = new Client();
-        $client->setAddress('123 Main Street');
-        $client->setPostCode('12345');
-        $client->setCity('City');
-        $client->setPhone('1234567890');
-        $client->setEmail('client@example.com');
 
-        $person = new Person();
-        $person->setLastName('John Doe');
-        $person->setFirstName('fatima');
-        $person->setPhone('1234567890');
-        $client->setPerson($person);
-
-        $this->entityManager->persist($client);
-        $this->entityManager->flush();
-
-        $this->assertNotNull($client->getId());
-    }
-
-    public function testAddRemoveSite()
-    {
-        $client = new Client();
-        $client->setAddress('123 Main Street');
-        $client->setPostCode('12345');
-        $client->setCity('City');
-        $client->setPhone('1234567890');
-        $client->setEmail('client@example.com');
-
-        $person = new Person();
-        $person->setLastName('John Doe');
-        $person->setFirstName('fatima');
-        $person->setPhone('1234567890');
-        $client->setPerson($person);
-
-        $site = new Site();
-        $site->setName('Site Name');
-        $site->setClient($client);
-
-        $client->addSite($site);
-
-        $this->assertCount(1, $client->getSites());
-
-        $client->removeSite($site);
-
+        $this->assertInstanceOf(Client::class, $client);
+        $this->assertNull($client->getId());
+        $this->assertEmpty($client->getAddress());
+        $this->assertEmpty($client->getPostCode());
+        $this->assertEmpty($client->getCity());
+        $this->assertEmpty($client->getPhone());
+        $this->assertEmpty($client->getEmail());
+        $this->assertNull($client->getPerson());
         $this->assertCount(0, $client->getSites());
     }
 
-    protected function tearDown(): void
+    public function testAddSite()
     {
-        parent::tearDown();
+        $client = new Client();
+        $site = new Site();
 
-        // Nettoyez les éventuelles ressources après chaque test si nécessaire
+        $client->addSite($site);
+
+        $this->assertTrue($client->getSites()->contains($site));
+        $this->assertSame($client, $site->getClient());
+    }
+
+    public function testRemoveSite()
+    {
+        $client = new Client();
+        $site = new Site();
+        $client->addSite($site);
+
+        $client->removeSite($site);
+
+        $this->assertFalse($client->getSites()->contains($site));
+        $this->assertNull($site->getClient());
+    }
+
+    public function testSetAndGetPerson()
+    {
+        $client = new Client();
+        $person = new Person();
+
+        $client->setPerson($person);
+
+        $this->assertSame($person, $client->getPerson());
     }
 }

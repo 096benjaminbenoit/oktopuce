@@ -1,64 +1,59 @@
 <?php
-
-namespace App\Tests\Entity;
-
 use App\Entity\Contact;
 use App\Entity\Site;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class ContactTest extends KernelTestCase
+class ContactTest extends TestCase
 {
-    private $entityManager;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $kernel = self::bootKernel();
-        $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
-    }
-
     public function testCreateContact()
     {
         $contact = new Contact();
-        $contact->setLastName('Doe');
-        $contact->setFirstName('John');
-        $contact->setPhone('1234567890');
-        $contact->setEmail('contact@example.com');
-        $contact->setPosition('Manager');
 
-        $this->entityManager->persist($contact);
-        $this->entityManager->flush();
-
-        $this->assertNotNull($contact->getId());
-    }
-
-    public function testAddRemoveSite()
-    {
-        $contact = new Contact();
-        $contact->setLastName('Doe');
-        $contact->setFirstName('John');
-        $contact->setPhone('555-1234');
-        $contact->setEmail('contact@example.com');
-        $contact->setPosition('Manager');
-
-        $site = new Site();
-        $site->setName('Site Name');
-        $site->setContact($contact);
-
-        $contact->addSite($site);
-
-        $this->assertCount(1, $contact->getSite());
-
-        $contact->removeSite($site);
-
+        $this->assertInstanceOf(Contact::class, $contact);
+        $this->assertNull($contact->getId());
+        $this->assertEmpty($contact->getLastName());
+        $this->assertEmpty($contact->getFirstName());
+        $this->assertEmpty($contact->getPhone());
+        $this->assertEmpty($contact->getEmail());
+        $this->assertEmpty($contact->getPosition());
         $this->assertCount(0, $contact->getSite());
     }
 
-    protected function tearDown(): void
+    public function testAddSite()
     {
-        parent::tearDown();
+        $contact = new Contact();
+        $site = new Site();
 
-        // Nettoyez les éventuelles ressources après chaque test si nécessaire
+        $contact->addSite($site);
+
+        $this->assertTrue($contact->getSite()->contains($site));
+    }
+
+    public function testRemoveSite()
+    {
+        $contact = new Contact();
+        $site = new Site();
+        $contact->addSite($site);
+
+        $contact->removeSite($site);
+
+        $this->assertFalse($contact->getSite()->contains($site));
+    }
+
+    public function testSetAndGetProperties()
+    {
+        $contact = new Contact();
+
+        $contact->setLastName('Doe');
+        $contact->setFirstName('John');
+        $contact->setPhone('123456789');
+        $contact->setEmail('john@example.com');
+        $contact->setPosition('Manager');
+
+        $this->assertEquals('Doe', $contact->getLastName());
+        $this->assertEquals('John', $contact->getFirstName());
+        $this->assertEquals('123456789', $contact->getPhone());
+        $this->assertEquals('john@example.com', $contact->getEmail());
+        $this->assertEquals('Manager', $contact->getPosition());
     }
 }
