@@ -112,7 +112,7 @@ class Intervention
 /**
      * @return Collection<int, intervention>
      */
-    public function getInterventionType(): Collection
+    public function getInterventionTypes(): Collection
     {
         return $this->interventionTypes;
     }
