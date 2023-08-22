@@ -109,33 +109,29 @@ class Intervention
         return $this;
     }
 
-    /**
-     * @return Collection<int, InterventionType>
+/**
+     * @return Collection<int, intervention>
      */
-    public function getInterventionTypes(): Collection
+    public function getInterventionType(): Collection
     {
         return $this->interventionTypes;
     }
 
-    public function addInterventionType(InterventionType $interventionType): static
+    public function addInterventionType(intervention $interventionType): static
     {
         if (!$this->interventionTypes->contains($interventionType)) {
             $this->interventionTypes->add($interventionType);
-            $interventionType->addInterventionType($this);
         }
 
         return $this;
     }
 
-    public function removeInterventionType(InterventionType $interventionType): static
+    public function removeInterventionType(intervention $interventionType): static
     {
-        if ($this->interventionTypes->removeElement($interventionType)) {
-            $interventionType->removeInterventionType($this);
-        }
+        $this->interventionTypes->removeElement($interventionType);
 
         return $this;
     }
-
     public function getInterventionDate(): ?\DateTimeInterface
     {
         return $this->interventionDate;
