@@ -45,13 +45,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les équipements', 'fas fa-box', Equipment::class);
         yield MenuItem::linkToCrud('Les gaz', 'fas fa-fire-flame-simple', GasType::class);
         yield MenuItem::linkToCrud('Les interventions', 'fas fa-clipboard', Intervention::class);
-        yield MenuItem::linkToCrud('Les types d\interventions', 'fas fa-gear', InterventionType::class);
+        yield MenuItem::linkToCrud('Les types d\'interventions', 'fas fa-gear', InterventionType::class);
         yield MenuItem::linkToCrud('Les emplacements', 'fas fa-location-dot', Location::class);
         yield MenuItem::linkToCrud('Les modèles', 'fas fa-tags', Model::class);
         yield MenuItem::linkToCrud('Les puces NFC', 'fa-brands fa-nfc-symbol', NfcTag::class);
         yield MenuItem::linkToCrud('Les personnes', 'fas fa-user', Person::class);
         yield MenuItem::linkToCrud('Les sites', 'fas fa-building', Site::class);
         yield MenuItem::linkToCrud('Les techniciens', 'fas fa-helmet-safety', User::class);
-
     }
 }
