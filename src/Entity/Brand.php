@@ -18,7 +18,7 @@ class Brand
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name ;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $savNumber = null;
@@ -26,7 +26,7 @@ class Brand
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $savLink = null;
 
-    #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Model::class)]
+    #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Model::class , cascade:['persist'])]
     private Collection $models;
 
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Equipment::class)]
@@ -43,7 +43,7 @@ class Brand
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
