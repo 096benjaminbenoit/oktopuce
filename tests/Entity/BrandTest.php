@@ -4,7 +4,7 @@ namespace App\Tests\Entity;
 use App\Entity\Brand;
 use App\Entity\Model;
 use App\Entity\NfcTag;
-use App\Entity\GasTypes;
+use App\Entity\GasType;
 use App\Entity\Location;
 use App\Entity\equipment;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -43,7 +43,7 @@ class BrandTest extends KernelTestCase
         $equipment->setPicto('https://example.com/image.png');
         $equipment->setNfc(new NfcTag);
         $equipment->setLocation(new Location);
-        $equipment->setGas(new GasTypes);
+        $equipment->setGas(new GasType);
 
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
@@ -53,7 +53,7 @@ class BrandTest extends KernelTestCase
         $location->setName('Roger');
         $equipment->setLocation($location);
 
-        $gas = new GasTypes();
+        $gas = new GasType();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
         $equipment->setGas($gas);

@@ -4,7 +4,7 @@ namespace App\Tests\Entity;
 use App\Entity\Brand;
 use App\Entity\NfcTag;
 use App\Entity\Person;
-use App\Entity\GasTypes;
+use App\Entity\GasType;
 use App\Entity\Location;
 use App\Entity\equipment;
 use App\Entity\Intervention;
@@ -46,7 +46,7 @@ class InterventionTest extends KernelTestCase
         $equipment->setPicto('https://example.com/image.png');
         $equipment->setNfc(new NfcTag);
         $equipment->setLocation(new Location);
-        $equipment->setGas(new GasTypes);
+        $equipment->setGas(new GasType);
         $equipment->setBrand(new Brand);
 
         // Set other properties...
@@ -58,7 +58,7 @@ class InterventionTest extends KernelTestCase
         $location->setName('Roger');
         $equipment->setLocation($location);
 
-        $gas = new GasTypes();
+        $gas = new GasType();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
         $equipment->setGas($gas);

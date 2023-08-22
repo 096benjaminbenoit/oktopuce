@@ -2,12 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\GasTypes;
+
+use Faker\Factory;
+use App\Entity\GasType;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Faker\Factory;
 
-class GasTypesFixtures extends Fixture
+class GasTypeFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
@@ -17,10 +18,10 @@ class GasTypesFixtures extends Fixture
 
         for ($i = 0 ; $i < 8 ;$i++)
         {
-            $gasTypes = new GasTypes();
-            $gasTypes->setName($faker->firstName);
-            $gasTypes->setEqCo2PerKg($faker->randomDigit);
-            $manager->persist($gasTypes);
+            $GasType = new GasType();
+            $GasType->setName($faker->firstName);
+            $GasType->setEqCo2PerKg($faker->randomDigit);
+            $manager->persist($GasType);
 
              
         }

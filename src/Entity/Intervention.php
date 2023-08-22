@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\InterventionRepository;
+use App\Entity\InterventionType;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InterventionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 class Intervention
@@ -25,8 +29,21 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
+
+
     #[ORM\Column]
     private array $response = [];
+
+    #[ORM\ManyToMany(targetEntity: Intervention::class, inversedBy: 'interventionTypes')]
+    private Collection $interventionTypes;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $interventionDate = null;
+
+    public function __construct()
+    {
+        $this->interventionTypes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -92,4 +109,46 @@ class Intervention
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, InterventionType>
+     */
+    public function getInterventionType(): Collection
+    {
+        return $this->interventionTypes;
+    }
+
+    public function addInterventionType(InterventionType $interventionType): static
+    {
+        if (!$this->interventionTypes->contains($interventionType)) {
+            $this->interventionTypes->add($interventionType);
+            $interventionType->addInterventionType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInterventionType(InterventionType $interventionType): static
+    {
+        if ($this->interventionTypes->removeElement($interventionType)) {
+            $interventionType->removeInterventionType($this);
+        }
+
+        return $this;
+    }
+
+    public function getInterventionDate(): ?\DateTimeInterface
+    {
+        return $this->interventionDate;
+    }
+
+    public function setInterventionDate(\DateTimeInterface $interventionDate): static
+    {
+        $this->interventionDate = $interventionDate;
+
+        return $this;
+    }
+
+  
+
 }

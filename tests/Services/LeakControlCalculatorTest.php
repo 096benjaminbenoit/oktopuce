@@ -2,8 +2,8 @@
 
 namespace App\Tests\Services;
 
-use App\Entity\Equipement;
-use App\Entity\GasTypes;
+use App\Entity\equipment;
+use App\Entity\GasType;
 use App\Services\LeakControlCalculator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -11,12 +11,12 @@ class LeakControlCalculatorTest extends WebTestCase
 {
     private function getEquipment($gasEqCO2PerKg = 675, $gasWeight = 1.6, $isLeakDetection = true)
     {
-        return (new Equipement)
+        return (new equipment)
             ->setGasWeight($gasWeight)
             ->setLeakDetection($isLeakDetection)
             ->setLastLeakDetection(new \DateTimeImmutable('now'))
             ->setGas(
-                (new GasTypes())
+                (new GasType())
                     ->setEqCo2PerKg($gasEqCO2PerKg)
             )
         ;

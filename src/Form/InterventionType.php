@@ -16,7 +16,7 @@ class InterventionType extends AbstractType
             ->add('entreprise')
             ->add('type')
             ->add('interventionDate')
-            ->add('equipement')
+            ->add('equipment')
             ->add('person')
         ;
     }

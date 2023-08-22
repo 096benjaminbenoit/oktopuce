@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Component\Form\ChoiceList\Factory\Cache\ChoiceFieldName;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
 class InterventionCrudController extends AbstractCrudController
@@ -33,9 +34,9 @@ class InterventionCrudController extends AbstractCrudController
         return [
             AssociationField::new('equipment')->setLabel('N° de série'),
             AssociationField::new('person')->setLabel('Prénom / Nom'),
-            TextField::new('technicien'),
-            TextField::new('entreprise'),
-            ArrayField::new('type'),
+            TextField::new('technician'),
+            TextField::new('enterprise'),
+            CollectionField::new('InterventionType'),
             DateTimeField::new('interventionDate')->setLabel('Date de l\'intervention')
         ];
     }

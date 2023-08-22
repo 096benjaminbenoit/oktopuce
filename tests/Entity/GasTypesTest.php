@@ -3,12 +3,12 @@ namespace App\Tests\Entity;
 
 use App\Entity\Brand;
 use App\Entity\NfcTag;
-use App\Entity\GasTypes;
+use App\Entity\GasType;
 use App\Entity\Location;
 use App\Entity\equipment;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class GasTypesTest extends KernelTestCase
+class GasTypeTest extends KernelTestCase
 {
     private $entityManager;
 
@@ -22,9 +22,9 @@ class GasTypesTest extends KernelTestCase
 
     public function testCreateGasType()
     {
-        $gasType = new GasTypes();
-        $gasType->setName('CO2');
-        $gasType->setEqCo2PerKg(0.5);
+        $GasType = new GasType();
+        $GasType->setName('CO2');
+        $GasType->setEqCo2PerKg(0.5);
 
         // Créez une instance d'equipment associée à ce type de gaz
         $equipment = new equipment();
@@ -42,7 +42,7 @@ class GasTypesTest extends KernelTestCase
         $equipment->setPicto('https://example.com/image.png');
         $equipment->setNfc(new NfcTag);
         $equipment->setLocation(new Location);
-        $equipment->setGas(new GasTypes);
+        $equipment->setGas(new GasType);
         $equipment->setBrand(new Brand);
 
 
@@ -56,7 +56,7 @@ class GasTypesTest extends KernelTestCase
         $location->setName('Roger');
         $equipment->setLocation($location);
 
-        $gas = new GasTypes();
+        $gas = new GasType();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
         $equipment->setGas($gas);
@@ -66,9 +66,9 @@ class GasTypesTest extends KernelTestCase
         $brand->setSavNumber('123456');
         $equipment->setBrand($brand);
 
-        $equipment->setGas($gasType);
+        $equipment->setGas($GasType);
 
-        $this->entityManager->persist($gasType);
+        $this->entityManager->persist($GasType);
         $this->entityManager->persist($equipment);
         $this->entityManager->persist($nfcTag);
         $this->entityManager->persist($location);
@@ -76,7 +76,7 @@ class GasTypesTest extends KernelTestCase
         $this->entityManager->persist($brand);
         $this->entityManager->flush();
 
-        $this->assertNotNull($gasType->getId());
+        $this->assertNotNull($GasType->getId());
         $this->assertNotNull($equipment->getId());
         $this->assertEquals($nfcTag->getId(), $equipment->getNfc()->getId());
     }

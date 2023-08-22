@@ -50,7 +50,7 @@ class InterventionControllerTest extends WebTestCase
             'intervention[entreprise]' => 'Testing',
             'intervention[type]' => 'Testing',
             'intervention[interventionDate]' => 'Testing',
-            'intervention[equipement]' => 'Testing',
+            'intervention[equipment]' => 'Testing',
             'intervention[person]' => 'Testing',
         ]);
 
@@ -67,7 +67,7 @@ class InterventionControllerTest extends WebTestCase
         $fixture->setEntreprise('My Title');
         $fixture->setType('My Title');
         $fixture->setInterventionDate('My Title');
-        $fixture->setEquipement('My Title');
+        $fixture->setequipment('My Title');
         $fixture->setPerson('My Title');
 
         $this->manager->persist($fixture);
@@ -89,7 +89,7 @@ class InterventionControllerTest extends WebTestCase
         $fixture->setEntreprise('My Title');
         $fixture->setType('My Title');
         $fixture->setInterventionDate('My Title');
-        $fixture->setEquipement('My Title');
+        $fixture->setequipment('My Title');
         $fixture->setPerson('My Title');
 
         $this->manager->persist($fixture);
@@ -102,7 +102,7 @@ class InterventionControllerTest extends WebTestCase
             'intervention[entreprise]' => 'Something New',
             'intervention[type]' => 'Something New',
             'intervention[interventionDate]' => 'Something New',
-            'intervention[equipement]' => 'Something New',
+            'intervention[equipment]' => 'Something New',
             'intervention[person]' => 'Something New',
         ]);
 
@@ -114,7 +114,7 @@ class InterventionControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getEntreprise());
         self::assertSame('Something New', $fixture[0]->getType());
         self::assertSame('Something New', $fixture[0]->getInterventionDate());
-        self::assertSame('Something New', $fixture[0]->getEquipement());
+        self::assertSame('Something New', $fixture[0]->getequipment());
         self::assertSame('Something New', $fixture[0]->getPerson());
     }
 
@@ -129,7 +129,7 @@ class InterventionControllerTest extends WebTestCase
         $fixture->setEntreprise('My Title');
         $fixture->setType('My Title');
         $fixture->setInterventionDate('My Title');
-        $fixture->setEquipement('My Title');
+        $fixture->setequipment('My Title');
         $fixture->setPerson('My Title');
 
         $this->manager->persist($fixture);

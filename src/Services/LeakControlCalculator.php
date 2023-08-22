@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 
 class LeakControlCalculator
@@ -12,7 +12,7 @@ class LeakControlCalculator
 
 
 
-    public static function getNextLeakControlDate(Equipement $equipment): null|\DateTimeImmutable
+    public static function getNextLeakControlDate(equipment $equipment): null|\DateTimeImmutable
     {
         if(!self::isControlMandatory($equipment)) {
             return null;
@@ -25,10 +25,10 @@ class LeakControlCalculator
         );
     }
 
-    public static function getPeriodicity(Equipement $equipment): string
+    public static function getPeriodicity(equipment $equipment): string
     {
         $TCO2 = self::calculTCO2($equipment);
-        if($equipment->isLeakDetection()){
+        if($equipment->isHasLeakDetection()){
             if($TCO2 < 50_000) {
                 return '+ 2 years';
             } elseif ($TCO2 < 500_000) {
@@ -48,7 +48,7 @@ class LeakControlCalculator
         }
     }
 
-    public static function calculTCO2(Equipement $equipment): float
+    public static function calculTCO2(equipment $equipment): float
     {
         $gas = $equipment->getGas();
 
@@ -60,8 +60,8 @@ class LeakControlCalculator
         return $TCO2;
     }
 
-    public static function isControlMandatory(Equipement $equipment): bool
+    public static function isControlMandatory(equipment $equipment): bool
     {
-        return !($equipment->isLeakDetection() && self::calculTCO2($equipment) < 5000);
+        return !($equipment->isHasLeakDetection() && self::calculTCO2($equipment) < 5000);
     }
 }

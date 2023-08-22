@@ -22,7 +22,7 @@ class EquipmentChangedListener
         if ($event->hasChangedField('lastLeakDetection')){
         
             // si oui, mettre à jour la date de la prochaine vérification
-            $equipment->nextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment));
+            $equipment->setNextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment));
         }
         
     }
@@ -30,11 +30,13 @@ class EquipmentChangedListener
 
     public function prePersist(Equipment $equipment, PrePersistEventArgs $event): void
     {
+        //créé une action qui permet a la création de récup la date du jour pour lancer le calcul 
+        
         // Lors de la création d'un nouvel équipement, si il y a une détections des fuites 
-        if (!empty($equipment->getGas())){
+        if (!empty($equipment->getGas()&& $equipment->isHasLeakDetection())){
                 
             // alors je défini la date de la prochaine vérification dès le départ
-            $equipment->setNextLeakControl(LeakControlCalculator::getNextLeakControlDate($equipment));
+            $equipment->setNextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment));
         }
     }
 
