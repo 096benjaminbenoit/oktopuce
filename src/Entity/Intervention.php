@@ -30,12 +30,10 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
-    
-
     #[ORM\Column]
     private array $response = [];
 
-    #[ORM\ManyToMany(targetEntity: Intervention::class, inversedBy: 'interventionTypes')]
+    #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
     private Collection $interventionTypes;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -114,7 +112,7 @@ class Intervention
     /**
      * @return Collection<int, InterventionType>
      */
-    public function getInterventionType(): Collection
+    public function getInterventionTypes(): Collection
     {
         return $this->interventionTypes;
     }

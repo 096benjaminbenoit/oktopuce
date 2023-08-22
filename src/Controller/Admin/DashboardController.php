@@ -8,6 +8,7 @@ use App\Entity\Contact;
 use App\Entity\Equipment;
 use App\Entity\GasType;
 use App\Entity\Intervention;
+use App\Entity\InterventionType;
 use App\Entity\Location;
 use App\Entity\Model;
 use App\Entity\NfcTag;
@@ -44,6 +45,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les équipements', 'fas fa-box', Equipment::class);
         yield MenuItem::linkToCrud('Les gaz', 'fas fa-fire-flame-simple', GasType::class);
         yield MenuItem::linkToCrud('Les interventions', 'fas fa-clipboard', Intervention::class);
+        yield MenuItem::linkToCrud('Les types d\interventions', 'fas fa-gear', InterventionType::class);
         yield MenuItem::linkToCrud('Les emplacements', 'fas fa-location-dot', Location::class);
         yield MenuItem::linkToCrud('Les modèles', 'fas fa-tags', Model::class);
         yield MenuItem::linkToCrud('Les puces NFC', 'fa-brands fa-nfc-symbol', NfcTag::class);

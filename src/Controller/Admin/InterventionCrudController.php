@@ -36,7 +36,7 @@ class InterventionCrudController extends AbstractCrudController
             AssociationField::new('person')->setLabel('Prénom / Nom'),
             TextField::new('technician'),
             TextField::new('enterprise'),
-            CollectionField::new('InterventionType'),
+            AssociationField::new('interventionTypes'),
             DateTimeField::new('interventionDate')->setLabel('Date de l\'intervention')
         ];
     }
