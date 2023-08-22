@@ -31,7 +31,7 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
-
+    
 
     #[ORM\Column]
     private array $response = [];

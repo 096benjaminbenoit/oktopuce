@@ -18,7 +18,23 @@ class LeakControlCalculator
             return null;
         }
 
+        
+
         $periodicity = self::getPeriodicity($equipment);
+         // Récupérer la date d'installation et la date de la dernière détection de fuite
+        $dateInstallation = $equipment->getInstallationDate();
+        $derniereDetectionFuite = $equipment->getLastLeakDetection();
+
+        // Si la date de la dernière détection de fuite est null, utiliser la date d'installation comme base
+        // $dateBase = $derniereDetectionFuite ?? $dateInstallation; 
+        if ($derniereDetectionFuite === null) {
+            $dateBase = $dateInstallation;
+        } else {
+            $dateBase = $derniereDetectionFuite;
+        }
+        return $dateBase->add(
+            \DateInterval::createFromDateString($periodicity)
+        );
 
         return $equipment->getLastLeakDetection()->add(
             \DateInterval::createFromDateString($periodicity)
@@ -29,6 +45,7 @@ class LeakControlCalculator
     {
         $TCO2 = self::calculTCO2($equipment);
         if($equipment->isHasLeakDetection()){
+            
             if($TCO2 < 50_000) {
                 return '+ 2 years';
             } elseif ($TCO2 < 500_000) {
