@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\InterventionRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InterventionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ApiResource]
