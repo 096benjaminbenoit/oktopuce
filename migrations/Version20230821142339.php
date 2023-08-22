@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230810140340 extends AbstractMigration
+final class Version20230821142339 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -29,10 +29,12 @@ final class Version20230810140340 extends AbstractMigration
         $this->addSql('CREATE TABLE equipment_type (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE finality (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE gas_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, eq_co2_per_kg DOUBLE PRECISION NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE intervention (id INT AUTO_INCREMENT NOT NULL, person_id INT DEFAULT NULL, equipment_id INT DEFAULT NULL, technician VARCHAR(255) DEFAULT NULL, enterprise VARCHAR(255) DEFAULT NULL, response JSON NOT NULL, INDEX IDX_D11814AB217BBB47 (person_id), INDEX IDX_D11814AB517FE9FE (equipment_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE intervention (id INT AUTO_INCREMENT NOT NULL, person_id INT DEFAULT NULL, equipment_id INT DEFAULT NULL, technician VARCHAR(255) DEFAULT NULL, enterprise VARCHAR(255) DEFAULT NULL, response JSON NOT NULL, intervention_date DATETIME NOT NULL, INDEX IDX_D11814AB217BBB47 (person_id), INDEX IDX_D11814AB517FE9FE (equipment_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE intervention_intervention (intervention_source INT NOT NULL, intervention_target INT NOT NULL, INDEX IDX_D466B039B52A5D56 (intervention_source), INDEX IDX_D466B039ACCF0DD9 (intervention_target), PRIMARY KEY(intervention_source, intervention_target)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE intervention_question (id INT AUTO_INCREMENT NOT NULL, question VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE intervention_type (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE intervention_type_intervention_question (intervention_type_id INT NOT NULL, intervention_question_id INT NOT NULL, INDEX IDX_9BBD1BB68EA2F8F6 (intervention_type_id), INDEX IDX_9BBD1BB660D47778 (intervention_question_id), PRIMARY KEY(intervention_type_id, intervention_question_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE intervention_type_intervention (intervention_type_id INT NOT NULL, intervention_id INT NOT NULL, INDEX IDX_1C8CE5938EA2F8F6 (intervention_type_id), INDEX IDX_1C8CE5938EAE3863 (intervention_id), PRIMARY KEY(intervention_type_id, intervention_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE location (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE model (id INT AUTO_INCREMENT NOT NULL, brand_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, manuel_link VARCHAR(255) DEFAULT NULL, INDEX IDX_D79572D944F5D008 (brand_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE nfc_tag (id INT AUTO_INCREMENT NOT NULL, uid CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -55,8 +57,12 @@ final class Version20230810140340 extends AbstractMigration
         $this->addSql('ALTER TABLE equipment_finality ADD CONSTRAINT FK_9F9B06EC967CF506 FOREIGN KEY (finality_id) REFERENCES finality (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE intervention ADD CONSTRAINT FK_D11814AB217BBB47 FOREIGN KEY (person_id) REFERENCES person (id)');
         $this->addSql('ALTER TABLE intervention ADD CONSTRAINT FK_D11814AB517FE9FE FOREIGN KEY (equipment_id) REFERENCES equipment (id)');
+        $this->addSql('ALTER TABLE intervention_intervention ADD CONSTRAINT FK_D466B039B52A5D56 FOREIGN KEY (intervention_source) REFERENCES intervention (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE intervention_intervention ADD CONSTRAINT FK_D466B039ACCF0DD9 FOREIGN KEY (intervention_target) REFERENCES intervention (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE intervention_type_intervention_question ADD CONSTRAINT FK_9BBD1BB68EA2F8F6 FOREIGN KEY (intervention_type_id) REFERENCES intervention_type (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE intervention_type_intervention_question ADD CONSTRAINT FK_9BBD1BB660D47778 FOREIGN KEY (intervention_question_id) REFERENCES intervention_question (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE intervention_type_intervention ADD CONSTRAINT FK_1C8CE5938EA2F8F6 FOREIGN KEY (intervention_type_id) REFERENCES intervention_type (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE intervention_type_intervention ADD CONSTRAINT FK_1C8CE5938EAE3863 FOREIGN KEY (intervention_id) REFERENCES intervention (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE model ADD CONSTRAINT FK_D79572D944F5D008 FOREIGN KEY (brand_id) REFERENCES brand (id)');
         $this->addSql('ALTER TABLE site ADD CONSTRAINT FK_694309E419EB6921 FOREIGN KEY (client_id) REFERENCES client (id)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649217BBB47 FOREIGN KEY (person_id) REFERENCES person (id)');
@@ -79,8 +85,12 @@ final class Version20230810140340 extends AbstractMigration
         $this->addSql('ALTER TABLE equipment_finality DROP FOREIGN KEY FK_9F9B06EC967CF506');
         $this->addSql('ALTER TABLE intervention DROP FOREIGN KEY FK_D11814AB217BBB47');
         $this->addSql('ALTER TABLE intervention DROP FOREIGN KEY FK_D11814AB517FE9FE');
+        $this->addSql('ALTER TABLE intervention_intervention DROP FOREIGN KEY FK_D466B039B52A5D56');
+        $this->addSql('ALTER TABLE intervention_intervention DROP FOREIGN KEY FK_D466B039ACCF0DD9');
         $this->addSql('ALTER TABLE intervention_type_intervention_question DROP FOREIGN KEY FK_9BBD1BB68EA2F8F6');
         $this->addSql('ALTER TABLE intervention_type_intervention_question DROP FOREIGN KEY FK_9BBD1BB660D47778');
+        $this->addSql('ALTER TABLE intervention_type_intervention DROP FOREIGN KEY FK_1C8CE5938EA2F8F6');
+        $this->addSql('ALTER TABLE intervention_type_intervention DROP FOREIGN KEY FK_1C8CE5938EAE3863');
         $this->addSql('ALTER TABLE model DROP FOREIGN KEY FK_D79572D944F5D008');
         $this->addSql('ALTER TABLE site DROP FOREIGN KEY FK_694309E419EB6921');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649217BBB47');
@@ -94,9 +104,11 @@ final class Version20230810140340 extends AbstractMigration
         $this->addSql('DROP TABLE finality');
         $this->addSql('DROP TABLE gas_type');
         $this->addSql('DROP TABLE intervention');
+        $this->addSql('DROP TABLE intervention_intervention');
         $this->addSql('DROP TABLE intervention_question');
         $this->addSql('DROP TABLE intervention_type');
         $this->addSql('DROP TABLE intervention_type_intervention_question');
+        $this->addSql('DROP TABLE intervention_type_intervention');
         $this->addSql('DROP TABLE location');
         $this->addSql('DROP TABLE model');
         $this->addSql('DROP TABLE nfc_tag');

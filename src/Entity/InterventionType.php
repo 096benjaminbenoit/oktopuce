@@ -20,16 +20,17 @@ class InterventionType
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: InterventionQuestion::class, inversedBy: 'interventionTypes')]
+    #[ORM\ManyToMany(targetEntity: InterventionQuestion::class, inversedBy: 'interventionType')]
     private Collection $interventionQuestion;
 
-    #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'inventionType')]
-    private Collection $interventions;
+    #[ORM\ManyToMany(targetEntity: intervention::class, inversedBy: 'interventionType')]
+    private Collection $InterventionType;
 
     public function __construct()
     {
         $this->interventionQuestion = new ArrayCollection();
-        $this->interventions = new ArrayCollection();
+
+        $this->InterventionType = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,29 +75,28 @@ class InterventionType
     }
 
     /**
-     * @return Collection<int, Intervention>
+     * @return Collection<int, intervention>
      */
-    public function getInterventions(): Collection
+    public function getInterventionType(): Collection
     {
-        return $this->interventions;
+        return $this->InterventionType;
     }
 
-    public function addIntervention(Intervention $intervention): static
+    public function addInterventionType(intervention $interventionType): static
     {
-        if (!$this->interventions->contains($intervention)) {
-            $this->interventions->add($intervention);
-            $intervention->addInventionType($this);
+        if (!$this->InterventionType->contains($interventionType)) {
+            $this->InterventionType->add($interventionType);
         }
 
         return $this;
     }
 
-    public function removeIntervention(Intervention $intervention): static
+    public function removeInterventionType(intervention $interventionType): static
     {
-        if ($this->interventions->removeElement($intervention)) {
-            $intervention->removeInventionType($this);
-        }
+        $this->InterventionType->removeElement($interventionType);
 
         return $this;
     }
+
+ 
 }

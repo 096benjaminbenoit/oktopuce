@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}equipment index{% endblock %}
+
+{% block body %}
+    <h1>equipment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>InstallationDate</th>
+                <th>SerialNumber</th>
+                <th>LocationDetail</th>
+                <th>ProductType</th>
+                <th>PlacementType</th>
+                <th>RemoteNumber</th>
+                <th>GasWeight</th>
+                <th>LeakDetection</th>
+                <th>LastLeakDetection</th>
+                <th>NextLeakControl</th>
+                <th>Finality</th>
+                <th>Capacity</th>
+                <th>Picto</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipment in equipments %}
+            <tr>
+                <td>{{ equipment.id }}</td>
+                <td>{{ equipment.installationDate ? equipment.installationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ equipment.serialNumber }}</td>
+                <td>{{ equipment.locationDetail }}</td>
+                <td>{{ equipment.productType }}</td>
+                <td>{{ equipment.placementType }}</td>
+                <td>{{ equipment.remoteNumber }}</td>
+                <td>{{ equipment.gasWeight }}</td>
+                <td>{{ equipment.leakDetection ? 'Yes' : 'No' }}</td>
+                <td>{{ equipment.lastLeakDetection ? equipment.lastLeakDetection|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ equipment.nextLeakControl ? equipment.nextLeakControl|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ equipment.finality ? equipment.finality|json_encode : '' }}</td>
+                <td>{{ equipment.capacity }}</td>
+                <td>{{ equipment.picto }}</td>
+                <td>
+                    <a href="{{ path('app_equipment_show', {'id': equipment.id}) }}">show</a>
+                    <a href="{{ path('app_equipment_edit', {'id': equipment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equipment_new') }}">Create new</a>
+{% endblock %}
