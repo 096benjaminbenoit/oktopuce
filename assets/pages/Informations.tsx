@@ -13,7 +13,7 @@ export default function Informations() {
     <Form>
         <Checkbox></Checkbox>
         <Input></Input>
-        <Radio></Radio>
+        <Radio options={[]}></Radio>
         <Select options={undefined} defaultValue={undefined} onChange={undefined}></Select>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Email address</Form.Label>

@@ -5,6 +5,7 @@ import Checkbox from './Checkbox';
 import Input from './Input';
 import Radio from './Radio';
 import Select from './Select';
+import Button from './Button';
 
 function FormInformations() {
   return (
@@ -12,7 +13,8 @@ function FormInformations() {
         <Select options={[{
             label: "Bonjour",
             value: "bjr"
-        }]}/>        
+        }]}/>
+        <Link to={''}></Link>   
     </>
   );
 }
