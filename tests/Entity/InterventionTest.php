@@ -1,34 +1,104 @@
 <?php
 
-use App\Entity\Intervention;
-use App\Entity\Person;
-use App\Entity\Equipment;
-use PHPUnit\Framework\TestCase;
+namespace App\Tests\Entity;
 
-class InterventionTest extends TestCase
+use App\Entity\Brand;
+use App\Entity\NfcTag;
+use App\Entity\Person;
+use App\Entity\GasType;
+use App\Entity\Location;
+use App\Entity\equipment;
+use App\Entity\Intervention;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+
+class InterventionTest extends KernelTestCase
 {
-    public function testInterventionAttributes(): void
+    private $entityManager;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $kernel = self::bootKernel();
+        $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
+    }
+
+    public function testCreateIntervention()
     {
         $intervention = new Intervention();
+        $intervention->setTechnicien('John Doe');
+        $intervention->setEntreprise('ACME Corp');
+        $intervention->setType('Maintenance');
+        $intervention->setInterventionDate(new \DateTimeImmutable());
 
-        $technician = "John Doe";
-        $intervention->setTechnician($technician);
-        $this->assertSame($technician, $intervention->getTechnician());
+        // Créez une instance d'equipment associée à cette intervention
+        $equipment = new equipment();
+        $equipment->setInstallationDate(new \DateTimeImmutable());
+        $equipment->setSerialNumber('12345');
+        $equipment->setLocationDetail('test');
+        $equipment->setProductType('clim');
+        $equipment->setPlacementType('exterieur');
+        $equipment->setRemoteNumber('1234');
+        $equipment->setGasWeight(12,33);
+        $equipment->setLeakDetection(true);
+        $equipment->setNextLeakControl(new \DateTimeImmutable());
+        $equipment->setFinality([1,2,3]);
+        $equipment->setCapacity(3 ."");
+        $equipment->setPicto('https://example.com/image.png');
+        $equipment->setNfc(new NfcTag);
+        $equipment->setLocation(new Location);
+        $equipment->setGas(new GasType);
+        $equipment->setBrand(new Brand);
 
-        $enterprise = "ABC Company";
-        $intervention->setEnterprise($enterprise);
-        $this->assertSame($enterprise, $intervention->getEnterprise());
+        // Set other properties...
+        $nfcTag = new NfcTag();
+        $nfcTag->setUid('example-uid'); // Set a sample UID
+        $equipment->setNfc($nfcTag);
 
+        $location = new Location();
+        $location->setName('Roger');
+        $equipment->setLocation($location);
+
+        $gas = new GasType();
+        $gas->setName('co2');
+        $gas->setEqCo2PerKg(234);
+        $equipment->setGas($gas);
+
+        $brand = new Brand ();
+        $brand->setName('test');
+        $brand->setSavNumber('123456');
+        $equipment->setBrand($brand);
+
+
+        $intervention->setequipment($equipment);
+
+        // Créez une instance de Person associée à cette intervention
         $person = new Person();
+        $person->setFirstName('Jane');
+        $person->setLastName('Doe');
+        $person->setPhone('1234567890');
+        // Set other properties...
+
         $intervention->setPerson($person);
-        $this->assertSame($person, $intervention->getPerson());
 
-        $equipment = new Equipment();
-        $intervention->setEquipment($equipment);
-        $this->assertSame($equipment, $intervention->getEquipment());
+        $this->entityManager->persist($intervention);
+        $this->entityManager->persist($equipment);
+        $this->entityManager->persist($person);
+        $this->entityManager->persist($nfcTag);
+        $this->entityManager->persist($location);
+        $this->entityManager->persist($gas);
+        $this->entityManager->persist($brand);
+        $this->entityManager->flush();
 
-        $response = ['question' => 'answer'];
-        $intervention->setResponse($response);
-        $this->assertSame($response, $intervention->getResponse());
+        $this->assertNotNull($intervention->getId());
+        $this->assertNotNull($equipment->getId());
+        $this->assertNotNull($person->getId());
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // Nettoyez les éventuelles ressources après chaque test si nécessaire
     }
 }

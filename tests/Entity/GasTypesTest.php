@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Tests\Entity;
 
 use App\Entity\Brand;
@@ -9,7 +8,7 @@ use App\Entity\Location;
 use App\Entity\equipment;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class LocationTest extends KernelTestCase
+class GasTypeTest extends KernelTestCase
 {
     private $entityManager;
 
@@ -21,33 +20,40 @@ class LocationTest extends KernelTestCase
         $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
     }
 
-    public function testCreateLocation()
+    public function testCreateGasType()
     {
-        $location = new Location();
-        $location->setName('Example Location');
+        $GasType = new GasType();
+        $GasType->setName('CO2');
+        $GasType->setEqCo2PerKg(0.5);
 
-        // Créez une instance d'equipment associée à cette Location
-        $equipment = new equipment();
+        // Créez une instance d'equipment associée à ce type de gaz
+        $equipment = new Equipment();
         $equipment->setInstallationDate(new \DateTimeImmutable());
         $equipment->setSerialNumber('12345');
-        $equipment->setLocationDetail('Location Detail');
-        $equipment->setProductType('clim');
-        $equipment->setPlacementType('chambre');
-        $equipment->setRemoteNumber('telecommande 1234');
-        $equipment->setGasWeight(2,5);
-        $equipment->setLeakDetection(true);
-        $equipment->setNextLeakControl(new \DateTimeImmutable());
-        $equipment->setFinality(['radiateur','plancher chauffant']);
-        $equipment->setCapacity(35);
+        $equipment->setLocationDetail('test');
+        $equipment->getEquipmentType();
+        $equipment->setLocationDetail('exterieur');
+        $equipment->setRemoteNumber('1234');
+        $equipment->setGasWeight(12,33);
+        $equipment->sethasLeakDetection(true);
+        $equipment->setNextLeakDetection(new \DateTimeImmutable());
+        $equipment->setCapacity(3 ."");
         $equipment->setPicto('https://example.com/image.png');
-        $equipment->setNfc(new NfcTag);
+        $equipment->setNfcTag(new NfcTag);
         $equipment->setLocation(new Location);
         $equipment->setGas(new GasType);
         $equipment->setBrand(new Brand);
 
+
+
+        // Set other properties...
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipment->setNfc($nfcTag);
+        $equipment->setNfcTag($nfcTag);
+
+        $location = new Location();
+        $location->setName('Roger');
+        $equipment->setLocation($location);
 
         $gas = new GasType();
         $gas->setName('co2');
@@ -58,16 +64,20 @@ class LocationTest extends KernelTestCase
         $brand->setName('test');
         $brand->setSavNumber('123456');
         $equipment->setBrand($brand);
-        $location->addequipment($equipment);
 
+        $equipment->setGas($GasType);
+
+        $this->entityManager->persist($GasType);
         $this->entityManager->persist($equipment);
-        $this->entityManager->persist($location);
         $this->entityManager->persist($nfcTag);
+        $this->entityManager->persist($location);
         $this->entityManager->persist($gas);
         $this->entityManager->persist($brand);
         $this->entityManager->flush();
 
-        $this->assertNotNull($location->getId());
+        $this->assertNotNull($GasType->getId());
+        $this->assertNotNull($equipment->getId());
+        $this->assertEquals($nfcTag->getId(), $equipment->getNfcTag()->getId());
     }
 
     protected function tearDown(): void
@@ -75,6 +85,5 @@ class LocationTest extends KernelTestCase
         parent::tearDown();
 
         // Nettoyez les éventuelles ressources après chaque test si nécessaire
-
     }
 }

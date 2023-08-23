@@ -18,7 +18,7 @@ class InterventionQuestion
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?string $question = null;
+    private ?array $question = [];
 
     #[ORM\ManyToMany(targetEntity: InterventionType::class, mappedBy: 'interventionQuestion')]
     private Collection $interventionTypes;
@@ -33,12 +33,12 @@ class InterventionQuestion
         return $this->id;
     }
 
-    public function type(): ?string
+    public function getQuestion(): ?array
     {
         return $this->question;
     }
 
-    public function setQuestion(string $question): static
+    public function setQuestion(array $question): static
     {
         $this->question = $question;
 

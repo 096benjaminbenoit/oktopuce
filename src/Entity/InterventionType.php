@@ -20,18 +20,22 @@ class InterventionType
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: InterventionQuestion::class, inversedBy: 'interventionTypes')]
+    #[ORM\ManyToMany(targetEntity: InterventionQuestion::class, inversedBy: 'interventionType')]
     private Collection $interventionQuestion;
 
-    #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'inventionType')]
+    #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'interventionTypes')]
     private Collection $interventions;
+
+    public function __toString()
+    {
+        return $this->type;
+    }
 
     public function __construct()
     {
         $this->interventionQuestion = new ArrayCollection();
         $this->interventions = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -73,7 +77,7 @@ class InterventionType
         return $this;
     }
 
-    /**
+        /**
      * @return Collection<int, Intervention>
      */
     public function getInterventions(): Collection
