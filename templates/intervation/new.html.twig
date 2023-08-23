@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Intervention{% endblock %}
+
+{% block body %}
+    <h1>Create new Intervention</h1>
+
+    {{ include('intervation/_form.html.twig') }}
+
+    <a href="{{ path('app_intervation_index') }}">back to list</a>
+{% endblock %}

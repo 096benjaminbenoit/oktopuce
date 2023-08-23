@@ -1,7 +1,7 @@
 <?php
 use App\Entity\Equipment;
 use App\Entity\NfcTag;
-use App\Entity\GasType;
+use App\Entity\Brand;
 use App\Entity\Location;
 use App\Entity\EquipmentType;
 use App\Entity\Placement;

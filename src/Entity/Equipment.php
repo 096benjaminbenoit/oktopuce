@@ -85,6 +85,11 @@ class Equipment
         $this->interventions = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->serialNumber;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
