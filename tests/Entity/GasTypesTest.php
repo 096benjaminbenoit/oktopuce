@@ -3,12 +3,12 @@ namespace App\Tests\Entity;
 
 use App\Entity\Brand;
 use App\Entity\NfcTag;
-use App\Entity\GasTypes;
+use App\Entity\GasType;
 use App\Entity\Location;
-use App\Entity\Equipement;
+use App\Entity\equipment;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class GasTypesTest extends KernelTestCase
+class GasTypeTest extends KernelTestCase
 {
     private $entityManager;
 
@@ -22,63 +22,62 @@ class GasTypesTest extends KernelTestCase
 
     public function testCreateGasType()
     {
-        $gasType = new GasTypes();
-        $gasType->setName('CO2');
-        $gasType->setEqCo2PerKg(0.5);
+        $GasType = new GasType();
+        $GasType->setName('CO2');
+        $GasType->setEqCo2PerKg(0.5);
 
-        // Créez une instance d'Equipement associée à ce type de gaz
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('test');
-        $equipement->setProductType('clim');
-        $equipement->setPlacementType('exterieur');
-        $equipement->setRemoteNumber('1234');
-        $equipement->setGasWeight(12,33);
-        $equipement->setLeakDetection(true);
-        $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality([1,2,3]);
-        $equipement->setCapacity(3 ."");
-        $equipement->setPicto('https://example.com/image.png');
-        $equipement->setNfc(new NfcTag);
-        $equipement->setLocation(new Location);
-        $equipement->setGas(new GasTypes);
-        $equipement->setBrand(new Brand);
+        // Créez une instance d'equipment associée à ce type de gaz
+        $equipment = new Equipment();
+        $equipment->setInstallationDate(new \DateTimeImmutable());
+        $equipment->setSerialNumber('12345');
+        $equipment->setLocationDetail('test');
+        $equipment->getEquipmentType();
+        $equipment->setLocationDetail('exterieur');
+        $equipment->setRemoteNumber('1234');
+        $equipment->setGasWeight(12,33);
+        $equipment->sethasLeakDetection(true);
+        $equipment->setNextLeakDetection(new \DateTimeImmutable());
+        $equipment->setCapacity(3 ."");
+        $equipment->setPicto('https://example.com/image.png');
+        $equipment->setNfcTag(new NfcTag);
+        $equipment->setLocation(new Location);
+        $equipment->setGas(new GasType);
+        $equipment->setBrand(new Brand);
 
 
 
         // Set other properties...
         $nfcTag = new NfcTag();
         $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipement->setNfc($nfcTag);
+        $equipment->setNfcTag($nfcTag);
 
         $location = new Location();
         $location->setName('Roger');
-        $equipement->setLocation($location);
+        $equipment->setLocation($location);
 
-        $gas = new GasTypes();
+        $gas = new GasType();
         $gas->setName('co2');
         $gas->setEqCo2PerKg(234);
-        $equipement->setGas($gas);
+        $equipment->setGas($gas);
 
         $brand = new Brand ();
         $brand->setName('test');
         $brand->setSavNumber('123456');
-        $equipement->setBrand($brand);
+        $equipment->setBrand($brand);
 
-        $equipement->setGas($gasType);
+        $equipment->setGas($GasType);
 
-        $this->entityManager->persist($gasType);
-        $this->entityManager->persist($equipement);
+        $this->entityManager->persist($GasType);
+        $this->entityManager->persist($equipment);
         $this->entityManager->persist($nfcTag);
         $this->entityManager->persist($location);
         $this->entityManager->persist($gas);
         $this->entityManager->persist($brand);
         $this->entityManager->flush();
 
-        $this->assertNotNull($gasType->getId());
-        $this->assertNotNull($equipement->getId());
-        $this->assertEquals($nfcTag->getId(), $equipement->getNfc()->getId());
+        $this->assertNotNull($GasType->getId());
+        $this->assertNotNull($equipment->getId());
+        $this->assertEquals($nfcTag->getId(), $equipment->getNfcTag()->getId());
     }
 
     protected function tearDown(): void

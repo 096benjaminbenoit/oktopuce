@@ -43,6 +43,11 @@ class Client
         $this->sites = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->person;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}equipment{% endblock %}
+
+{% block body %}
+    <h1>equipment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ equipment.id }}</td>
+            </tr>
+            <tr>
+                <th>InstallationDate</th>
+                <td>{{ equipment.installationDate ? equipment.installationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>SerialNumber</th>
+                <td>{{ equipment.serialNumber }}</td>
+            </tr>
+            <tr>
+                <th>LocationDetail</th>
+                <td>{{ equipment.locationDetail }}</td>
+            </tr>
+            <tr>
+                <th>ProductType</th>
+                <td>{{ equipment.productType }}</td>
+            </tr>
+            <tr>
+                <th>PlacementType</th>
+                <td>{{ equipment.placementType }}</td>
+            </tr>
+            <tr>
+                <th>RemoteNumber</th>
+                <td>{{ equipment.remoteNumber }}</td>
+            </tr>
+            <tr>
+                <th>GasWeight</th>
+                <td>{{ equipment.gasWeight }}</td>
+            </tr>
+            <tr>
+                <th>LeakDetection</th>
+                <td>{{ equipment.leakDetection ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>LastLeakDetection</th>
+                <td>{{ equipment.lastLeakDetection ? equipment.lastLeakDetection|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NextLeakControl</th>
+                <td>{{ equipment.nextLeakControl ? equipment.nextLeakControl|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Finality</th>
+                <td>{{ equipment.finality ? equipment.finality|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ equipment.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Picto</th>
+                <td>{{ equipment.picto }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equipment_index') }}">back to list</a>
+
+    <a href="{{ path('app_equipment_edit', {'id': equipment.id}) }}">edit</a>
+
+    {{ include('equipment/_delete_form.html.twig') }}
+{% endblock %}

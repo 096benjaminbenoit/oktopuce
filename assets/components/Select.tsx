@@ -1,48 +1,27 @@
-import {UseFormRegisterReturn} from "react-hook-form";
+import React from 'react';
+import Form from 'react-bootstrap/Form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-
-type Option = {};
-type SelectProp = {
-    options: Option[];
-} & UseFormRegisterReturn<"">
-
-function Select({
-    options
-}: SelectProp) {
-
+type Option = {
+  label: string,
+  value: string,
 }
+type SelectProps = {
+  options: Option[]
+  onChange?: (event: React.ChangeEvent) => void;
+  defaultValue?: string,
+} & UseFormRegisterReturn<string>;
 
-import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-
-type Person = {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
-type FormValues = Person & {
-  site: {
-    name: string;
-    address: string;
-  }
-  contacts: Person[];
-};
-
-declare const n: number;
-
-export default function App() {
-  const { register, handleSubmit } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
-
+function Select({ options, defaultValue, onChange, ...rest }: SelectProps) {
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("firstName")} />
-      <input {...register("lastName")} />
+    <Form.Select aria-label="Select" onChange={onChange} defaultValue={defaultValue} {...rest}>
+      {options.map((option, index) => (
+        <option key={index} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </Form.Select>
+  );
+}
 
-      <input type="email" {...register(`contacts.${n}.firstName`)} />
-
-      <input type="submit" />
-    </form>
-  )
-};
+export default Select;
