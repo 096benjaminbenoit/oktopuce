@@ -7,13 +7,13 @@ type ButtonProps = {
     className?: string;
     type?: "button" | "submit" | "reset" | undefined; 
     onClick?: (event: React.MouseEvent) => void;
-    path?: string; 
+    // path?: string; 
 };
 
-export default function Button({children, variant, className = "", type = "button", onClick, path}: ButtonProps) {
-    if (path) {
-        return <Link style={{display: "contents"}} to={path}><button className={`btn btn-${variant} ${className}`}>{ children }</button></Link>;
-    }
+export default function Button({children, variant, className = "", type = "button", onClick}: ButtonProps) {
+    // if (path) {
+    //     return <Link style={{display: "contents"}} to={path}><button className={`btn btn-${variant} ${className}`}>{ children }</button></Link>;
+    // }
 
     return (
         // Autre façon d'écrire les variables : {"btn btn-" + variant + " " + className}
@@ -21,6 +21,7 @@ export default function Button({children, variant, className = "", type = "butto
     );
 }
 // "...rest" permet de copier les arguments d'un composant a un sous composant 
-Button.Link = function({path, ...rest}: ButtonProps & {path: string}) {
+// omit permet de retirer des propriétés à un type
+Button.Link = function({path, ...rest}: Omit<ButtonProps, "type"> & {path: string}) {
     return <Link style={{display: "contents"}} to={path}><Button {...rest}/></Link>
 }
