@@ -7,7 +7,6 @@ export default function Connexion(){
       <h1 className="m-5">Connexion</h1>
         <section className='d-flex flex-column align-items-center'>
         <FormConnexion></FormConnexion>
-        <Button className='mt-5' variant="primary">Connexion</Button>
         </section>
         </>
     );
