@@ -117,7 +117,7 @@ class Intervention
         return $this->interventionTypes;
     }
 
-    public function addInterventionType(intervention $interventionType): static
+    public function addInterventionType(InterventionType $interventionType): static
     {
         if (!$this->interventionTypes->contains($interventionType)) {
             $this->interventionTypes->add($interventionType);
@@ -126,7 +126,7 @@ class Intervention
         return $this;
     }
 
-    public function removeInterventionType(intervention $interventionType): static
+    public function removeInterventionType(InterventionType $interventionType): static
     {
         $this->interventionTypes->removeElement($interventionType);
 
