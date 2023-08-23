@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\InterventionRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\InterventionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ApiResource]
@@ -26,12 +30,10 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
-    
-
     #[ORM\Column]
     private array $response = [];
 
-    #[ORM\ManyToMany(targetEntity: Intervention::class, inversedBy: 'interventionTypes')]
+    #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
     private Collection $interventionTypes;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -107,10 +109,10 @@ class Intervention
         return $this;
     }
 
-    /**
-     * @return Collection<int, InterventionType>
+/**
+     * @return Collection<int, intervention>
      */
-    public function getInterventionType(): Collection
+    public function getInterventionTypes(): Collection
     {
         return $this->interventionTypes;
     }
@@ -119,7 +121,6 @@ class Intervention
     {
         if (!$this->interventionTypes->contains($interventionType)) {
             $this->interventionTypes->add($interventionType);
-            $interventionType->addInterventionType($this);
         }
 
         return $this;
@@ -127,13 +128,10 @@ class Intervention
 
     public function removeInterventionType(InterventionType $interventionType): static
     {
-        if ($this->interventionTypes->removeElement($interventionType)) {
-            $interventionType->removeInterventionType($this);
-        }
+        $this->interventionTypes->removeElement($interventionType);
 
         return $this;
     }
-
     public function getInterventionDate(): ?\DateTimeInterface
     {
         return $this->interventionDate;
