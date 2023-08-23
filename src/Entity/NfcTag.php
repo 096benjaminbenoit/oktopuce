@@ -10,7 +10,6 @@ use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: NfcTagRepository::class)]
 #[ApiResource]
-
 class NfcTag
 {
     #[ORM\Id]
@@ -30,7 +29,6 @@ class NfcTag
     {
      $this->uid = Uuid::v4();   
     }
-
     public function getId(): ?int
     {
         return $this->id;

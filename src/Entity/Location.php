@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\LocationRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 #[ApiResource]
-
 class Location
 {
     #[ORM\Id]
@@ -21,17 +20,17 @@ class Location
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Equipement::class)]
-    private Collection $equipements;
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Equipment::class)]
+    private Collection $equipment;
+
+    public function __construct()
+    {
+        $this->equipment = new ArrayCollection();
+    }
 
     public function __toString()
     {
         return $this->name;
-    }
-
-    public function __construct()
-    {
-        $this->equipements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,29 +51,29 @@ class Location
     }
 
     /**
-     * @return Collection<int, Equipement>
+     * @return Collection<int, Equipment>
      */
-    public function getEquipements(): Collection
+    public function getEquipment(): Collection
     {
-        return $this->equipements;
+        return $this->equipment;
     }
 
-    public function addEquipement(Equipement $equipement): static
+    public function addEquipment(Equipment $equipment): static
     {
-        if (!$this->equipements->contains($equipement)) {
-            $this->equipements->add($equipement);
-            $equipement->setLocation($this);
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment->add($equipment);
+            $equipment->setLocation($this);
         }
 
         return $this;
     }
 
-    public function removeEquipement(Equipement $equipement): static
+    public function removeEquipment(Equipment $equipment): static
     {
-        if ($this->equipements->removeElement($equipement)) {
+        if ($this->equipment->removeElement($equipment)) {
             // set the owning side to null (unless already changed)
-            if ($equipement->getLocation() === $this) {
-                $equipement->setLocation(null);
+            if ($equipment->getLocation() === $this) {
+                $equipment->setLocation(null);
             }
         }
 

@@ -13,9 +13,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue ]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
-
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -30,8 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Person $person = null;
 
     public function getId(): ?int
@@ -109,7 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->person;
     }
 
-    public function setPerson(Person $person): static
+    public function setPerson(?Person $person): static
     {
         $this->person = $person;
 

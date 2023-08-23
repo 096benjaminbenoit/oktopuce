@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\PersonRepository;
 use ApiPlatform\Metadata\ApiResource;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\PersonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
 #[ApiResource]
-
 class Person
 {
     #[ORM\Id]
@@ -18,23 +17,17 @@ class Person
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
-    // #[ORM\OneToOne(mappedBy: 'person', cascade: ['persist', 'remove'])]
-    // private ?User $user = null;
-
     #[ORM\OneToMany(mappedBy: 'person', targetEntity: Intervention::class)]
     private Collection $interventions;
-
-    #[ORM\OneToOne(mappedBy: 'person', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
 
     public function __construct()
     {
@@ -43,7 +36,7 @@ class Person
 
     public function __toString()
     {
-        return $this->firstName." ".$this->lastName ;
+        return $this->firstName . " " . $this->lastName;
     }
 
     public function getId(): ?int
@@ -56,7 +49,7 @@ class Person
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): static
+    public function setFirstName(?string $firstName): static
     {
         $this->firstName = $firstName;
 
@@ -68,7 +61,7 @@ class Person
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): static
+    public function setLastName(?string $lastName): static
     {
         $this->lastName = $lastName;
 
@@ -86,23 +79,6 @@ class Person
 
         return $this;
     }
-
-    // public function getUser(): ?User
-    // {
-    //     return $this->user;
-    // }
-
-    // public function setUser(User $user): static
-    // {
-    //     // set the owning side of the relation if necessary
-    //     if ($user->getPerson() !== $this) {
-    //         $user->setPerson($this);
-    //     }
-
-    //     $this->user = $user;
-
-    //     return $this;
-    // }
 
     /**
      * @return Collection<int, Intervention>
@@ -130,23 +106,6 @@ class Person
                 $intervention->setPerson(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): static
-    {
-        // set the owning side of the relation if necessary
-        if ($user->getPerson() !== $this) {
-            $user->setPerson($this);
-        }
-
-        $this->user = $user;
 
         return $this;
     }

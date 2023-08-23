@@ -14,28 +14,49 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Home from './pages/Home';
 import Connexion from './pages/Connexion';
+import ScanPage from './pages/ScanPage';
+import Error404 from './pages/Error404';
+import Informations from './pages/Informations';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import FormInformations from './components/FormInformations';
+// Create the router
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <Connexion />,
+  },
+  {
+    path: "/scan",
+    element: <ScanPage />,
+  }
+]);
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
-
 // Render your React component instead
 const root = createRoot(document.getElementById('app'));
-root.render(<App />);
+root.render(<React.StrictMode>
+  <App />
+</React.StrictMode>);
 
-
-function App(): React.ReactNode {
+function App() {
 
   const [login, loginDispatch] = useReducer(loginReducer, {loggedIn: false});
 
-  return <>
-    login is {JSON.stringify(login)}
+  return (
     <LoginContext.Provider value={login}>
       <LoginDispatchContext.Provider value={loginDispatch}>
-        <Connexion />
+        <RouterProvider router={router} />
       </LoginDispatchContext.Provider>
     </LoginContext.Provider>
-  </>;
+  );
 }
+
 
 function loginReducer(login, action) {
   switch (action.type) {
@@ -53,4 +74,3 @@ function loginReducer(login, action) {
     }
   }
 }
-

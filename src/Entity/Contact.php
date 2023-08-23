@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ContactRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ApiResource]
-
 class Contact
 {
     #[ORM\Id]
@@ -33,7 +32,7 @@ class Contact
     #[ORM\Column(length: 255)]
     private ?string $position = null;
 
-    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Site::class)]
+    #[ORM\ManyToMany(targetEntity: Site::class, inversedBy: 'contacts')]
     private Collection $site;
 
     public function __construct()
@@ -118,7 +117,6 @@ class Contact
     {
         if (!$this->site->contains($site)) {
             $this->site->add($site);
-            $site->setContact($this);
         }
 
         return $this;
@@ -126,12 +124,7 @@ class Contact
 
     public function removeSite(Site $site): static
     {
-        if ($this->site->removeElement($site)) {
-            // set the owning side to null (unless already changed)
-            if ($site->getContact() === $this) {
-                $site->setContact(null);
-            }
-        }
+        $this->site->removeElement($site);
 
         return $this;
     }

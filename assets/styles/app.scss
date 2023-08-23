@@ -50,11 +50,14 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "~bootstrap/scss/utilities/api";
 
-
+.d-contents {
+    display: contents;
+}
 
 body {
     background-color: $black;
     width: 100%;
+    font-family: 'Source Sans 3', sans-serif;
 }
 
 // PAGE D'ACCUEIL
@@ -73,16 +76,22 @@ body {
         min-width: 150px;
     }
 }
+
+$navbar-logo-size: 64px;
+$page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
 .NavBarLogo {
-    width: 100px;
+    width: $navbar-logo-size;
 }
+
+// PAGE CONNEXION
+
+
 // PAGE POUR SCANNER LA PUCE
 .fullScanPage {
-    height: 95vh;
+    height: $page-with-navbar-size;
     
-    // TITRE NAVBAR, À RETIRER QUAND LA NAVBAR SERA INTÉGRÉE
-    h1 {
-        text-align: center;
+    // TITRE ACCUEIL
+    homeTitle {
         color: $primary;
     }
 
@@ -92,7 +101,12 @@ body {
     }
 
     .logoScanPage {
-        width: 200px;
+        width: 150px;
     }
+}
 
+// PAGE ERROR 404
+.error404 {
+    height: $page-with-navbar-size;
+    // font-family: 'Source Sans Bold', 'Times New Roman';
 }
