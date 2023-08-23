@@ -14,8 +14,9 @@ import Home from './pages/Home';
 import Connexion from './pages/Connexion';
 import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
-import Informations from './pages/Informations';
+import InfosUser from './pages/InfosUser';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Site from './pages/Site';
 // Create the router
 
 const router = createBrowserRouter([
@@ -33,7 +34,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/infos",
-    element: <Informations />,
+    element: <InfosUser />,
+  },
+  {
+    path: "/site",
+    element: <Site />,
+  },
+  {
+    path: "/error404",
+    element: <Error404 />,
   }
 ])
 
