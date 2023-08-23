@@ -2,80 +2,102 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\EquipmentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\EquipmentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['equipment']])]
 class Equipment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('equipment')]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('equipment')]
     private ?\DateTimeImmutable $installationDate = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('equipment')]
     private ?string $serialNumber = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[Groups('equipment')]
     private Collection $equipment;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups('equipment')]
     private ?NfcTag $nfcTag = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private ?Brand $brand = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private ?Location $location = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups('equipment')]
     private ?string $locationDetail = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private ?EquipmentType $equipmentType = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private ?Placement $placement = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('equipment')]
     private ?string $remoteNumber = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private ?GasType $gas = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('equipment')]
     private ?float $gasWeight = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('equipment')]
     private ?bool $hasLeakDetection = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('equipment')]
     private ?\DateTimeImmutable $lastLeakDetection = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('equipment')]
     private ?\DateTimeImmutable $nextLeakDetection = null;
 
     #[ORM\ManyToMany(targetEntity: Finality::class, inversedBy: 'equipment')]
+    #[Groups('equipment')]
     private Collection $finality;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('equipment')]
     private ?float $capacity = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('equipment')]
     private ?string $picto = null;
 
     #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Intervention::class)]
+    #[Groups('equipment')]
     private Collection $interventions;
 
     public function __construct()

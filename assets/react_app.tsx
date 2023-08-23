@@ -7,17 +7,24 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
-import { createContext, useReducer } from 'react';
-import { LoginContext, LoginDispatchContext } from './context/LoginContext';
 
-import React from 'react';
+
+import React, { useReducer } from 'react';
+import { LoginContext, LoginDispatchContext } from './context/LoginContext';
 import { createRoot } from 'react-dom/client';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
+
+
 import Home from './pages/Home';
 import Connexion from './pages/Connexion';
 import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
 import Informations from './pages/Informations';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FormInformations from './components/FormInformations';
 // Create the router
 
@@ -25,6 +32,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error404 />,
   },
   {
     path: "/login",
@@ -44,16 +52,21 @@ root.render(<React.StrictMode>
   <App />
 </React.StrictMode>);
 
-function App() {
 
+const queryClient = new QueryClient()
+
+
+function App() {
   const [login, loginDispatch] = useReducer(loginReducer, {loggedIn: false});
 
   return (
-    <LoginContext.Provider value={login}>
-      <LoginDispatchContext.Provider value={loginDispatch}>
-        <RouterProvider router={router} />
-      </LoginDispatchContext.Provider>
-    </LoginContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <LoginContext.Provider value={login}>
+        <LoginDispatchContext.Provider value={loginDispatch}>
+          <RouterProvider router={router} />
+        </LoginDispatchContext.Provider>
+      </LoginContext.Provider>
+    </QueryClientProvider>
   );
 }
 
