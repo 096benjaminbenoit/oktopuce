@@ -85,7 +85,7 @@ class InterventionType
     {
         if (!$this->interventions->contains($intervention)) {
             $this->interventions->add($intervention);
-            $intervention->addInventionType($this);
+            $intervention->addInterventionType($this);
         }
 
         return $this;
@@ -94,7 +94,7 @@ class InterventionType
     public function removeIntervention(Intervention $intervention): static
     {
         if ($this->interventions->removeElement($intervention)) {
-            $intervention->removeInventionType($this);
+            $intervention->removeInterventionType($this);
         }
 
         return $this;
