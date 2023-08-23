@@ -11,18 +11,73 @@ class BrandFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create('fr_FR');
+        $brand_names = [
+            "ADVANTIX",
+            "AERMEC",
+            "AIRTON",
+            "AIRWELL",
+            "ALDES",
+            "ALTECH",
+            "AMBITHERMEUR",
+            "ARISTON",
+            "ATLANTIC",
+            "AUX",
+            "BAXI",
+            "CAPR AIR",
+            "CARRERA",
+            "CARRIER",
+            "CASTORAMA",
+            "CIAT",
+            "CHAPPEE",
+            "DAIKIN",
+            "ELECTRA",
+            "FIRSTLINE",
+            "FUJITSU ATLANTIC",
+            "FUJITSU GENERAL",
+            "GENERAL",
+            "GENERAL ELECTRIC",
+            "GREE",
+            "HAIR",
+            "HEIWA",
+            "HITACHI",
+            "LG",
+            "MASTERCOOL",
+            "MIDEA",
+            "MITSUBISHI",
+            "MITSUBISHI HEAVY",
+            "MUTIGENE",
+            "NCP",
+            "OKKAIDO",
+            "PANASONIC",
+            "QLIMA",
+            "SAMSUNG",
+            "SANGHA",
+            "SANYO",
+            "SAUNIER DUVAL",
+            "SINUDYNE",
+            "TECHNIBEL",
+            "TECTRO",
+            "TOSHIBA",
+            "TRANE",
+            "UNICO",
+            "WESPER",
+            "WHIRLPOOL",
+            "WINCO",
+            "YOKOHAMA",
+            "ZENITH",
+            "ZENITH AIR",
+            "ZHENDRE",
+            "ZIBRO",
+        ];
 
-        for ($i = 0; $i < 10; $i++) {
-
+        foreach ($brand_names as $brand_name) {
             $brand = new Brand();
             $brand
-                ->setName($faker->firstName())
-                ->setSavNumber($faker->randomNumber())
-                ->setSavLink($faker->url());
+                ->setName($brand_name)
+                ;
 
             $manager->persist($brand);
-        $manager->flush();
+            $manager->flush();
+        }
     }
-}
 }
