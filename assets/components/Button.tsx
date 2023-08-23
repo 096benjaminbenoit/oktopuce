@@ -7,12 +7,12 @@ type ButtonProps = {
     children?: React.ReactNode;
     variant: string;
     className?: string;
-};
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button({children, variant, className = ""}: ButtonProps) {
+export default function Button({children, variant, className = "", ...rest}: ButtonProps) {
     return (
         // Autre façon d'écrire les variables : {"btn btn-" + variant + " " + className}
-        <button className={`btn btn-${variant} ${className}`}>{ children }</button>
+        <button {...rest} className={`btn btn-${variant} ${className}`}>{ children }</button>
     );
 }
 // "...rest" permet de copier les arguments d'un composant a un sous composant 

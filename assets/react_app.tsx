@@ -12,19 +12,27 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Home from './pages/Home';
 import Connexion from './pages/Connexion';
+import ClimpropreUI from './pages/ClimpropreUI';
+
 import ScanPage from './pages/ScanPage';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Error404 from './pages/Error404';
 // Create the router
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error404 />,
   },
   {
     path: "/login",
     element: <Connexion />,
   },
+  {
+    path: "/clim-propre",
+    element: <ClimpropreUI />,
+  }
 ])
 
 // Clear the existing HTML content
