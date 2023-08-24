@@ -40,13 +40,13 @@ const router = createBrowserRouter([
     element: <Connexion />,
   },
   {
-    path: "/clim-propre",
-    element: <ClimpropreUI />,
-  },
-  {
     path: "/scan",
     element: <ScanPage />,
   },
+  {
+    path: "/equipment/:nfcTag",
+    element: <ClimpropreUI />
+  }
 ]);
 
 // Clear the existing HTML content

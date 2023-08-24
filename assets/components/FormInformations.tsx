@@ -9,10 +9,10 @@ import Select from './Select';
 function FormInformations() {
   return (
     <>
-        <Select options={[{
+        {/* <Select options={[{
             label: "Bonjour",
             value: "bjr"
-        }]}/>        
+        }]}/>         */}
     </>
   );
 }
