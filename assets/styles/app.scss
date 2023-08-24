@@ -6,7 +6,7 @@
 @import "~bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here
-$primary: rgb(0, 154, 61);
+$primary: #009a3d;
 $secondary: rgb(0, 159, 143);
 $tertiary: rgb(0, 116, 49);
 $black: rgb(16, 24, 32);
@@ -119,4 +119,8 @@ $page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
 .btnInfosUser {
     display: flex;
     align-self: center;
+}
+
+.siteListContainer {
+    height: $page-with-navbar-size;
 }

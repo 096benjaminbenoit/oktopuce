@@ -1,9 +1,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import NavBar from '../components/NavBar';
 import Input from '../components/Input';
 import Select from '../components/Select';
-import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 
 type InfosUserForm = {
