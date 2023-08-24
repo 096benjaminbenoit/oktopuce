@@ -16,6 +16,7 @@ import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
 import Informations from './pages/Informations';
 import Site from './pages/Site';
+import Equipement from './pages/ChoixEquipement';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FormInformations from './components/FormInformations';
 // Create the router
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/site",
     element: <Site />,
+  },
+  {
+    path: "/choixEquipement",
+    element: <Equipement />,
   }
 ]);
 
