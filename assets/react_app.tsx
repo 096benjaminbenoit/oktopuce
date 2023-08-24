@@ -47,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/equipment/:nfcTag",
-    element: <ClimpropreUI />
+    element: <ClimpropreUI />,
   },
   {
     path: "/infos",

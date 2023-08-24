@@ -10,7 +10,7 @@ type SelectProps = {
   options: Option[]
   onChange?: (event: React.ChangeEvent) => void;
   defaultValue?: string,
-  value?: string,
+  value?: string
 } & UseFormRegisterReturn<string>;
 
 function Select({ options, ...selectProps }: SelectProps) {
