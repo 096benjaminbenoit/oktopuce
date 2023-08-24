@@ -19,7 +19,7 @@ $custom-colors: (
     "tertiary": $tertiary,
     "black": $black,
     "white": $white,
-    "black-dark": $dark-black
+    "black-dark": $dark-black,
 );
 
 // 3. Include remainder of required Bootstrap stylesheets
@@ -50,6 +50,9 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 // 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
 @import "~bootstrap/scss/utilities/api";
 
+.d-contents {
+    display: contents;
+}
 
 body {
     background-color: $black;
@@ -88,7 +91,7 @@ $page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
     height: $page-with-navbar-size;
     
     // TITRE ACCUEIL
-    homeTitle {
+    .homeTitle {
         color: $primary;
     }
 
@@ -106,4 +109,8 @@ $page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
 .error404 {
     height: $page-with-navbar-size;
     // font-family: 'Source Sans Bold', 'Times New Roman';
+}
+
+.page--with-navbar {
+    height: $page-with-navbar-size;
 }

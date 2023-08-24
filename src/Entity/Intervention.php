@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ApiResource]
@@ -29,6 +33,19 @@ class Intervention
 
     #[ORM\Column]
     private array $response = [];
+
+    #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
+    private Collection $interventionTypes;
+
+    
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('equipment')]
+    private ?\DateTimeInterface $interventionDate = null;
+
+    public function __construct()
+    {
+        $this->interventionTypes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -94,4 +111,42 @@ class Intervention
 
         return $this;
     }
+
+/**
+     * @return Collection<int, intervention>
+     */
+    public function getInterventionTypes(): Collection
+    {
+        return $this->interventionTypes;
+    }
+
+    public function addInterventionType(InterventionType $interventionType): static
+    {
+        if (!$this->interventionTypes->contains($interventionType)) {
+            $this->interventionTypes->add($interventionType);
+        }
+
+        return $this;
+    }
+
+    public function removeInterventionType(InterventionType $interventionType): static
+    {
+        $this->interventionTypes->removeElement($interventionType);
+
+        return $this;
+    }
+    public function getInterventionDate(): ?\DateTimeInterface
+    {
+        return $this->interventionDate;
+    }
+
+    public function setInterventionDate(\DateTimeInterface $interventionDate): static
+    {
+        $this->interventionDate = $interventionDate;
+
+        return $this;
+    }
+
+  
+
 }

@@ -23,12 +23,12 @@ type SiteForm = {
 
 function CreateSite() {
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-      } = useForm<SiteForm>()
+  const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm<SiteForm>()
 
   return (
     <>

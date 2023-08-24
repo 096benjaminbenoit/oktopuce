@@ -22,6 +22,12 @@
         "fork-ts-checker-webpack-plugin": "^7.3.0",
         "jest": "^29.6.2",
         "postcss-loader": "^7.3.3",
+        "prop-types": "^15.8.1",
+        "react": "^18.2.0",
+        "react-bootstrap": "^2.8.0",
+        "react-dom": "^18.2.0",
+        "react-hook-form": "^7.45.4",
+        "react-router-dom": "^6.14.2",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.64.2",
         "sass-loader": "^13.3.2",
@@ -29,13 +35,7 @@
         "typescript": "^5.1.6",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0",
-        "webpack-notifier": "^1.15.0",
-        "prop-types": "^15.8.1",
-        "react": "^18.2.0",
-        "react-bootstrap": "^2.8.0",
-        "react-dom": "^18.2.0",
-        "react-hook-form": "^7.45.4",
-        "react-router-dom": "^6.14.2"
+        "webpack-notifier": "^1.15.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -53,5 +53,8 @@
             "eslint:recommended",
             "plugin:react/recommended"
         ]
+    },
+    "dependencies": {
+        "@tanstack/react-query": "^4.33.0"
     }
 }
