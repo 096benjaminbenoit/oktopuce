@@ -10,11 +10,12 @@ type SelectProps = {
   options: Option[]
   onChange?: (event: React.ChangeEvent) => void;
   defaultValue?: string,
+  value?: string
 } & UseFormRegisterReturn<string>;
 
-function Select({ options, defaultValue, onChange, ...rest }: SelectProps) {
+function Select({ options, ...selectProps }: SelectProps) {
   return (
-    <Form.Select aria-label="Select" onChange={onChange} defaultValue={defaultValue} {...rest}>
+    <Form.Select aria-label="Select" {...selectProps}>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}
