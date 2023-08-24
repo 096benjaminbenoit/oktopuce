@@ -2,17 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\GasTypes;
+use App\Entity\GasType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 
-class GasTypesCrudController extends AbstractCrudController
+class GasTypeCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return GasTypes::class;
+        return GasType::class;
     }
 
     public function configureCrud(Crud $crud): Crud

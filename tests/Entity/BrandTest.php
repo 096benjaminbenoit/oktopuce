@@ -1,87 +1,85 @@
 <?php
+
 namespace App\Tests\Entity;
 
 use App\Entity\Brand;
 use App\Entity\Model;
-use App\Entity\NfcTag;
-use App\Entity\GasTypes;
-use App\Entity\Location;
-use App\Entity\Equipement;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Entity\Equipment;
+use PHPUnit\Framework\TestCase;
 
-class BrandTest extends KernelTestCase
+class BrandTest extends TestCase
 {
-    private $entityManager;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $kernel = self::bootKernel();
-        $this->entityManager = $kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    public function testCreateBrand()
+    public function testSetName()
     {
         $brand = new Brand();
-        $brand->setName('Example Brand');
-        $brand->setSavNumber('12345');
+        $name = "Example Brand";
+        $brand->setName($name);
 
-        // Créez une instance d'Equipement associée à cette Brand
-        $equipement = new Equipement();
-        $equipement->setInstallationDate(new \DateTimeImmutable());
-        $equipement->setSerialNumber('12345');
-        $equipement->setLocationDetail('Location Detail');
-        $equipement->setProductType('clim');
-        $equipement->setPlacementType('chambre');
-        $equipement->setRemoteNumber('telecommande 1234');
-        $equipement->setGasWeight(2,5);
-        $equipement->setLeakDetection(true);
-        $equipement->setNextLeakControl(new \DateTimeImmutable());
-        $equipement->setFinality(['radiateur','plancher chauffant']);
-        $equipement->setCapacity(35);
-        $equipement->setPicto('https://example.com/image.png');
-        $equipement->setNfc(new NfcTag);
-        $equipement->setLocation(new Location);
-        $equipement->setGas(new GasTypes);
+        $this->assertEquals($name, $brand->getName());
+    }
+    
 
-        $nfcTag = new NfcTag();
-        $nfcTag->setUid('example-uid'); // Set a sample UID
-        $equipement->setNfc($nfcTag);
+    public function testSetSavNumber()
+    {
+        $brand = new Brand();
+        $savNumber = "12345";
+        $brand->setSavNumber($savNumber);
 
-        $location = new Location();
-        $location->setName('Roger');
-        $equipement->setLocation($location);
-
-        $gas = new GasTypes();
-        $gas->setName('co2');
-        $gas->setEqCo2PerKg(234);
-        $equipement->setGas($gas);
-        // Set other properties...
-        $brand->addEquipement($equipement);
-
-        // Créez une instance de Model associée à cette Brand
-        $model = new Model();
-        $model->setName('Example Model');
-        // Set other properties...
-        $brand->addModel($model);
-
-        $this->entityManager->persist($equipement);
-        $this->entityManager->persist($model);
-        $this->entityManager->persist($brand);
-        $this->entityManager->persist($equipement);
-        $this->entityManager->persist($nfcTag);
-        $this->entityManager->persist($location);
-        $this->entityManager->persist($gas);
-        $this->entityManager->flush();
-
-        $this->assertNotNull($brand->getId());
+        $this->assertEquals($savNumber, $brand->getSavNumber());
     }
 
-    protected function tearDown(): void
+    public function testSetSavLink()
     {
-        parent::tearDown();
+        $brand = new Brand();
+        $savLink = "https://example.com";
+        $brand->setSavLink($savLink);
 
-        // Nettoyez les éventuelles ressources après chaque test si nécessaire
+        $this->assertEquals($savLink, $brand->getSavLink());
+    }
+
+    public function testAddModel()
+    {
+        $brand = new Brand();
+        $model = new Model();
+
+        $brand->addModel($model);
+
+        $this->assertTrue($brand->getModels()->contains($model));
+        $this->assertSame($brand, $model->getBrand());
+    }
+
+    public function testRemoveModel()
+    {
+        $brand = new Brand();
+        $model = new Model();
+
+        $brand->addModel($model);
+        $brand->removeModel($model);
+
+        $this->assertFalse($brand->getModels()->contains($model));
+        $this->assertNull($model->getBrand());
+    }
+
+    public function testAddEquipment()
+    {
+        $brand = new Brand();
+        $equipment = new Equipment();
+
+        $brand->addEquipment($equipment);
+
+        $this->assertTrue($brand->getEquipment()->contains($equipment));
+        $this->assertSame($brand, $equipment->getBrand());
+    }
+
+    public function testRemoveEquipment()
+    {
+        $brand = new Brand();
+        $equipment = new Equipment();
+
+        $brand->addEquipment($equipment);
+        $brand->removeEquipment($equipment);
+
+        $this->assertFalse($brand->getEquipment()->contains($equipment));
+        $this->assertNull($equipment->getBrand());
     }
 }
