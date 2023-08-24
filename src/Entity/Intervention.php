@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ApiResource]
@@ -36,7 +37,9 @@ class Intervention
     #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
     private Collection $interventionTypes;
 
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('equipment')]
     private ?\DateTimeInterface $interventionDate = null;
 
     public function __construct()

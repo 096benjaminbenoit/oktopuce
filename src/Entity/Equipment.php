@@ -4,14 +4,17 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\EquipmentRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 #[ApiResource(normalizationContext: ['groups' => ['equipment']])]
+#[ApiFilter(SearchFilter::class, properties: ['nfcTag.uid' => 'exact'])]
 class Equipment
 {
     #[ORM\Id]
@@ -36,7 +39,7 @@ class Equipment
     #[Groups('equipment')]
     private Collection $equipment;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'equipment', cascade: ['persist', 'remove'])]
     #[Groups('equipment')]
     private ?NfcTag $nfcTag = null;
 

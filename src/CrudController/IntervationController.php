@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\CrudController;
 
 use App\Entity\Intervention;
 use App\Form\InterventionType;
