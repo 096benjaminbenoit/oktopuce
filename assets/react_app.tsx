@@ -25,8 +25,10 @@ import Connexion from './pages/Connexion';
 import ClimpropreUI from './pages/ClimpropreUI';
 import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
-import Informations from './pages/Informations';
-import FormInformations from './components/FormInformations';
+import InfosUser from './pages/InfosUser';
+import Site from './pages/Site';
+
+
 // Create the router
 
 const router = createBrowserRouter([
@@ -46,6 +48,18 @@ const router = createBrowserRouter([
   {
     path: "/equipment/:nfcTag",
     element: <ClimpropreUI />
+  },
+  {
+    path: "/infos",
+    element: <InfosUser />,
+  },
+  {
+    path: "/site",
+    element: <Site />,
+  },
+  {
+    path: "/error404",
+    element: <Error404 />,
   }
 ]);
 

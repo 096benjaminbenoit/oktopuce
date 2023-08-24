@@ -32,9 +32,10 @@ export default function Informations() {
   return (<>
       <NavBar></NavBar>
 
+      <h1>Nouveau Profil</h1>
       <Form.Group className="mb-3">
           <Form.Label>Langue</Form.Label>
-            <Select value="Langue" options={[{value: 'Français', label: 'Français'}]}></Select>
+            <Select value="Type" options={[{value: 'Français', label: 'Français'}]}></Select>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Type</Form.Label>
