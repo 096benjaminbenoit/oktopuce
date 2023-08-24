@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Input from '../components/Input';
 import Select from '../components/Select';
 import { useForm } from 'react-hook-form';
+import Button from '../components/Button';
 
 type InfosUserForm = {
   firstName: string;
