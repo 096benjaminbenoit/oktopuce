@@ -7,17 +7,13 @@ type ButtonProps = {
     className?: string;
     type?: "button" | "submit" | "reset" | undefined; 
     onClick?: (event: React.MouseEvent) => void;
-    // path?: string; 
-};
+    path?: string; 
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button({children, variant, className = "", type = "button", onClick}: ButtonProps) {
-    // if (path) {
-    //     return <Link style={{display: "contents"}} to={path}><button className={`btn btn-${variant} ${className}`}>{ children }</button></Link>;
-    // }
-
+export default function Button({children, variant, className = "", type = "button", ...rest}: ButtonProps) {
     return (
         // Autre façon d'écrire les variables : {"btn btn-" + variant + " " + className}
-        <button type={type} className={`btn btn-${variant} ${className}`} onClick={onClick}>{ children }</button>
+        <button className={`btn btn-${variant} ${className}`} type={type} {...rest} >{ children }</button>
     );
 }
 // "...rest" permet de copier les arguments d'un composant a un sous composant 

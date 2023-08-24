@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\CrudController;
 
 use App\Entity\Equipment;
 use App\Form\EquipmentType;
