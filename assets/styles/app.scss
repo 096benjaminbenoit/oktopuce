@@ -19,7 +19,7 @@ $custom-colors: (
     "tertiary": $tertiary,
     "black": $black,
     "white": $white,
-    "black-dark": $dark-black
+    "black-dark": $dark-black,
 );
 
 // 3. Include remainder of required Bootstrap stylesheets
@@ -91,7 +91,7 @@ $page-with-navbar-size: calc(100vh - $navbar-logo-size - (0.5rem * 4));
     height: $page-with-navbar-size;
     
     // TITRE ACCUEIL
-    homeTitle {
+    .homeTitle {
         color: $primary;
     }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 type Option = {
   label: string,
@@ -10,7 +11,7 @@ type SelectProps = {
   onChange?: (event: React.ChangeEvent) => void;
   defaultValue?: string,
   value?: string
-}
+} & UseFormRegisterReturn<string>;
 
 function Select({ options, ...selectProps }: SelectProps) {
   return (

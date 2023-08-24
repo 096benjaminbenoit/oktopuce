@@ -22,6 +22,7 @@ import {
 
 import Home from './pages/Home';
 import Connexion from './pages/Connexion';
+import ClimpropreUI from './pages/ClimpropreUI';
 import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
 import InfosUser from './pages/InfosUser';
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/scan",
     element: <ScanPage />,
+  },
+  {
+    path: "/equipment/:nfcTag",
+    element: <ClimpropreUI />,
   },
   {
     path: "/infos",
@@ -71,7 +76,7 @@ const queryClient = new QueryClient()
 
 
 function App() {
-  const [login, loginDispatch] = useReducer(loginReducer, {loggedIn: false});
+  const [login, loginDispatch] = useReducer(loginReducer, { loggedIn: false });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -94,7 +99,7 @@ function loginReducer(login, action) {
       };
     }
     case 'logout': {
-      return {loggedIn: false};
+      return { loggedIn: false };
     }
     default: {
       throw Error('Unknown action: ' + action.type);
