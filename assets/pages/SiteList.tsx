@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
-import FormInformations from '../components/FormInformations';
 
 type InfosUserForm = {
   name: string;
@@ -18,7 +17,7 @@ type InfosUserForm = {
   }
 }
 
-export default function Informations() {
+export default function SiteList() {
 
   const {
     register,
@@ -30,14 +29,17 @@ export default function Informations() {
   return (<>
     <NavBar></NavBar>
 
-    <section className='infosUser d-flex flex-column'>
-      <h1 className='titleInfosUser m-2'>Nouveau Profil</h1>
+    <section className='siteListContainer d-flex flex-column justify-content-around'>
+      
+      <h1 className='titleInfosUser text-uppercase m-2'>Sites enregistrés</h1>
+      
+      <ul className="siteList m-5">
+        <li className='site site1'>Maison Perso</li> 
+        <li className='site site2'>Bureau</li>
+      </ul>
 
-    <div className='formInfosContainer m-3'>
-      <FormInformations/>
-    </div>
 
-      <Button.Link path='/infos' className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button.Link>
+      <Button.Link path='/site' className='text-uppercase btnInfosUser m-5' variant="primary"> Ajouter un site </Button.Link>
     </section>
     </>
   );
