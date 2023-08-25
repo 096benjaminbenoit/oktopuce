@@ -43,7 +43,7 @@ function CreateSite() {
         <h2>Prestataire de maintenance</h2>
       <Form.Group className="mb-3">
           <Form.Label>Prestataire Maintenance</Form.Label>
-          <Select
+          <Select {...register("prestataire")}
             options={[
               { label: 'Oui', value: 'oui' },
               { label: 'Non', value: 'non' }
