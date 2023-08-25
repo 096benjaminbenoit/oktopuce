@@ -28,6 +28,7 @@ import Error404 from './pages/Error404';
 import InfosUser from './pages/InfosUser';
 import Site from './pages/Site';
 import Equipement from './pages/ChoixEquipement';
+import SiteList from './pages/SiteList';
 
 
 // Create the router
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: "/error404",
     element: <Error404 />,
+  },
+  {
+    path: "/siteslist",
+    element: <SiteList />,
   }
 ]);
 
