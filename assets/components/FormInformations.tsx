@@ -32,14 +32,16 @@ export default function Informations() {
   } = useForm<InfosUserForm>()
 
   return (<>
-    <Form.Group className="mb-3">
-      <Form.Label>Langue</Form.Label>
-          <Select {...register("language")} value="Langue" options={[{value: 'Français', label: 'Français'}]}></Select>
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Type</Form.Label>
-          <Select {...register("type")} value="Type" options={[{value: 'Particulier', label: 'Particulier'}, {value: 'Professionnel', label: 'Professionnel'}]}></Select>
-      </Form.Group>
+  <Form.Group className="mb-3">
+    <Form.Label>Langue</Form.Label>
+    <Select {...register("language")} value="Langue" options={[{value: 'Français', label: 'Français'}]}></Select>
+  </Form.Group>
+
+  <Form.Group className="mb-3">
+    <Form.Label>Type</Form.Label>
+    <Select {...register("type")} value="Type" options={[{value: 'Particulier', label: 'Particulier'}, {value: 'Professionnel', label: 'Professionnel'}]}></Select>
+  </Form.Group>
+  
       <Input {...register("firstName")} label="Nom" name=""></Input>
       <Input {...register("lastName")} label="Prénom" name=""></Input>
       <Input {...register("address")} label="N° et nom de la rue" name=""></Input>

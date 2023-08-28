@@ -28,6 +28,7 @@ import Error404 from './pages/Error404';
 import InfosUser from './pages/InfosUser';
 import Site from './pages/Site';
 import SiteList from './pages/SiteList';
+import CreateInterEtape1 from './pages/CreateInter_1';
 
 
 // Create the router
@@ -65,7 +66,11 @@ const router = createBrowserRouter([
   {
     path: "/siteslist",
     element: <SiteList />,
-  }
+  },
+  {
+    path: "/createInter1",
+    element: <CreateInterEtape1/>,
+  },
 ]);
 
 // Clear the existing HTML content
