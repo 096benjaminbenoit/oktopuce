@@ -28,6 +28,7 @@ import Error404 from './pages/Error404';
 import InfosUser from './pages/InfosUser';
 import Site from './pages/Site';
 import SiteList from './pages/SiteList';
+import ProductInfo from './pages/ProductInfo'
 
 
 // Create the router
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/equipment/:nfcTag",
     element: <ClimpropreUI />,
+  },
+  {
+    path: "/clim-info",
+    element: <ProductInfo/>,
   },
   {
     path: "/infos",
