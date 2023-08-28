@@ -28,6 +28,7 @@ import Error404 from './pages/Error404';
 import InfosUser from './pages/InfosUser';
 import Site from './pages/Site';
 import SiteList from './pages/SiteList';
+import ProfilChoice from "./pages/ProfilChoice";
 
 
 // Create the router
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: "/siteslist",
     element: <SiteList />,
+  },
+  {
+    path: "/profilchoice",
+    element: <ProfilChoice />
   }
 ]);
 
