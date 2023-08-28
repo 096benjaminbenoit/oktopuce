@@ -23,9 +23,13 @@ class EquipmentType
     #[ORM\OneToMany(mappedBy: 'equipmentType', targetEntity: Equipment::class)]
     private Collection $equipment;
 
+    #[ORM\ManyToMany(targetEntity: InterventionType::class, mappedBy: 'equipmentTypes')]
+    private Collection $interventionTypes;
+
     public function __construct()
     {
         $this->equipment = new ArrayCollection();
+        $this->interventionTypes = new ArrayCollection();
     }
 
     public function __toString()
@@ -75,6 +79,33 @@ class EquipmentType
             if ($equipment->getEquipmentType() === $this) {
                 $equipment->setEquipmentType(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InterventionType>
+     */
+    public function getInterventionTypes(): Collection
+    {
+        return $this->interventionTypes;
+    }
+
+    public function addInterventionType(InterventionType $interventionType): static
+    {
+        if (!$this->interventionTypes->contains($interventionType)) {
+            $this->interventionTypes->add($interventionType);
+            $interventionType->addEquipmentType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInterventionType(InterventionType $interventionType): static
+    {
+        if ($this->interventionTypes->removeElement($interventionType)) {
+            $interventionType->removeEquipmentType($this);
         }
 
         return $this;

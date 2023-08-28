@@ -12,12 +12,9 @@ class InterventionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('technicien')
-            ->add('entreprise')
+            
             ->add('type')
-            ->add('interventionDate')
-            ->add('equipment')
-            ->add('person')
+            ->add('questionType')
         ;
     }
 

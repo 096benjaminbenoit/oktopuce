@@ -20,11 +20,14 @@ class InterventionType
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: InterventionQuestion::class, inversedBy: 'interventionType')]
-    private Collection $interventionQuestion;
-
     #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'interventionTypes')]
     private Collection $interventions;
+
+    #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: InterventionQuestion::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $questions;
+
+    #[ORM\ManyToMany(targetEntity: EquipmentType::class, inversedBy: 'interventionTypes')]
+    private Collection $equipmentTypes;
 
     public function __toString()
     {
@@ -33,8 +36,9 @@ class InterventionType
 
     public function __construct()
     {
-        $this->interventionQuestion = new ArrayCollection();
         $this->interventions = new ArrayCollection();
+        $this->questions = new ArrayCollection();
+        $this->equipmentTypes = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -49,30 +53,6 @@ class InterventionType
     public function setType(string $type): static
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, InterventionQuestion>
-     */
-    public function getInterventionQuestion(): Collection
-    {
-        return $this->interventionQuestion;
-    }
-
-    public function addInterventionQuestion(InterventionQuestion $interventionQuestion): static
-    {
-        if (!$this->interventionQuestion->contains($interventionQuestion)) {
-            $this->interventionQuestion->add($interventionQuestion);
-        }
-
-        return $this;
-    }
-
-    public function removeInterventionQuestion(InterventionQuestion $interventionQuestion): static
-    {
-        $this->interventionQuestion->removeElement($interventionQuestion);
 
         return $this;
     }
@@ -100,6 +80,60 @@ class InterventionType
         if ($this->interventions->removeElement($intervention)) {
             $intervention->removeInterventionType($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InterventionQuestion>
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(InterventionQuestion $question): static
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions->add($question);
+            $question->setInterventionType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(InterventionQuestion $question): static
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getInterventionType() === $this) {
+                $question->setInterventionType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EquipmentType>
+     */
+    public function getEquipmentTypes(): Collection
+    {
+        return $this->equipmentTypes;
+    }
+
+    public function addEquipmentType(EquipmentType $equipmentType): static
+    {
+        if (!$this->equipmentTypes->contains($equipmentType)) {
+            $this->equipmentTypes->add($equipmentType);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipmentType(EquipmentType $equipmentType): static
+    {
+        $this->equipmentTypes->removeElement($equipmentType);
 
         return $this;
     }
