@@ -11,7 +11,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 function ClimInfo() {
   return (
-
+    
     <Form className="d-contents">
         <img
         src="https://www.medicis-patrimoine.com/media/cache/post_show/uploads/post/climatisation-peut-on-l-installer-sans-rien-demander.jpg"
