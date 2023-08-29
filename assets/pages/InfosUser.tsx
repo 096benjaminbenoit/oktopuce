@@ -3,6 +3,9 @@ import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import FormInformations from '../components/FormInformations';
+import { Form } from 'react-bootstrap';
+import Input from '../components/Input';
+import Select from '../components/Select';
 
 type InfosUserForm = {
   name: string;
@@ -29,7 +32,6 @@ export default function Informations() {
   } = useForm<InfosUserForm>()
 
   return (<>
-    <NavBar></NavBar>
     <NavBar></NavBar>
 
     <h1>Nouveau Profil</h1>
