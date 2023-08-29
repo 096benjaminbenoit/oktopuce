@@ -17,15 +17,28 @@ class InterventionQuestion
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?InterventionType $interventionType = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $question = null;
+
+
+    #[ORM\Column(length: 255)]
+    private ?string $questionType = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $choices = null;
+
     #[ORM\Column]
-    private ?array $question = [];
+    private ?bool $required = null;
 
-    #[ORM\ManyToMany(targetEntity: InterventionType::class, mappedBy: 'interventionQuestion')]
-    private Collection $interventionTypes;
 
-    public function __construct()
+
+    public function __toString()
     {
-        $this->interventionTypes = new ArrayCollection();
+        return $this->question;
     }
 
     public function getId(): ?int
@@ -33,41 +46,69 @@ class InterventionQuestion
         return $this->id;
     }
 
-    public function getQuestion(): ?array
+    public function getInterventionType(): ?InterventionType
+    {
+        return $this->interventionType;
+    }
+
+    public function setInterventionType(?InterventionType $interventionType): static
+    {
+        $this->interventionType = $interventionType;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?string
     {
         return $this->question;
     }
 
-    public function setQuestion(array $question): static
+    public function setQuestion(string $question): static
     {
         $this->question = $question;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, InterventionType>
-     */
-    public function getInterventionTypes(): Collection
+
+
+    // ajouter type de question
+
+    public function getQuestionType(): ?string
     {
-        return $this->interventionTypes;
+        return $this->questionType;
     }
 
-    public function addInterventionType(InterventionType $interventionType): static
+    public function setQuestionType(string $questionType): static
     {
-        if (!$this->interventionTypes->contains($interventionType)) {
-            $this->interventionTypes->add($interventionType);
-            $interventionType->addInterventionQuestion($this);
-        }
+        $this->questionType = $questionType;
+
+        return $this;
+    }
+    // ajouter ajouter le type de réponse (choix mutliple ou pas)
+
+    public function getChoices(): ?array
+    {
+        return $this->choices;
+    }
+
+    public function setChoices(?array $choices): static
+    {
+        $this->choices = $choices;
 
         return $this;
     }
 
-    public function removeInterventionType(InterventionType $interventionType): static
+
+    //question obligatoire ou pas 
+    public function isRequired(): ?bool
     {
-        if ($this->interventionTypes->removeElement($interventionType)) {
-            $interventionType->removeInterventionQuestion($this);
-        }
+        return $this->required;
+    }
+
+    public function setRequired(bool $required): static
+    {
+        $this->required = $required;
 
         return $this;
     }

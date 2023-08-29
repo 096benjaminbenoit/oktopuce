@@ -15,6 +15,7 @@ use App\Entity\Location;
 use App\Entity\Equipment;
 use App\Entity\Intervention;
 use App\Entity\EquipmentType;
+use App\Entity\InterventionQuestion;
 use App\Entity\InterventionType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,6 +55,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les sites', 'fas fa-building', Site::class);
         yield MenuItem::linkToCrud('Les techniciens', 'fas fa-helmet-safety', User::class);
         yield MenuItem::linkToCrud("Types d'équipements", 'fa-solid fa-toilets-portable', EquipmentType::class);
-
+        yield MenuItem::linkToCrud("Interventions question", 'fa-solid fa-clipboard-question', InterventionQuestion::class);
     }
 }
