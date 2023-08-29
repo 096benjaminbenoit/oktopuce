@@ -29,6 +29,7 @@ import InfosUser from './pages/InfosUser';
 import Site from './pages/Site';
 import Equipement from './pages/ChoixEquipement';
 import SiteList from './pages/SiteList';
+import EquipementList from './pages/EquipementList';
 
 
 // Create the router
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: "/siteslist",
     element: <SiteList />,
+  },
+  {
+    path: "/equipementlist",
+    element: <EquipementList />,
   }
 ]);
 
