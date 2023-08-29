@@ -14,7 +14,7 @@ export default function CreateInterEtape1() {
         <FormCreateInter/>
       </div>
 
-      <Button.Link path='/infos' className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button.Link>
+      <Button.Link path='/' className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button.Link>
     </section>
   </>
   );
