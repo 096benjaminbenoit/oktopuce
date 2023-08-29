@@ -12,18 +12,21 @@ class GasTypeFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        $faker = Factory::create();
+        $gas_types = [
+            ["R-134A", 1430],
+            ["R-22",   1810],
+            ["R-407C", 1800],
+            ["R-410A", 2100],
+            ["R-32",    675],
+        ];
 
-        for ($i = 0 ; $i < 8 ;$i++)
+        foreach ($gas_types as [$name, $co2perkg])
         {
             $GasType = new GasType();
-            $GasType->setName($faker->firstName);
-            $GasType->setEqCo2PerKg($faker->randomDigit);
-            $manager->persist($GasType);
+            $GasType->setName($name);
+            $GasType->setEqCo2PerKg($co2perkg);
 
-             
+            $manager->persist($GasType); 
         }
         $manager->flush();
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\Entity;
 
 use App\Entity\Brand;
@@ -74,5 +75,6 @@ class LocationTest extends KernelTestCase
         parent::tearDown();
 
         // Nettoyez les éventuelles ressources après chaque test si nécessaire
+
     }
 }
