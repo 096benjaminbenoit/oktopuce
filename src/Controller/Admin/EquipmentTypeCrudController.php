@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\EquipmentType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -25,9 +26,7 @@ class EquipmentTypeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('type')->setLabel("Nom du type d'équipement"),
-            
-            
+            TextField::new('type')->setLabel("Nom du type d'équipement"),            
         ];
     }
 }
