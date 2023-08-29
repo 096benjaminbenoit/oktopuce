@@ -114,28 +114,6 @@ function Equipement() {
                                     }
                                 />
                             </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>A quel endroit ?</Form.Label>
-                                <Select {...register("unity")}
-                                    options={[
-                                        { label: 'Unité intérieure', value: 'unite interieur' },
-                                        { label: 'Unité extérieur', value: 'unite exterieur' },
-                                    ]}
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Type d'unité ?</Form.Label>
-                                <Select {...register("unityType")}
-                                    options={[
-                                        { label: 'Cassette', value: 'cassette' },
-                                        { label: 'Console', value: 'console' },
-                                        { label: 'Gainable', value: 'gainable' },
-                                        { label: 'Monobloc', value: 'monobloc' },
-                                        { label: 'Mural', value: 'mural' },
-                                        { label: 'Plafonnier', value: 'plafonnier' },
-                                    ]}
-                                />
-                            </Form.Group>
 
                             <div className="container text-center mt-3">
                                 <Button.Link path='/' className='text-uppercase btnHome mb-3' variant="primary">Valider</Button.Link>
