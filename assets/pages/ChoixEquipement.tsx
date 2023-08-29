@@ -107,7 +107,7 @@ function Equipement() {
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Sur quel site est installé la puce ?</Form.Label>
+                                <Form.Label>Sur quel type est installé la puce ?</Form.Label>
                                 <Select {...register("equipement")}
                                     options={
                                         equipment_types.map(equipment_type => ({ label: equipment_type.type, value: equipment_type['@id'] }))
