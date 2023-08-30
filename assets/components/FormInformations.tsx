@@ -47,8 +47,6 @@ export default function Informations() {
       <Input {...register("city")} label="Ville" name=""></Input>
       <Input {...register("phoneNumber")} label="Téléphone" name=""></Input>
       <Input {...register("email")} label="Email" name=""></Input>
-        
-      <Button.Link path='/' className='text-uppercase btnHome mb-3' variant="primary">Valider</Button.Link>
     </>
   );
 }
