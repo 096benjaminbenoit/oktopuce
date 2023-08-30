@@ -1,10 +1,8 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import Button from '../components/Button';
-import { Form, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Select from '../components/Select';
 import { Spinner } from 'react-bootstrap';
 
 type Equipment = {
