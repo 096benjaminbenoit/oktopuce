@@ -30,6 +30,7 @@ import Site from './pages/Site';
 import Equipement from './pages/ChoixEquipement';
 import SiteList from './pages/SiteList';
 import CreateInterEtape1 from './pages/CreateInter_1';
+import EquipementList from './pages/EquipementList';
 
 
 // Create the router
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
     element: <Site />,
   },
   {
-    path: "/choixEquipement",
+    path: "/choixequipement",
     element: <Equipement />,
   },
   {
@@ -69,12 +70,16 @@ const router = createBrowserRouter([
     element: <Error404 />,
   },
   {
-    path: "/siteslist",
+    path: "/sitelist",
     element: <SiteList />,
   },
   {
     path: "/createInter1",
     element: <CreateInterEtape1/>,
+  },
+  {
+    path: "/equipementlist",
+    element: <EquipementList />,
   },
 ]);
 
