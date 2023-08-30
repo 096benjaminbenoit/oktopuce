@@ -33,9 +33,9 @@ export default function Informations() {
     <section className='infosUser d-flex flex-column'>
       <h1 className='titleInfosUser m-2'>Nouveau Profil</h1>
 
-    <div className='formInfosContainer m-3'>
-      <FormInformations/>
-    </div>
+      <div className='formInfosContainer m-3'>
+        <FormInformations/>
+      </div>
 
       <Button.Link path='/infos' className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button.Link>
     </section>
