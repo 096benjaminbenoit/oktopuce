@@ -42,12 +42,14 @@ export default function SiteList() {
       <h1 className='titleInfosUser text-uppercase m-2'>Sites enregistrés</h1>
       
       <div className="container mt-4">
-        <div className="card mx-auto" style={{ maxWidth: "500px" }}>
-          <div className="card-body">
+        <div className="card m-auto " style={{ maxWidth: "500px" }}>
+          <div className="card-body p-5">
             {sites.map(site => (
               <div key={site['@id']} className="site-item">
                 <ul>
-                  <li>{site.name}</li>
+                  <li>
+                  <Link to={'/equipementlist'}>{site.name}</Link>
+                  </li>
                 </ul>
               </div>
             ))}
