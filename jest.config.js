@@ -1,1 +1,4 @@
-export default {}
+/** @type {import('jest').Config} */
+export default {
+    testPathIgnorePatterns: ["/node_modules/", "/vendor/"]
+}

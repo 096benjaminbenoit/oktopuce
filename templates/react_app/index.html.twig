@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IndexController!{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('react_app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('react_app') }}
+{% endblock %}
+
+{% block html_attr %}data-bs-theme="dark"{% endblock %}
+
+{% block body %}
+<noscript>
+    Veuillez activer le javascript
+</noscript>
+
+{% endblock %}

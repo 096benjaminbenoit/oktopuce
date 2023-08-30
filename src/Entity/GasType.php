@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\GasTypeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GasTypeRepository::class)]
 #[ApiResource]
@@ -18,6 +19,7 @@ class GasType
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('equipment')]
     private ?string $name = null;
 
     #[ORM\Column]
