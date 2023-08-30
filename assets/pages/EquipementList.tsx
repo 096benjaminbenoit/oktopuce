@@ -65,13 +65,6 @@ function EquipmentList() {
     queryFn: () => fetch('/api/equipment.jsonld').then(res => res.json()),
   });
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Equipment>();
-
   if (isEquipmentLoading) {
     return <Spinner />;
   }

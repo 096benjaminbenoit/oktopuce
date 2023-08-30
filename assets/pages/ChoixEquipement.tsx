@@ -70,13 +70,6 @@ function Equipement() {
             ),
     });
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<EquipementForm>();
-
     if (isClientLoading || isEquipmentTypeLoading) {
         return <Spinner />
     }
@@ -107,11 +100,33 @@ function Equipement() {
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Sur quel type est installé la puce ?</Form.Label>
+                                <Form.Label>Sur quel site est installé la puce ?</Form.Label>
                                 <Select {...register("equipement")}
                                     options={
                                         equipment_types.map(equipment_type => ({ label: equipment_type.type, value: equipment_type['@id'] }))
                                     }
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>A quel endroit ?</Form.Label>
+                                <Select {...register("unity")}
+                                    options={[
+                                        { label: 'Unité intérieure', value: 'unite interieur' },
+                                        { label: 'Unité extérieur', value: 'unite exterieur' },
+                                    ]}
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Type d'unité ?</Form.Label>
+                                <Select {...register("unityType")}
+                                    options={[
+                                        { label: 'Cassette', value: 'cassette' },
+                                        { label: 'Console', value: 'console' },
+                                        { label: 'Gainable', value: 'gainable' },
+                                        { label: 'Monobloc', value: 'monobloc' },
+                                        { label: 'Mural', value: 'mural' },
+                                        { label: 'Plafonnier', value: 'plafonnier' },
+                                    ]}
                                 />
                             </Form.Group>
 
