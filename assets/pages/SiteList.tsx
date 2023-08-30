@@ -8,22 +8,24 @@ import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 type Site = {
-  siteType: any;
-  "id": number,
-  "address": string,
-  "city": string,
-  "postCode": string,
-  "name": string,
-  "client": string,
-  "contacts": [
-    string,
-  ]
+    "@context": string,
+    "@id": string,
+    "@type": string,
+    "id": 0,
+    "address": string,
+    "city": string,
+    "postCode": string,
+    "name": string,
+    "client": string,
+    "contacts": [
+      string
+    ]
 }
 
 export default function SiteList() {
   const { isLoading: isSiteLoading, error: siteError, data: site } = useQuery({
-    queryKey: ['site'],
-    queryFn: () => fetch('/api/site.jsonld').then(res => res.json()),
+    queryKey: ['sites'],
+    queryFn: () => fetch('/api/sites.jsonld').then(res => res.json()),
   });
 
   if (isSiteLoading) {
@@ -44,22 +46,17 @@ export default function SiteList() {
           <div className="card-body">
             {sites.map(site => (
               <div key={site['@id']} className="site-item">
-                <p>{site.siteType.type}</p>
+                <ul>
+                  <li>{site.name}</li>
+                </ul>
               </div>
             ))}
-            <div className="container text-center mt-3">
-              <Button.Link path='/site' className='text-uppercase btnInfosUser m-5' variant="primary"> Ajouter un site </Button.Link>
-            </div>
             <Link to={''}></Link>
           </div>
         </div>
       </div>
+      <Button.Link path='/site' className='text-uppercase btnInfosUser m-5' variant="primary"> Ajouter un site </Button.Link>
       
-      {/* <ul className="siteList m-5">
-        <li className='site site1'>Maison Perso</li> 
-        <li className='site site2'>Bureau</li>
-      </ul> */}
-      {/* <Button.Link path='/site' className='text-uppercase btnInfosUser m-5' variant="primary"> Ajouter un site </Button.Link> */}
     </section>
     </>
   );

@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     element: <Error404 />,
   },
   {
-    path: "/siteslist",
+    path: "/sitelist",
     element: <SiteList />,
   },
   {
