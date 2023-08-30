@@ -3,20 +3,9 @@ import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
-import Site from './Site';
 import { Spinner } from 'react-bootstrap';
 
-type Site = {
-  "id": number,
-  "address": string,
-  "city": string,
-  "postCode": string,
-  "name": string,
-  "client": string,
-  "contacts": [
-    string,
-  ]
-}
+import type { Site } from '../api/type';
 
 export default function SiteList() {
   const { isLoading: isSiteLoading, error: siteError, data: site } = useQuery({

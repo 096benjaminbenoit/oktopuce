@@ -5,57 +5,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner } from 'react-bootstrap';
 
-type Equipment = {
-  "@context": string,
-  "@id": string,
-  "@type": string,
-  "id": number,
-  "installationDate": "2023-08-29T12:52:33.579Z",
-  "serialNumber": string,
-  "parent": string,
-  "equipment": [
-    string
-  ],
-  "nfcTag": {
-    "@context": string,
-    "@id": string,
-    "@type": string,
-    "equipment": string
-  },
-  "brand": string,
-  "location": string,
-  "locationDetail": string,
-  "equipmentType": {
-    "@context": "string",
-    "@id": "string",
-    "@type": "string",
-    "type": "string"
-  },  "placement": string,
-  "remoteNumber": string,
-  "gas": {
-    "@context": string,
-    "@id": string,
-    "@type": string,
-    "name": string
-  },
-  "gasWeight": number,
-  "hasLeakDetection": true,
-  "lastLeakDetection": "2023-08-29T12:52:33.580Z",
-  "nextLeakDetection": "2023-08-29T12:52:33.580Z",
-  "finality": [
-    string
-  ],
-  "capacity": number,
-  "picto": string,
-  "interventions": [
-    {
-      "@context": string,
-      "@id": string,
-      "@type": string,
-      "interventionDate": "2023-08-29T12:52:33.580Z"
-    }
-  ]
-}
+import type { Equipment } from '../api/type';
 
 function EquipmentList() {
   const { isLoading: isEquipmentLoading, error: equipmentError, data: equipment } = useQuery({

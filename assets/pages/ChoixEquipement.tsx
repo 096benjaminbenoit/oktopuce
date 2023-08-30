@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import NavBar from '../components/NavBar';
-import Input from '../components/Input';
 import { Link, useParams } from "react-router-dom";
 import Select from '../components/Select';
 import Button from '../components/Button';
@@ -9,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from 'react-bootstrap';
 
+import type { Client, EquipementType } from '../api/type';
 
 type EquipementForm = {
     name: string;
@@ -28,28 +28,7 @@ type EquipementForm = {
     }
 }
 
-interface Client {
-    "@id": string;
-    "@type": "Client";
-    id: number;
-    address: string;
-    postCode: string;
-    city: string;
-    phone: string;
-    email: string;
-    sites: any[];
-}
 
-interface EquipementType {
-    "@context": "string",
-    "@id": "string",
-    "@type": "string",
-    id: 0;
-    type: string;
-    equipment: [
-        string
-    ]
-}
 
 
 function Equipement() {
