@@ -4,12 +4,12 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionQuestionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionQuestionRepository::class)]
 #[ApiResource]
+
 class InterventionQuestion
 {
     #[ORM\Id]
@@ -22,16 +22,19 @@ class InterventionQuestion
     private ?InterventionType $interventionType = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['interventionType'])]
     private ?string $question = null;
 
-
     #[ORM\Column(length: 255)]
+    #[Groups(['interventionType'])]
     private ?string $questionType = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['interventionType'])]
     private ?array $choices = null;
 
     #[ORM\Column]
+    #[Groups(['interventionType'])]
     private ?bool $required = null;
 
 

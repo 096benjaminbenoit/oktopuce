@@ -7,7 +7,7 @@ type CheckboxProps = {
   name?: string,
   value?: string,
   label: string,
-} & UseFormRegisterReturn<"">;
+} & UseFormRegisterReturn<string>;
 
 
 function Checkbox({ ...rest }: CheckboxProps) {
