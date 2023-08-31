@@ -7,9 +7,10 @@ use App\Repository\InterventionTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionTypeRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['interventionType']])]
 class InterventionType
 {
     #[ORM\Id]
@@ -18,15 +19,18 @@ class InterventionType
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['interventionType'])]
     private ?string $type = null;
 
     #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'interventionTypes')]
     private Collection $interventions;
 
     #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: InterventionQuestion::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[Groups(['interventionType'])]
     private Collection $questions;
 
     #[ORM\ManyToMany(targetEntity: EquipmentType::class, inversedBy: 'interventionTypes')]
+    #[Groups(['interventionType'])]
     private Collection $equipmentTypes;
 
     public function __toString()
