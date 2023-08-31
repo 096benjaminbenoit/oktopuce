@@ -31,7 +31,7 @@ class SiteFixture extends Fixture implements DependentFixtureInterface
                 ->setName($faker->name());
 
             $client = $faker->randomElement($clients);
-            $site->getClient($client);
+            $site->setClient($client);
             // Configurer les attributs de Site avec Faker si nécessaire
             $manager->persist($site);
             $siteReferences[] = $site;
