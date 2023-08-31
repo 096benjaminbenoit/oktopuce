@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\InterventionQuestionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\InterventionType;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\InterventionQuestionRepository;
 
 #[ORM\Entity(repositoryClass: InterventionQuestionRepository::class)]
 #[ApiResource]
@@ -16,10 +17,6 @@ class InterventionQuestion
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'questions')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?InterventionType $interventionType = null;
 
     #[ORM\Column(length: 255)]
     private ?string $question = null;
@@ -34,6 +31,8 @@ class InterventionQuestion
     #[ORM\Column]
     private ?bool $required = null;
 
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    private ?InterventionType $interventionType = null;
 
 
     public function __toString()
@@ -44,18 +43,6 @@ class InterventionQuestion
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getInterventionType(): ?InterventionType
-    {
-        return $this->interventionType;
-    }
-
-    public function setInterventionType(?InterventionType $interventionType): static
-    {
-        $this->interventionType = $interventionType;
-
-        return $this;
     }
 
     public function getQuestion(): ?string
@@ -109,6 +96,18 @@ class InterventionQuestion
     public function setRequired(bool $required): static
     {
         $this->required = $required;
+
+        return $this;
+    }
+
+    public function getInterventionType(): ?InterventionType
+    {
+        return $this->interventionType;
+    }
+
+    public function setInterventionType(?InterventionType $interventionType): static
+    {
+        $this->interventionType = $interventionType;
 
         return $this;
     }

@@ -31,8 +31,9 @@ class InterventionTypeCrudController extends AbstractCrudController
             TextField::new('type'),
             CollectionField::new('questions')
                 ->useEntryCrudForm(InterventionQuestionCrudController::class)
-            ,
-            AssociationField::new('equipmentTypes'),
-    ];
+            // ,
+            // AssociationField::new('equipmentTypes'),
+
+        ];
     }
 }
