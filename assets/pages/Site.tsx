@@ -70,7 +70,7 @@ function CreateSite() {
                                 </>
                             )}
                             <div className="container text-center mt-3">
-                                <Button.Link path='/' className='text-uppercase btnHome mb-3' variant="primary">Valider</Button.Link>
+                                <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
                             </div>
                         </Form>
                     </div>

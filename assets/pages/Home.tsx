@@ -15,7 +15,7 @@ export default function Home(){
             </div>
             <div className="btnDiv my-auto d-flex flex-column">
                 <Button.Link path='/login' className='text-uppercase btnHome mb-3' variant="primary">J'ai un compte</Button.Link>
-                <Button className='text-uppercase btnHome' variant="primary">Je n'ai pas de compte</Button>
+                <Button.Link path='/profilchoise' className='text-uppercase btnHome' variant="primary">Je n'ai pas de compte</Button.Link>
             </div>
         </section>
     </>);

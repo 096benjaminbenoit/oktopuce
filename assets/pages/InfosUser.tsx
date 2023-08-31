@@ -51,7 +51,7 @@ export default function Informations() {
     <Input {...register("phoneNumber")} label="Téléphone" name=""></Input>
     <Input {...register("email")} label="Email" name=""></Input>
 
-    <Button.Link path='/' className='text-uppercase btnHome mb-3' variant="primary">Valider</Button.Link>
+    <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
   </>
   );
 }
