@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import Button from '../components/Button';
-import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import Site from './Site';
 import { Spinner } from 'react-bootstrap';

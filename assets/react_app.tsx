@@ -16,7 +16,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from '@tanstack/react-query';
 
 
@@ -70,11 +69,11 @@ const router = createBrowserRouter([
     element: <Error404 />,
   },
   {
-    path: "/sitelist",
+    path: "/site_list",
     element: <SiteList />,
   },
   {
-    path: "/createInter1",
+    path: "/create_inter_1",
     element: <CreateInterEtape1/>,
   },
   {
