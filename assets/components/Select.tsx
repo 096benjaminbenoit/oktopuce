@@ -12,6 +12,7 @@ type SelectProps = {
   onChange?: (event: React.ChangeEvent) => void;
   defaultValue?: string,
   value?: string,
+  multiple?: boolean,
 } & UseFormRegisterReturn<string>;
 
 function Select({ options, ...selectProps }: SelectProps) {

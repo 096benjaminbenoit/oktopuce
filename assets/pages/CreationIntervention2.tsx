@@ -60,7 +60,7 @@ function QuestionField(
         case "multiple":
             return <Form.Group>
                 <Form.Label>{question.question}</Form.Label>
-                <Select multiple={true} {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
+                <Select multiple {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
             </Form.Group>
 
     }
