@@ -14,7 +14,7 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#informations">Informations</Nav.Link>
+            <Nav.Link href="infos">Informations</Nav.Link>
             <Nav.Link href="#historique">Historique</Nav.Link>
             <Nav.Link href="#intervention">Interventions</Nav.Link>
           </Nav>
