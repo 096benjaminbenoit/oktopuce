@@ -28,8 +28,10 @@ import ScanPage from './pages/ScanPage';
 import Error404 from './pages/Error404';
 import InfosUser from './pages/InfosUser';
 import Site from './pages/Site';
+import Equipement from './pages/ChoixEquipement';
 import SiteList from './pages/SiteList';
 import ProfilChoice from "./pages/ProfilChoice";
+import EquipementList from './pages/EquipementList';
 
 
 // Create the router
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
     element: <Site />,
   },
   {
+    path: "/choixequipement",
+    element: <Equipement />,
+  },
+  {
     path: "/error404",
     element: <Error404 />,
   },
@@ -71,6 +77,10 @@ const router = createBrowserRouter([
   {
     path: "/profilchoice",
     element: <ProfilChoice />
+  },
+  {
+    path: "/equipementlist",
+    element: <EquipementList />,
   }
 ]);
 

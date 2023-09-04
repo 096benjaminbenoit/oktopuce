@@ -3,6 +3,9 @@ import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import FormInformations from '../components/FormInformations';
+import { Form } from 'react-bootstrap';
+import Input from '../components/Input';
+import Select from '../components/Select';
 
 type InfosUserForm = {
   name: string;
@@ -11,10 +14,11 @@ type InfosUserForm = {
   postCode: string;
   phoneNumber: string;
   email: string;
+  type: string;
   prestataire: {
-      name: string;
-      phoneNumber: string;
-      email: string;
+    name: string;
+    phoneNumber: string;
+    email: string;
   }
 }
 
@@ -30,15 +34,24 @@ export default function Informations() {
   return (<>
     <NavBar></NavBar>
 
-    <section className='infosUser d-flex flex-column'>
-      <h1 className='titleInfosUser m-2'>Nouveau Profil</h1>
+    <h1>Nouveau Profil</h1>
+    <Form.Group className="mb-3">
+      <Form.Label>Langue</Form.Label>
+      <Select {...register("type")} value="Type" options={[{ value: 'Français', label: 'Français' }]}></Select>
+    </Form.Group>
+    <Form.Group className="mb-3">
+      <Form.Label>Type</Form.Label>
+      <Select {...register("type")} value="Type" options={[{ value: 'Particulier', label: 'Particulier' }, { value: 'Professionnel', label: 'Professionnel' }]}></Select>
+    </Form.Group>
+    <Input {...register("name")} label="Nom" name=""></Input>
+    <Input {...register("name")} label="Prénom" name=""></Input>
+    <Input {...register("address")} label="N° et nom de la rue" name=""></Input>
+    <Input {...register("postCode")} label="Code postal" name=""></Input>
+    <Input {...register("city")} label="Ville" name=""></Input>
+    <Input {...register("phoneNumber")} label="Téléphone" name=""></Input>
+    <Input {...register("email")} label="Email" name=""></Input>
 
-    <div className='formInfosContainer m-3'>
-      <FormInformations/>
-    </div>
-
-      <Button.Link path='/infos' className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button.Link>
-    </section>
-    </>
+    <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
+  </>
   );
 }
