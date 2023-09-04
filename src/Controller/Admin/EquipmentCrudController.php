@@ -33,12 +33,12 @@ class EquipmentCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('nfcTag')->setLabel('Id de la puce'),
-            AssociationField::new('equipmentType')->setLabel('Type de produit'),
+            // AssociationField::new('equipmentType')->setLabel('Type de produit'),
             AssociationField::new('brand')->setLabel('Marque'),
             AssociationField::new('location')->setLabel('Emplacement'),
             TextField::new('locationDetail')->setLabel('Detail de l\'emplacement')->hideOnIndex(),
             AssociationField::new('gas')->setLabel('Type de gaz'),
-            AssociationField::new('parent')->setRequired(false)->hideOnIndex(),
+            AssociationField::new('parent')->setRequired(false),
             DateField::new('installationDate')->setLabel('Date d\'installation')->setFormat('short'),
             TextField::new('serialNumber')->setLabel('N° de série'),
             AssociationField::new('placement')->setLabel('Type de pose')->setRequired("bool"),
@@ -48,7 +48,7 @@ class EquipmentCrudController extends AbstractCrudController
             DateField::new('nextLeakDetection')->setLabel('Prochain contrôle de fuite')->setFormat('short'),
             // CollectionField::new('finality'),
             NumberField::new('capacity')->setLabel('Capacité')->hideOnIndex(),
-            TextField::new('picto')->setLabel('Pictogramme')->hideOnIndex()
+            TextField::new('picto')->setLabel('Pictogramme')->hideOnIndex(),
         ];
     }
 }

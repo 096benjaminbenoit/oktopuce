@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
+use App\Entity\InterventionType;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionRepository;
@@ -31,9 +32,6 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
-    #[ORM\Column]
-    private array $response = [];
-
     #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
     #[Groups('equipmentDetails')]
     private Collection $interventionTypes;
@@ -43,9 +41,16 @@ class Intervention
     #[Groups('equipment')]
     private ?\DateTimeInterface $interventionDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'interventions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?InterventionType $interventionType = null;
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $answers = null;
+
     public function __construct()
     {
-        $this->interventionTypes = new ArrayCollection();
+        $this->interventionDate = new \DateTimeImmutable("now");
     }
 
     public function getId(): ?int
@@ -101,41 +106,6 @@ class Intervention
         return $this;
     }
 
-    public function getResponse(): array
-    {
-        return $this->response;
-    }
-
-    public function setResponse(array $response): static
-    {
-        $this->response = $response;
-
-        return $this;
-    }
-
-/**
-     * @return Collection<int, intervention>
-     */
-    public function getInterventionTypes(): Collection
-    {
-        return $this->interventionTypes;
-    }
-
-    public function addInterventionType(InterventionType $interventionType): static
-    {
-        if (!$this->interventionTypes->contains($interventionType)) {
-            $this->interventionTypes->add($interventionType);
-        }
-
-        return $this;
-    }
-
-    public function removeInterventionType(InterventionType $interventionType): static
-    {
-        $this->interventionTypes->removeElement($interventionType);
-
-        return $this;
-    }
     public function getInterventionDate(): ?\DateTimeInterface
     {
         return $this->interventionDate;
@@ -148,6 +118,27 @@ class Intervention
         return $this;
     }
 
-  
+    public function getInterventionType(): ?InterventionType
+    {
+        return $this->interventionType;
+    }
 
+    public function setInterventionType(?InterventionType $interventionType): static
+    {
+        $this->interventionType = $interventionType;
+
+        return $this;
+    }
+
+    public function getAnswers(): ?array
+    {
+        return $this->answers;
+    }
+
+    public function setAnswers(?array $answers): static
+    {
+        $this->answers = $answers;
+
+        return $this;
+    }
 }

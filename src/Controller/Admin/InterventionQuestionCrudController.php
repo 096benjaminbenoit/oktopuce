@@ -34,6 +34,7 @@ class InterventionQuestionCrudController extends AbstractCrudController
             // Display the 'question' field as an ArrayField
             TextField::new('question'),
             ChoiceField::new('questionType')->setChoices([
+                "Champs libre" => "text",
                 "Choix multiple" => "multiple",
                 "Choix unique"   => "select",
                 "Case à cocher"  => "checkbox",

@@ -1,0 +1,17 @@
+.form-group:has(#Intervention_answers) {
+    padding: 0;
+}
+
+#Intervention_answers {
+    --bs-accordion-bg: rgba(0,0,0,0);
+    --bs-accordion-border-color: rgba(0,0,0,0);
+    --bs-accordion-body-padding-y: 0;
+    --bs-accordion-body-padding-x: 0;
+
+    .accordion-header {
+        display: none;
+    }
+    .accordion-collapse.collapse {
+        display: block;
+    }
+}

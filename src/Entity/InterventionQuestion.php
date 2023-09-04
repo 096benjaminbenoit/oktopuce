@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InterventionQuestionRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionQuestionRepository::class)]
@@ -16,10 +16,6 @@ class InterventionQuestion
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'questions')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?InterventionType $interventionType = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['interventionType'])]
@@ -37,6 +33,8 @@ class InterventionQuestion
     #[Groups(['interventionType'])]
     private ?bool $required = null;
 
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    private ?InterventionType $interventionType = null;
 
 
     public function __toString()
@@ -47,18 +45,6 @@ class InterventionQuestion
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getInterventionType(): ?InterventionType
-    {
-        return $this->interventionType;
-    }
-
-    public function setInterventionType(?InterventionType $interventionType): static
-    {
-        $this->interventionType = $interventionType;
-
-        return $this;
     }
 
     public function getQuestion(): ?string
@@ -112,6 +98,18 @@ class InterventionQuestion
     public function setRequired(bool $required): static
     {
         $this->required = $required;
+
+        return $this;
+    }
+
+    public function getInterventionType(): ?InterventionType
+    {
+        return $this->interventionType;
+    }
+
+    public function setInterventionType(?InterventionType $interventionType): static
+    {
+        $this->interventionType = $interventionType;
 
         return $this;
     }

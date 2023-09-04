@@ -5,57 +5,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner } from 'react-bootstrap';
 
-type Equipment = {
-  "@context": string,
-  "@id": string,
-  "@type": string,
-  "id": number,
-  "installationDate": "2023-08-29T12:52:33.579Z",
-  "serialNumber": string,
-  "parent": string,
-  "equipment": [
-    string
-  ],
-  "nfcTag": {
-    "@context": string,
-    "@id": string,
-    "@type": string,
-    "equipment": string
-  },
-  "brand": string,
-  "location": string,
-  "locationDetail": string,
-  "equipmentType": {
-    "@context": "string",
-    "@id": "string",
-    "@type": "string",
-    "type": "string"
-  },  "placement": string,
-  "remoteNumber": string,
-  "gas": {
-    "@context": string,
-    "@id": string,
-    "@type": string,
-    "name": string
-  },
-  "gasWeight": number,
-  "hasLeakDetection": true,
-  "lastLeakDetection": "2023-08-29T12:52:33.580Z",
-  "nextLeakDetection": "2023-08-29T12:52:33.580Z",
-  "finality": [
-    string
-  ],
-  "capacity": number,
-  "picto": string,
-  "interventions": [
-    {
-      "@context": string,
-      "@id": string,
-      "@type": string,
-      "interventionDate": "2023-08-29T12:52:33.580Z"
-    }
-  ]
-}
+// import type { Equipment } from '../api/type';
 
 function EquipmentList() {
   const { isLoading: isEquipmentLoading, error: equipmentError, data: equipment } = useQuery({
@@ -67,7 +17,7 @@ function EquipmentList() {
     return <Spinner />;
   }
 
-  const equipments: Equipment[] = equipment["hydra:member"];
+  // const equipments: Equipment[] = equipment["hydra:member"];
 
   return (
     <>
@@ -78,15 +28,15 @@ function EquipmentList() {
       <div className="container mt-4">
         <div className="card mx-auto" style={{ maxWidth: "500px" }}>
           <div className="card-body">
-            {equipments.map(equipment => (
+            {/* {equipments.map(equipment => (
               <div key={equipment['@id']} className="equipment-item">
                 <p>{equipment.equipmentType.type}</p>
               </div>
-            ))}
+            ))} */}
             <div className="container text-center mt-3">
-              <Button.Link path="/" className="text-uppercase btnHome mb-3" variant="primary">
+              <Button type="submit" className="text-uppercase btnHome mb-3" variant="primary">
                 Valider
-              </Button.Link>
+              </Button>
             </div>
             <Link to={''}></Link>
           </div>

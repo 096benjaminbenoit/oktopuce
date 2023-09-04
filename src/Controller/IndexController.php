@@ -11,7 +11,7 @@ class IndexController extends AbstractController
     #[Route(
         '/{reactRouting}',
         name: 'app_index',
-        requirements: ["reactRouting" => "^(?!api|_profiler|build|admin).+"],
+        requirements: ["reactRouting" => "^(?!api|_profiler|_wdt|build|admin).+"],
         defaults: ["reactRouting" => null]
     )]
     public function index(): Response

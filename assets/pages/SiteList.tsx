@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import Button from '../components/Button';
 import { useQuery } from '@tanstack/react-query';
-import Site from './Site';
 import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ type Site = {
     "@context": string,
     "@id": string,
     "@type": string,
-    "id": 0,
+    "id": number,
     "address": string,
     "city": string,
     "postCode": string,
