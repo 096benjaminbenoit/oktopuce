@@ -79,7 +79,7 @@ const router = createBrowserRouter([
     element: <ProfilChoice />
   },
   {
-    path: "/create_inter_1",
+    path: "/create_inter",
     element: <CreateInterEtape1/>,
   },
   {
