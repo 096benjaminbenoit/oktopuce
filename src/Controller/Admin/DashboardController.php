@@ -15,13 +15,17 @@ use App\Entity\Location;
 use App\Entity\Equipment;
 use App\Entity\Intervention;
 use App\Entity\EquipmentType;
-use App\Entity\InterventionQuestion;
 use App\Entity\InterventionType;
+use App\Entity\InterventionQuestion;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Asset;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+
+
 
 class DashboardController extends AbstractDashboardController
 {
@@ -35,8 +39,10 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('Oktopuce');
-            // ->renderContentMaximized();
+        // ->renderContentMaximized();
     }
+
+
 
     public function configureMenuItems(): iterable
     {
@@ -55,6 +61,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les sites', 'fas fa-building', Site::class);
         yield MenuItem::linkToCrud('Les techniciens', 'fas fa-helmet-safety', User::class);
         yield MenuItem::linkToCrud("Types d'équipements", 'fa-solid fa-toilets-portable', EquipmentType::class);
-        yield MenuItem::linkToCrud("Interventions question", 'fa-solid fa-clipboard-question', InterventionQuestion::class);
+    }
+
+    public function configureAssets(): Assets
+    {
+        $assets = parent::configureAssets();
+
+        return $assets;
     }
 }

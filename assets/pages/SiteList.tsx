@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner } from 'react-bootstrap';
 
-import type { Site } from '../api/type';
+// import type { Site } from '../api/type';
 
 export default function SiteList() {
   const { isLoading: isSiteLoading, error: siteError, data: site } = useQuery({
@@ -17,7 +17,7 @@ export default function SiteList() {
     return <Spinner />;
   }
 
-  const sites: Site[] = site["hydra:member"];
+  // const sites: Site[] = site["hydra:member"];
 
   return (<>
     <NavBar/>

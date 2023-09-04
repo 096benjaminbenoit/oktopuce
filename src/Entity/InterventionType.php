@@ -20,14 +20,11 @@ class InterventionType
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'interventionTypes')]
-    private Collection $interventions;
-
-    #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: InterventionQuestion::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: InterventionQuestion::class, cascade: ["persist", "remove"])]
     private Collection $questions;
 
-    #[ORM\ManyToMany(targetEntity: EquipmentType::class, inversedBy: 'interventionTypes')]
-    private Collection $equipmentTypes;
+    #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: Intervention::class)]
+    private Collection $interventions;
 
     public function __toString()
     {
@@ -36,10 +33,10 @@ class InterventionType
 
     public function __construct()
     {
-        $this->interventions = new ArrayCollection();
         $this->questions = new ArrayCollection();
-        $this->equipmentTypes = new ArrayCollection();
+        $this->interventions = new ArrayCollection();
     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,33 +50,6 @@ class InterventionType
     public function setType(string $type): static
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-        /**
-     * @return Collection<int, Intervention>
-     */
-    public function getInterventions(): Collection
-    {
-        return $this->interventions;
-    }
-
-    public function addIntervention(Intervention $intervention): static
-    {
-        if (!$this->interventions->contains($intervention)) {
-            $this->interventions->add($intervention);
-            $intervention->addInterventionType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIntervention(Intervention $intervention): static
-    {
-        if ($this->interventions->removeElement($intervention)) {
-            $intervention->removeInterventionType($this);
-        }
 
         return $this;
     }
@@ -115,25 +85,31 @@ class InterventionType
     }
 
     /**
-     * @return Collection<int, EquipmentType>
+     * @return Collection<int, Intervention>
      */
-    public function getEquipmentTypes(): Collection
+    public function getInterventions(): Collection
     {
-        return $this->equipmentTypes;
+        return $this->interventions;
     }
 
-    public function addEquipmentType(EquipmentType $equipmentType): static
+    public function addIntervention(Intervention $intervention): static
     {
-        if (!$this->equipmentTypes->contains($equipmentType)) {
-            $this->equipmentTypes->add($equipmentType);
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions->add($intervention);
+            $intervention->setInterventionType($this);
         }
 
         return $this;
     }
 
-    public function removeEquipmentType(EquipmentType $equipmentType): static
+    public function removeIntervention(Intervention $intervention): static
     {
-        $this->equipmentTypes->removeElement($equipmentType);
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getInterventionType() === $this) {
+                $intervention->setInterventionType(null);
+            }
+        }
 
         return $this;
     }
