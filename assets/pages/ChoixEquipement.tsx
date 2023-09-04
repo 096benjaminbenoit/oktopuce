@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import NavBar from '../components/NavBar';
-import Input from '../components/Input';
 import { Link, useParams } from "react-router-dom";
 import Select from '../components/Select';
 import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from 'react-bootstrap';
-
+import type { Client, EquipementType } from '../api/type';
 
 type EquipementForm = {
     name: string;
@@ -92,7 +91,7 @@ function Equipement() {
                             </Form.Group>
 
                             <div className="container text-center mt-3">
-                                <Button.Link path='/' className='text-uppercase btnHome mb-3' variant="primary">Valider</Button.Link>
+                                <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
                             </div>
 
                             <Link to={''}></Link>
