@@ -35,6 +35,7 @@ class Intervention
     private array $response = [];
 
     #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
+    #[Groups('equipmentDetails')]
     private Collection $interventionTypes;
 
     

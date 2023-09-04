@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Form from 'react-bootstrap/Form';
 
-import {UseFormRegisterReturn} from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type CheckboxProps = {
   name?: string,
@@ -10,13 +10,11 @@ type CheckboxProps = {
 } & UseFormRegisterReturn<string>;
 
 
-function Checkbox({ ...rest }: CheckboxProps) {
+const Checkbox = forwardRef<HTMLInputElement>(function ({ ...rest }: CheckboxProps, ref) {
   return (
-    <>
-  <Form.Check type="checkbox" {...rest} />
-    </>
+    <Form.Check type="checkbox" {...rest} ref={ref} />
   );
-}
+})
 
 
 export default Checkbox;

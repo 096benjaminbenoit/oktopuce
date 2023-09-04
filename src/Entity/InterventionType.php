@@ -19,7 +19,7 @@ class InterventionType
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['interventionType'])]
+    #[Groups(['interventionType', 'equipmentDetails'])]
     private ?string $type = null;
 
     #[ORM\ManyToMany(targetEntity: Intervention::class, mappedBy: 'interventionTypes')]

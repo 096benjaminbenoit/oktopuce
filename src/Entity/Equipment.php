@@ -100,7 +100,7 @@ class Equipment
     private ?string $picto = null;
 
     #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Intervention::class)]
-    #[Groups('equipment')]
+    #[Groups('equipmentDetails')]
     private Collection $interventions;
 
     public function __construct()

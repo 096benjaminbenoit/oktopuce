@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 type ButtonProps = {
     children?: React.ReactNode;
-    variant: string;
+    variant: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | (string & {});
     className?: string;
     type?: "button" | "submit" | "reset" | undefined; 
     onClick?: (event: React.MouseEvent) => void;
@@ -19,5 +19,5 @@ export default function Button({children, variant, className = "", type = "butto
 // "...rest" permet de copier les arguments d'un composant a un sous composant 
 // omit permet de retirer des propriétés à un type
 Button.Link = function({path, ...rest}: Omit<ButtonProps, "type"> & {path: string}) {
-    return <Link style={{display: "contents"}} to={path}><Button {...rest}/></Link>
+    return <Link style={{display: "contents"}} to={path}><Button type="button" {...rest}/></Link>
 }

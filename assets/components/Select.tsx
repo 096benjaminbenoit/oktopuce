@@ -15,9 +15,9 @@ type SelectProps = {
   multiple?: boolean,
 } & UseFormRegisterReturn<string>;
 
-function Select({ options, ...selectProps }: SelectProps) {
+const Select = React.forwardRef(function ({ options, ...selectProps }: SelectProps, ref: React.Ref<HTMLSelectElement>) {
   return (
-    <Form.Select aria-label="Select" {...selectProps}>
+    <Form.Select aria-label="Select" {...selectProps} ref={ref}>
       {options.map((option, index) => (
         <option key={index} value={option.value} disabled={option.disabled}>
           {option.label}
@@ -25,6 +25,6 @@ function Select({ options, ...selectProps }: SelectProps) {
       ))}
     </Form.Select>
   );
-}
+});
 
 export default Select;

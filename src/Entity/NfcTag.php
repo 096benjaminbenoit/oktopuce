@@ -13,7 +13,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: NfcTagRepository::class)]
-#[ApiResource(normalizationContext: ['groups' => ['equipment']])]
+#[ApiResource(normalizationContext: ['groups' => ['equipment', 'equipmentDetails']])]
 class NfcTag
 {
     #[ORM\Id]
@@ -27,7 +27,7 @@ class NfcTag
     private ?string $uid = null;
 
     #[ORM\OneToOne(targetEntity: Equipment::class, mappedBy: 'nfcTag')]
-    #[Groups(['equipment'])]
+    #[Groups(['equipment', 'equipmentDetails'])]
     private ?Equipment $equipment = null;
 
     public function __toString()

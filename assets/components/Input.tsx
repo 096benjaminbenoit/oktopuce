@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 import Form from 'react-bootstrap/Form';
 
 import {UseFormRegisterReturn} from "react-hook-form";
@@ -10,7 +10,7 @@ type InputProps = {
   label: string,
 } & UseFormRegisterReturn<string>;
 
-function Input({label, ...inputProps}: InputProps) {
+const Input = forwardRef(function ({label, ...inputProps}: InputProps, ref) {
   const inputId = useId();
   return (
     <>
@@ -21,10 +21,11 @@ function Input({label, ...inputProps}: InputProps) {
         <Form.Control {...inputProps}
           aria-label={label}
           aria-describedby={inputId}
+          ref={ref as any}
         />
       </Form.Group>
     </>
   );
-}
+});
 
 export default Input;
