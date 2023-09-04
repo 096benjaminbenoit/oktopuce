@@ -28,30 +28,6 @@ type EquipementForm = {
     }
 }
 
-interface Client {
-    "@id": string;
-    "@type": "Client";
-    id: number;
-    address: string;
-    postCode: string;
-    city: string;
-    phone: string;
-    email: string;
-    sites: any[];
-}
-
-interface EquipementType {
-    "@context": "string",
-    "@id": "string",
-    "@type": "string",
-    id: 0;
-    type: string;
-    equipment: [
-        string
-    ]
-}
-
-
 function Equipement() {
     //const params = useParams();
     const { isLoading: isClientLoading, error: clientError, data: client } = useQuery({
