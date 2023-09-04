@@ -67,6 +67,6 @@ class DashboardController extends AbstractDashboardController
     {
         $assets = parent::configureAssets();
 
-        return EasyAdminFieldsBundle::configureAssets($assets);
+        return $assets;
     }
 }

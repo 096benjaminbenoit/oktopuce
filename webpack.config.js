@@ -21,6 +21,7 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+    .addEntry('admin-app', './assets/admin-app.js')
     .addEntry('app', './assets/app.js')
     .addEntry('react_app', './assets/react_app.tsx')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

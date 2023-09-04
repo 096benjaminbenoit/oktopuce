@@ -20,7 +20,7 @@ class InterventionType
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: InterventionQuestion::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: InterventionQuestion::class, cascade: ["persist", "remove"])]
     private Collection $questions;
 
     #[ORM\OneToMany(mappedBy: 'interventionType', targetEntity: Intervention::class)]

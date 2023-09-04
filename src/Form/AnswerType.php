@@ -6,6 +6,7 @@ use App\Entity\InterventionQuestion;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,18 +19,25 @@ class AnswerType extends AbstractType
 
             $data = $event->getData();
 
-            /**
-             * @var App\Entity\InterventionQuestion
-             */
             $question = $data['question'];
 
             $form = $event->getForm();
-            switch($data['question']->getQuestionType()) {
+            switch($question['type']) {
                 case('text'):
                     $form->add('answer', TextType::class, [
-                        'label' => $question->getQuestion(),
-                        'required' => $question->isRequired(),
+                        'label' => $question['label'],
+                        'required' => $question['required'],
                         // 'mapped' => false
+                    ]);
+                    break;
+                case('select'):
+                    $form->add('answer', ChoiceType::class, [
+                        'label' => $question['label'],
+                        'required' => $question['required'],
+                        'choices' => $question['choices'],
+                        'choice_label' => function ($choice, string $key, mixed $value) {
+                            return $value;
+                        },
                     ]);
                     break;
             }

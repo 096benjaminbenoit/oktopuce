@@ -24,7 +24,7 @@ class InterventionController extends AbstractController
 
         // retourner un tableau serialisé des questions / réponses
 
-        return $interventionType;
+        return $this->json($interventionType->getQuestions());
 
         // return $this->json([
         //     [

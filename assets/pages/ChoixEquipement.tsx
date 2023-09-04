@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from 'react-bootstrap';
 
-import type { Client, EquipementType } from '../api/type';
+// import type { Client, EquipementType } from '../api/type';
 
 type EquipementForm = {
     name: string;
@@ -59,9 +59,9 @@ function Equipement() {
     if (isClientLoading || isEquipmentTypeLoading) {
         return <Spinner />
     }
-    const clients: Client[] = client["hydra:member"];
+    // const clients: Client[] = client["hydra:member"];
 
-    const equipment_types: EquipementType[] = equipmentType["hydra:member"];
+    // const equipment_types: EquipementType[] = equipmentType["hydra:member"];
 
     // return <>
     //     <pre>{JSON.stringify(equipment_types, null, 4)}</pre>
@@ -79,19 +79,19 @@ function Equipement() {
                         <Form>
                             <Form.Group className="mb-3">
                                 <Form.Label>Sur quel site est le produit ?</Form.Label>
-                                <Select {...register("site")}
+                                {/* <Select {...register("site")}
                                     options={
                                         clients.map(client => ({ label: client.address, value: client['@id'] }))
                                     }
-                                />
+                                /> */}
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Sur quel type est installé la puce ?</Form.Label>
-                                <Select {...register("equipement")}
+                                {/* <Select {...register("equipement")}
                                     options={
                                         equipment_types.map(equipment_type => ({ label: equipment_type.type, value: equipment_type['@id'] }))
                                     }
-                                />
+                                /> */}
                             </Form.Group>
 
                             <div className="container text-center mt-3">
