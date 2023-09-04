@@ -9,7 +9,7 @@ import Button from './Button';
 
 type CreateInterForm = {
   entreprise: string;
-  interventionType: string,
+  interventionType: [string],
   technicien: string;
   response: string[];
 }
@@ -51,7 +51,7 @@ export default function CreateIntervention() {
 
   const [step, setStep] = useState(1);
 
-  const interventionTypeForm = watch("interventionType");
+  const interventionTypeForm = watch("interventionType.0");
   console.log(interventionTypeForm);
 
 
@@ -81,7 +81,7 @@ export default function CreateIntervention() {
           <h2>Type d'intervention</h2>
 
           <Form.Group className="mb-3">
-            <Select {...register(("interventionType.0" as unknown as "interventionType"), { required: true })}
+            <Select {...register(("interventionType.0"), { required: true })}
               options={choices
                 // [{value: 'Mise en service', label: 'Mise en service'}, {value: 'Entretien', label: 'Entretien'}, {value: 'Dépannage', label: 'Dépannage'}, {value: 'Dépose/Repose', label: 'Dépose/Repose Temporaire'}, {value: 'Dépose Définitive', label: 'Dépose Définitive'}]}
               } />
