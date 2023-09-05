@@ -17,6 +17,7 @@ use App\Entity\Intervention;
 use App\Entity\EquipmentType;
 use App\Entity\InterventionType;
 use App\Entity\InterventionQuestion;
+// use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Asset;
@@ -30,6 +31,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'app_dashboard')]
+    // #[Security("is_granted('ROLE_ADMIN')")]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig');

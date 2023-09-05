@@ -23,7 +23,7 @@ class EquipmentChangedListener
         if ($event->hasChangedField('lastLeakDetection')) {
 
             // si oui, mettre à jour la date de la prochaine vérification
-            $equipment->setNextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment));
+            $equipment->setNextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment, $equipment->getLastLeakDetection()));
         }
     }
 
@@ -39,7 +39,7 @@ class EquipmentChangedListener
                 $equipment->setNextLeakDetection($addDate);
             }
             // alors je défini la date de la prochaine vérification dès le départ
-            $equipment->setNextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment));
+            $equipment->setNextLeakDetection(LeakControlCalculator::getNextLeakControlDate($equipment, $equipment->getInstallationDate()));
         }
     }
 }
