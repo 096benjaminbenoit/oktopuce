@@ -37,7 +37,7 @@ class Intervention
     private Collection $interventionTypes;
 
     
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     #[Groups('equipment')]
     private ?\DateTimeInterface $interventionDate = null;
 

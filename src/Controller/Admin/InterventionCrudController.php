@@ -17,8 +17,10 @@ use App\Repository\InterventionTypeRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -30,6 +32,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use App\Controller\Admin\InterventionQuestionCrudController;
+use App\Entity\Equipment;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Form\ChoiceList\Factory\Cache\ChoiceFieldName;
@@ -40,6 +43,14 @@ class InterventionCrudController extends AbstractCrudController
     public function __construct(private InterventionTypeRepository $interventionTypeRepository)
     {
         
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+
+        ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ;
     }
 
     public function configureAssets(Assets $assets): Assets
@@ -115,7 +126,7 @@ class InterventionCrudController extends AbstractCrudController
                 if(empty($event->getData()->getAnswers()) ||$event->getData()->getAnswers()[0]['question']['intervention_type'] != $interventionType->getId()) {
                     $answers = $interventionType->getQuestions()->toArray();
 
-                    $answers = array_map(function(InterventionQuestion $question) {
+                    $answers = array_map(function(InterventionQuestion $question,) {
                         return [
                             'question' => [
                                 'id' => $question->getId(),
@@ -123,7 +134,8 @@ class InterventionCrudController extends AbstractCrudController
                                 'label' => $question->getQuestion(),
                                 'choices' => $question->getChoices(),
                                 'required' => $question->isRequired(),
-                                'intervention_type' => $question->getInterventionType()->getId()
+                                'intervention_type' => $question->getInterventionType()->getId(),
+                                // "prochaine_detection_de_fuite" => $equipment->getNextLeakDetection(),
                             ],
                             'answer' => ''
                         ];
