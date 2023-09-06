@@ -1,5 +1,4 @@
-import PwaIcon192 from "./resources/images/path-to-pwa-icon-192x192.png";
-import PwaIcon512 from "./resources/images/path-to-pwa-icon-512x512.png";
+import Logo from '../components/Logo';
 
 export default class Routes {
 
@@ -16,7 +15,7 @@ export default class Routes {
       "lang": "fr-FR",
       "icons": [
             {
-              "src": OktopuceLogo,
+              "src": Logo,
               "sizes": "192x192"
             }
             // You may add more size if you want to, but it is optional
