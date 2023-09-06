@@ -1,0 +1,21 @@
+{
+    "name": "Oktopuce",
+    "short_name": "OTP",
+
+    "dir": "ltr",
+
+    "lang": "fr-FR",
+
+    "orientation": "any",
+    "start_url": "/",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "display": "standalone",
+    "description": "A highly scalable & plug-able, Progressive Web Application foundation with the best Developer Experience.",
+    "icons": [
+      {
+        "src": "/images/logo.svg",
+        "sizes": "192x192"
+      }
+    ]
+}
