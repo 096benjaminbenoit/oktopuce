@@ -59,7 +59,7 @@ export default function CreateIntervention() {
 
   const choices = useMemo(() => {
     if (interventionTypes)
-      return [{ label: "Selectioner un type d'intervention", value: "" }].concat(
+      return [{ label: "Sélectionner un type d'intervention", value: "" }].concat(
         interventionTypes.map((interventionType) => ({ label: interventionType.type, value: interventionType['@id'] }))
       )
   }, [interventionTypes])
@@ -86,12 +86,16 @@ export default function CreateIntervention() {
                 // [{value: 'Mise en service', label: 'Mise en service'}, {value: 'Entretien', label: 'Entretien'}, {value: 'Dépannage', label: 'Dépannage'}, {value: 'Dépose/Repose', label: 'Dépose/Repose Temporaire'}, {value: 'Dépose Définitive', label: 'Dépose Définitive'}]}
               } />
           </Form.Group>
-          <Button type="submit" className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button>
+          <div className="container text-center mt-3">
+            <Button type="submit" className="text-uppercase btnHome mb-3" variant="primary">
+              Valider
+            </Button>
+          </div>
         </form>
       </React.Fragment>;
     case 2:
       const interventionType = interventionTypes.find(({ ["@id"]: id }) => id == interventionTypeForm);
-      
+
       return <>
         {interventionType.questions.map(
           (q, i) => <QuestionField question={q} registration={register(`response.${i}`)} />

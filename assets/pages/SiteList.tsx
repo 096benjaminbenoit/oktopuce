@@ -33,11 +33,11 @@ export default function SiteList() {
   const sites: Site[] = site["hydra:member"];
 
   return (<>
-    <NavBar/>
+    <NavBar />
 
-    <section className='siteListContainer d-flex flex-column justify-content-around'>
-      
-      <h1 className='titleInfosUser text-uppercase m-2'>Sites enregistrés</h1>
+    <div className="container text-center mt-4">
+        <h1>Sites enregistrés</h1>
+      </div>
       
       <div className="container mt-4">
         <div className="card m-auto " style={{ maxWidth: "500px" }}>
@@ -54,10 +54,13 @@ export default function SiteList() {
             <Link to={''}></Link>
           </div>
         </div>
+        <div className="container text-center mt-3">
+          <Button.Link path='/site' className="text-uppercase btnHome mb-3" variant="primary">
+          Ajouter un site 
+          </Button.Link>
+        </div>
       </div>
-      <Button.Link path='/site' className='text-uppercase btnInfosUser m-5' variant="primary"> Ajouter un site </Button.Link>
       
-    </section>
     </>
   );
 }

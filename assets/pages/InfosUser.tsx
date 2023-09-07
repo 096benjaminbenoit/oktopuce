@@ -12,9 +12,9 @@ type InfosUserForm = {
   phoneNumber: string;
   email: string;
   prestataire: {
-      name: string;
-      phoneNumber: string;
-      email: string;
+    name: string;
+    phoneNumber: string;
+    email: string;
   }
 }
 
@@ -28,17 +28,24 @@ export default function Informations() {
   } = useForm<InfosUserForm>()
 
   return (<>
+
     <NavBar></NavBar>
 
-    <section className='infosUser d-flex flex-column'>
-      <h1 className='titleInfosUser m-2'>Nouveau Profil</h1>
-
-      <div className='formInfosContainer m-3'>
-        <FormInformations/>
+    <div className="container text-center mt-4">
+      <h1>Nouveau Profil</h1>
+    </div>
+    <div className="container mt-4">
+      <div className="card mx-auto" style={{ maxWidth: "500px" }}>
+        <div className="card-body">
+          <div className='formInfosContainer m-3'>
+            <FormInformations />
+          </div>
+        </div>
+        <div className="container text-center mt-3">
+          <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
+        </div>
       </div>
-
-      <Button.Link path='/infos' className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button.Link>
-    </section>
-    </>
+    </div>
+  </>
   );
 }

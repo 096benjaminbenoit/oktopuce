@@ -5,14 +5,22 @@ import Button from '../components/Button';
 
 export default function CreateInterEtape1() {
   return (<>
-    <NavBar/>
-    
-    <section className='infosUser d-flex flex-column'>
-      <h1 className='titleInfosUser m-2'>Nouvelle Intervention</h1>
+    <NavBar />
 
-      <div className='formInfosContainer m-3'>
-        <FormCreateInter/>
+    <section className='infosUser d-flex flex-column'>
+      <div className="container text-center mt-4">
+        <h1>Nouvelle Intervention</h1>
       </div>
+      <div className="container mt-4">
+        <div className="card mx-auto" style={{ maxWidth: "500px" }}>
+          <div className="card-body">
+            <div className='formInfosContainer m-3'>
+              <FormCreateInter />
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   </>
   );
