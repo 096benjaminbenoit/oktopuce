@@ -19,7 +19,7 @@ function NavBar() {
             <Nav.Link href="/create_inter">Interventions</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#connexion">Deconnexion</Nav.Link>
+            <Nav.Link href="#connexion">Déconnexion</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
