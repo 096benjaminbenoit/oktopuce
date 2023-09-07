@@ -28,24 +28,24 @@ export default function Informations() {
   } = useForm<InfosUserForm>()
 
   return (<>
-
     <NavBar></NavBar>
-
-    <div className="container text-center mt-4">
-      <h1>Nouveau Profil</h1>
-    </div>
-    <div className="container mt-4">
-      <div className="card mx-auto" style={{ maxWidth: "500px" }}>
-        <div className="card-body">
-          <div className='formInfosContainer m-3'>
-            <FormInformations />
+    <section>
+      <div className="container text-center mt-4">
+        <h1>Nouveau Profil</h1>
+      </div>
+      <div className="container mt-4 mb-4">
+        <div className="card mx-auto" style={{ maxWidth: "500px" }}>
+          <div className="card-body">
+            <div className='formInfosContainer m-3'>
+              <FormInformations />
+            </div>
+          </div>
+          <div className="container text-center mt-3">
+            <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
           </div>
         </div>
-        <div className="container text-center mt-3">
-          <Button type="submit" className='text-uppercase btnHome mb-3' variant="primary">Valider</Button>
-        </div>
       </div>
-    </div>
+    </section>
   </>
   );
 }

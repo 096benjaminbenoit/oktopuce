@@ -38,7 +38,7 @@ function CreateSite() {
             <div className="container text-center mt-4">
                 <h1>Ajouter un site</h1>
             </div>
-            <div className="container mt-4">
+            <div className="container mt-4 mb-4">
                 <div className="card mx-auto" style={{ maxWidth: "500px" }}>
                     <div className="card-body">
                         <Form>
