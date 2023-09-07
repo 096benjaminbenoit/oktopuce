@@ -14,8 +14,9 @@
     "description": "A highly scalable & plug-able, Progressive Web Application foundation with the best Developer Experience.",
     "icons": [
       {
-        "src": "/images/logo.svg",
-        "sizes": "192x192"
+        "src": "{{ asset('build/images/logo.svg') }}",
+        "sizes": "192x192",
+        "type": "image/svg+xml"
       }
     ]
 }
