@@ -32,16 +32,13 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
-    #[ORM\ManyToMany(targetEntity: InterventionType::class, inversedBy: 'interventions')]
-    #[Groups('equipmentDetails')]
-    private Collection $interventionTypes;
-
     
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     #[Groups('equipment')]
     private ?\DateTimeInterface $interventionDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
+    #[Groups('equipmentDetails')]
     #[ORM\JoinColumn(nullable: false)]
     private ?InterventionType $interventionType = null;
 
