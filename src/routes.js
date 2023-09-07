@@ -12,7 +12,7 @@ export default class Routes {
       "dir": "ltr",
 
       // language: Default en-US #optional
-      "lang": "fr-FR",
+      "lang": "fr",
       "icons": [
             {
               "src": Logo,
