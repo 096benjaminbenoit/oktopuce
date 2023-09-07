@@ -12,6 +12,7 @@ import './styles/app.scss';
 import React, { useReducer } from 'react';
 import { LoginContext, LoginDispatchContext } from './context/LoginContext';
 import { ProfileAndScanContext, ProfileAndScanDispatchContext } from './context/ProfileAndScanContext';
+import  { defaultUuidContext, defaultUuidDispatchContext}  from './context/defaultUuidContext';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import {
@@ -102,23 +103,44 @@ const queryClient = new QueryClient()
 
 function App() {
   const [login, loginDispatch] = useReducer(loginReducer, { loggedIn: false });
+  const [defaultUuid, defaultUuidDispatch] = useReducer(defaultUuidReducer, {
+    Uuid: "8f1e061d-7d3b-45f9-8099-6a2b61548122",
+  });
   const [profileAndScan, profileAndScanDispatch] = useReducer(profileAndScanReducer, {});
 
   return (
     <QueryClientProvider client={queryClient}>
       <ProfileAndScanContext.Provider value={profileAndScan}>
         <ProfileAndScanDispatchContext.Provider value={profileAndScanDispatch}>
-          <LoginContext.Provider value={login}>
-            <LoginDispatchContext.Provider value={loginDispatch}>
-              <RouterProvider router={router} />
-            </LoginDispatchContext.Provider>
-          </LoginContext.Provider>
+          <defaultUuidContext.Provider value={defaultUuid}>
+            <defaultUuidDispatchContext.Provider value={defaultUuidDispatch}>
+              <LoginContext.Provider value={login}>
+                <LoginDispatchContext.Provider value={loginDispatch}>
+                  <RouterProvider router={router} />
+                </LoginDispatchContext.Provider>
+              </LoginContext.Provider>
+            </defaultUuidDispatchContext.Provider>
+          </defaultUuidContext.Provider>
         </ProfileAndScanDispatchContext.Provider>
       </ProfileAndScanContext.Provider>
     </QueryClientProvider>
   );
 }
 
+
+
+function defaultUuidReducer(defaultUuid, action) {
+  switch (action.type) {
+    case 'default': {
+      return {
+        Uuid: "8f1e061d-7d3b-45f9-8099-6a2b61548122",
+      };
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
 
 function loginReducer(login, action) {
   switch (action.type) {
