@@ -86,7 +86,6 @@ export default function CreateIntervention() {
                 // [{value: 'Mise en service', label: 'Mise en service'}, {value: 'Entretien', label: 'Entretien'}, {value: 'Dépannage', label: 'Dépannage'}, {value: 'Dépose/Repose', label: 'Dépose/Repose Temporaire'}, {value: 'Dépose Définitive', label: 'Dépose Définitive'}]}
               } />
           </Form.Group>
-          <Button onClick={() => reset({ "interventionType": null })} variant="danger">Yeet</Button>
           <Button type="submit" className='text-uppercase btnInfosUser mb-3 ' variant="primary">Valider</Button>
         </form>
       </React.Fragment>;
