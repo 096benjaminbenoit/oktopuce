@@ -27,8 +27,7 @@ class ClientCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('person')->renderAsEmbeddedForm()->setLabel('Prénom / Nom'),
-            TelephoneField::new('phone')->setLabel('Téléphone'),
+            AssociationField::new('person')->setLabel('Personne'),
             EmailField::new('email'),
             TextField::new('address')->setLabel('Adresse'),
             TextField::new('post_code')->setLabel('Code Postal'),

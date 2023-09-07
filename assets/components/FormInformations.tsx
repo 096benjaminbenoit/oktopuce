@@ -4,6 +4,10 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import { useForm } from 'react-hook-form';
 import Button from '../components/Button';
+import type { Client } from '../api/type';
+import { useQuery } from '@tanstack/react-query';
+import { Spinner } from 'react-bootstrap';
+
 
 type InfosUserForm = {
   firstName: string;
@@ -24,6 +28,14 @@ type InfosUserForm = {
 
 export default function FormInformations() {
 
+  const { isLoading: isClientLoading, error: clientError, data: client } = useQuery({
+    queryKey: ['clients'],
+    queryFn: ({ queryKey: [type] }) =>
+      fetch(`/api/${type}.jsonld`).then(
+        (res) => res.json(),
+      ),
+  });
+
   const {
     register,
     handleSubmit,
@@ -31,15 +43,16 @@ export default function FormInformations() {
     formState: { errors },
   } = useForm<InfosUserForm>()
 
+  if (isClientLoading) {
+    return <Spinner />
+  }
+  const clients: Client[] = client["hydra:member"];
+
+
   return (<>
   <Form.Group className="mb-3">
     <Form.Label>Langue</Form.Label>
     <Select {...register("language")} value="Langue" options={[{value: 'Français', label: 'Français'}]}></Select>
-  </Form.Group>
-
-  <Form.Group className="mb-3">
-    <Form.Label>Type</Form.Label>
-    <Select {...register("type")} value="Type" options={[{value: 'Particulier', label: 'Particulier'}, {value: 'Professionnel', label: 'Professionnel'}]}></Select>
   </Form.Group>
   
       <Input {...register("firstName")} label="Nom" name=""></Input>

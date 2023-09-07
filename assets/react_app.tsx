@@ -30,7 +30,7 @@ import Site from './pages/Site';
 import Equipement from './pages/ChoixEquipement';
 import SiteList from './pages/SiteList';
 import ProfilChoice from "./pages/ProfilChoice";
-import CreateInterEtape1 from './pages/CreateInter_1';
+import CreateInterEtape1 from './pages/CreateIntervention1';
 import EquipementList from './pages/EquipementList';
 
 
