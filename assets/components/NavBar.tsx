@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../components/Logo';
 import { useContext } from 'react';
-import { LoginDispatchContext } from '../context/LoginContext';
+import { LoginContext, LoginDispatchContext } from '../context/LoginContext';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -18,6 +18,9 @@ function NavBar() {
     navigate('/');
   };
 
+  const isLogin = useContext(LoginContext)?.loggedIn;
+
+
   return (<>
     <Navbar collapseOnSelect expand="lg" className="bg-secondary navbar-dark">
       <Container>
@@ -26,12 +29,14 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/infos">Creation nouveau profil</Nav.Link>
-            <Nav.Link href="#historique">Historique</Nav.Link>
-            <Nav.Link href="/create_inter">Interventions</Nav.Link>
+            <Nav.Link href="/infos">Création d'un nouveau profil</Nav.Link>
+            <Nav.Link href="#historique">Données de l'équipement</Nav.Link>
+            {/* <Nav.Link href="/create_inter"></Nav.Link> */}
           </Nav>
           <Nav>
-            <Nav.Link  onClick={logout} href="#connexion">Deconnexion</Nav.Link>
+            {
+              isLogin ? <Nav.Link  onClick={logout} href="#connexion">Déconnexion</Nav.Link> : null
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>

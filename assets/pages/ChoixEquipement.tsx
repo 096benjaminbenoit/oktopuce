@@ -74,7 +74,7 @@ function Equipement() {
                     <div className="card-body">
                         <Form>
                             <Form.Group className="mb-3">
-                                <Form.Label>Sur quel site est le produit ?</Form.Label>
+                                <Form.Label>Sur quel site se trouve le produit ?</Form.Label>
                                 <Select {...register("site")}
                                     options={
                                         clients.map(client => ({ label: client.address, value: client['@id'] }))
@@ -82,7 +82,7 @@ function Equipement() {
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3">
-                                <Form.Label>Sur quel type est installé la puce ?</Form.Label>
+                                <Form.Label>Sur quel type d'équipement est installé la puce ?</Form.Label>
                                 <Select {...register("equipement")}
                                     options={
                                         equipment_types.map(equipment_type => ({ label: equipment_type.type, value: equipment_type['@id'] }))

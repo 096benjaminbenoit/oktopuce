@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getQueryKey } from "../utils/requests";
 import { Spinner } from "react-bootstrap";
+import Button from "../components/Button";
 
 
 export interface NfcTag {
@@ -73,16 +74,20 @@ function Interventions() {
     })
 
     switch (status) {
-        case "error": return "Haha you fucked up.";
+        case "error": return "Oups, une erreur est survenue.";
         case "loading": return <Spinner />;
         case "success": // fallthrough
     }
     const equipment = data["equipment"];
     if (!equipment) {
-        return <h2>Puce non associée</h2>;
+        return (<>
+        <div className="container text-center mt-4">
+            <h1>Puce non associée</h1>
+        </div>
+        </>);
     }
     const interventions = equipment["interventions"];
-    console.log(data);
+    // console.log(data);
 
     return <Accordion className="container">
         {interventions.map(({ ["@id"]: key,/* type, details,*/ interventionDate, ...rest }, index) => (
@@ -122,6 +127,7 @@ export default function ClimpropreUI() {
     return (
         <Page.WithNavbar>
             <Interventions />
+            <Button.Link path='/create_inter' className="px-3 py-2 fixed-bottom mx-auto mb-3 w-50" variant="primary">PLUS</Button.Link>
         </Page.WithNavbar>
     )
 }
