@@ -105,7 +105,6 @@ export default function CreateIntervention() {
       </div>
       </>;
   }
-
 }
 
 function QuestionField(
