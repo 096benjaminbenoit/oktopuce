@@ -31,7 +31,7 @@ function NavBar() {
             {/* <Nav.Link href="/create_inter"></Nav.Link> */}
           </Nav>
           <Nav>
-            <Nav.Link  onClick={logout} href="#connexion">Deconnexion</Nav.Link>
+            <Nav.Link  onClick={logout} href="#connexion">Déconnexion</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
