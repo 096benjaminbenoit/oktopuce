@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../components/Logo';
 import { useContext } from 'react';
-import { LoginDispatchContext } from '../context/LoginContext';
+import { LoginContext, LoginDispatchContext } from '../context/LoginContext';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -17,6 +17,9 @@ function NavBar() {
     });
     navigate('/');
   };
+
+  const isLogin = useContext(LoginContext)?.loggedIn;
+
 
   return (<>
     <Navbar collapseOnSelect expand="lg" className="bg-secondary navbar-dark">
@@ -31,7 +34,9 @@ function NavBar() {
             {/* <Nav.Link href="/create_inter"></Nav.Link> */}
           </Nav>
           <Nav>
-            <Nav.Link  onClick={logout} href="#connexion">Déconnexion</Nav.Link>
+            {
+              isLogin ? <Nav.Link  onClick={logout} href="#connexion">Déconnexion</Nav.Link> : null
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
