@@ -5,5 +5,8 @@
         "esModuleInterop": true,
         "allowUmdGlobalAccess": true,
         "types": ["jest"],
-    }
+        
+    }, "include": [
+        "./assets/web-nfc.d.ts"
+    ]
 }

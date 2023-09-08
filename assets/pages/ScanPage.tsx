@@ -1,6 +1,8 @@
 import React from "react";
 import Logo from '../components/Logo';
 import NavBar from "../components/NavBar";
+import Button from "../components/Button";
+import Scan from "../components/Scan";
 
 export default function scanPage(){
     return (
@@ -13,7 +15,8 @@ export default function scanPage(){
                 <Logo className='m-5 logoScanPage'></Logo>
             </div>
             <div className='m-4'>
-                <h2 className='subtitleScanPage text-uppercase'>Flashe ton poulpe</h2>
+                <h2 className='subtitleScanPage text-uppercase'>Flashe ton poulpe oui</h2>
+                <Scan></Scan>
             </div>
         </section>
     </>

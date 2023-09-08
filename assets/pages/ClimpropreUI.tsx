@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getQueryKey } from "../utils/requests";
 import { Spinner } from "react-bootstrap";
+import Button from "../components/Button";
 
 
 export interface NfcTag {
@@ -126,6 +127,7 @@ export default function ClimpropreUI() {
     return (
         <Page.WithNavbar>
             <Interventions />
+            <Button.Link path='/create_inter' className="px-3 py-2 fixed-bottom mx-auto mb-3 w-50" variant="primary">PLUS</Button.Link>
         </Page.WithNavbar>
     )
 }
