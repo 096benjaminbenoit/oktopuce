@@ -26,11 +26,10 @@ interface Question {
   "@id": string;
   "@type": string;
   question: string;
-  questionType: string;
-  choices: { [key: number]: string };
+  questionType: string | "checkbox" | "select" | "multiple";
+  choices: Record<string, string> | { [key: number]: string };
   required: boolean;
 }
-
 
 export default function CreateIntervention() {
   const {
@@ -100,6 +99,10 @@ export default function CreateIntervention() {
         {interventionType.questions.map(
           (q, i) => <QuestionField question={q} registration={register(`response.${i}`)} />
         )}
+      
+      <div className='container text-center mt-3'>
+        <Button type="submit" className='text-uppercase btnHome' variant="primary">Valider</Button>
+      </div>
       </>;
   }
 
@@ -121,6 +124,5 @@ function QuestionField(
         <Form.Label>{question.question}</Form.Label>
         <Select multiple {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
       </Form.Group>
-
   }
 }
