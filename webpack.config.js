@@ -45,7 +45,7 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(true || Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
 
     // configure Babel
     // .configureBabel((config) => {

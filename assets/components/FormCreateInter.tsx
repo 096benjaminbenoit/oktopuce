@@ -4,7 +4,7 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import { UseFormRegisterReturn, useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
-import { Spinner } from 'react-bootstrap';
+import { FormGroup, Spinner } from 'react-bootstrap';
 import Button from './Button';
 
 type CreateInterForm = {
@@ -97,7 +97,7 @@ export default function CreateIntervention() {
 
       return <>
         {interventionType.questions.map(
-          (q, i) => <QuestionField question={q} registration={register(`response.${i}`)} />
+          (q, i) => <QuestionField key={q['@id']} question={q} registration={register(`response.${i}`)} />
         )}
       
       <div className='container text-center mt-3'>
@@ -120,9 +120,16 @@ function QuestionField(
         <Select {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
       </Form.Group>
     case "multiple":
-      return <Form.Group>
-        <Form.Label>{question.question}</Form.Label>
-        <Select multiple {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
-      </Form.Group>
+      return <Form.Group {...registration}>
+          <Form.Label>{question.question}</Form.Label>
+          { question !== undefined && Object.keys(question.choices).map(choice => (
+            <Form.Check key={choice} type="checkbox" label={question.choices[choice]}/>
+          )) }
+        </Form.Group>
+
+      // <Form.Group>
+      //   <Form.Label>{question.question}</Form.Label>
+      //   <Select multiple {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
+      // </Form.Group>
   }
 }
