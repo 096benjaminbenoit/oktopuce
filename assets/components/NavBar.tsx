@@ -14,9 +14,9 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/infos">Creation nouveau profil</Nav.Link>
-            <Nav.Link href="#historique">Historique</Nav.Link>
-            <Nav.Link href="/create_inter">Interventions</Nav.Link>
+            <Nav.Link href="/infos">Création d'un nouveau profil</Nav.Link>
+            <Nav.Link href="#historique">Données de l'équipement</Nav.Link>
+            {/* <Nav.Link href="/create_inter"></Nav.Link> */}
           </Nav>
           <Nav>
             <Nav.Link href="#connexion">Déconnexion</Nav.Link>
