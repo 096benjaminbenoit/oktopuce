@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from '../components/Logo';
 import NavBar from "../components/NavBar";
+import Button from "../components/Button"
 
 export default function scanPage(){
     return (
