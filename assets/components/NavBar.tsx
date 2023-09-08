@@ -3,9 +3,21 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Logo from '../components/Logo';
+import { useContext } from 'react';
+import { LoginDispatchContext } from '../context/LoginContext';
+import { useNavigate } from 'react-router-dom';
 
 
 function NavBar() {
+  const navigate = useNavigate();
+  const dispatch = useContext(LoginDispatchContext);
+  const logout =()=>{
+    dispatch({
+      type: 'logout',
+    });
+    navigate('/');
+  };
+
   return (<>
     <Navbar collapseOnSelect expand="lg" className="bg-secondary navbar-dark">
       <Container>
@@ -19,7 +31,7 @@ function NavBar() {
             {/* <Nav.Link href="/create_inter"></Nav.Link> */}
           </Nav>
           <Nav>
-            <Nav.Link href="#connexion">Déconnexion</Nav.Link>
+            <Nav.Link  onClick={logout} href="#connexion">Deconnexion</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

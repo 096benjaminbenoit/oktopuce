@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Person;
 use Symfony\Component\Form\FormEvents;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,22 +54,33 @@ class UserCrudController extends AbstractCrudController
     {
         $fields = [
             IdField::new('id')->hideOnForm(),
-            TelephoneField::new('phone')->setLabel('Téléphone'),
-            AssociationField::new('person')->setLabel('Prénom / Nom'),
+
+            // TextField::new('firstName')->setLabel('Prénom'),
+            // TextField::new('lastName')->setLabel('Nom'),
+            // TelephoneField::new('phone')->setLabel('Téléphone'),
+
+            AssociationField::new('person')->renderAsEmbeddedForm(PersonCrudController::class),
+            
+            // AssociationField::new('phone')->setLabel('Téléphone'),
+            
+         
+            // TelephoneField::new('phone')->setLabel('Confimation Téléphone'),
+            // AssociationField::new('person')->setLabel('Prénom / Nom'),
             ArrayField::new('roles'),
         ];
-
         $password = TextField::new('password')
             ->setFormType(RepeatedType::class)
             ->setFormTypeOptions([
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => '(Repeat)'],
+                'first_options' => ['label' => 'Mot de passe : '],
+                'second_options' => ['label' => 'Confirmation mot de passe '],
                 'mapped' => false,
             ])
             ->setRequired($pageName === Crud::PAGE_NEW)
             ->onlyOnForms();
         $fields[] = $password;
+
+     
 
         return $fields;
     }
@@ -76,18 +88,32 @@ class UserCrudController extends AbstractCrudController
     public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
     {
         $formBuilder = parent::createNewFormBuilder($entityDto, $formOptions, $context);
-        return $this->addPasswordEventListener($formBuilder);
+        return $this->addFormEventListeners($formBuilder);
     }
 
     public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
     {
         $formBuilder = parent::createEditFormBuilder($entityDto, $formOptions, $context);
-        return $this->addPasswordEventListener($formBuilder);
+        return $this->addFormEventListeners($formBuilder);
     }
 
-    private function addPasswordEventListener(FormBuilderInterface $formBuilder): FormBuilderInterface
+    private function addFormEventListeners(FormBuilderInterface $formBuilder): FormBuilderInterface
     {
-        return $formBuilder->addEventListener(FormEvents::POST_SUBMIT, $this->hashPassword());
+        return $formBuilder
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->hashPassword())
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->copyPhoneNumber());
+    }
+
+    private function copyPhoneNumber() {
+        return function($event) {
+            $form = $event->getForm();
+            if (!$form->isValid()) {
+                return;
+            }
+            $telephone = $form->get('person')->get('phone')->getData();
+            $user = $form->getData();
+            $user->setPhone($telephone);
+        };
     }
 
     private function hashPassword() {
