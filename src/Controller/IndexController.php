@@ -12,7 +12,8 @@ class IndexController extends AbstractController
         '/{reactRouting}',
         name: 'app_index',
         requirements: ["reactRouting" => "^(?!api|_profiler|_wdt|build|admin).+"],
-        defaults: ["reactRouting" => null]
+        defaults: ["reactRouting" => null],
+        priority: -1,
     )]
     public function index(): Response
     {
