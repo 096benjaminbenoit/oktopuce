@@ -97,7 +97,24 @@ root.render(<React.StrictMode>
 </React.StrictMode>);
 
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      async mutationFn(key) {
+        if (Array.isArray(key) && key.length == 2) {
+          const [url, data] = key;
+          const req = await fetch(url, {
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/ld+json",
+            },
+          });
+          return req.json();
+        }
+      }
+    }
+  }
+})
 
 
 function App() {

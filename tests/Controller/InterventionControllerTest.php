@@ -85,7 +85,7 @@ class InterventionControllerTest extends WebTestCase
     {
         $this->markTestIncomplete();
         $fixture = new Intervention();
-        $fixture->setTechnicien('My Title');
+        $fixture->setTechnician('My Title');
         $fixture->setEntreprise('My Title');
         $fixture->setType('My Title');
         $fixture->setInterventionDate('My Title');
@@ -125,8 +125,8 @@ class InterventionControllerTest extends WebTestCase
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Intervention();
-        $fixture->setTechnicien('My Title');
-        $fixture->setEntreprise('My Title');
+        $fixture->setTechnician('My Title');
+        $fixture->setEnterprise('My Title');
         $fixture->setType('My Title');
         $fixture->setInterventionDate('My Title');
         $fixture->setequipment('My Title');

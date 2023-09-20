@@ -41,7 +41,17 @@ export interface Intervention {
     "@id":            string;
     "@type":          string;
     interventionDate: Date;
-    interventionTypes: {type: string}[];
+    interventionType: {type: string};
+}
+
+export interface InterventionFull {
+    "technician": string,
+    "enterprise": string,
+    "person": string,
+    "equipment": string,
+    "interventionDate": Date,
+    "interventionType": string,
+    "answers": [{}] 
 }
 
 
@@ -71,14 +81,14 @@ function Interventions() {
             fetch(`/api/${type}.jsonld`).then(
                 async (res) => await res.json() /* as {"hydra:member": InterventionType[]} */
             ),
-    })
+    });
 
     switch (status) {
         case "error": return "Oups, une erreur est survenue.";
         case "loading": return <Spinner />;
         case "success": // fallthrough
     }
-    const equipment = data["equipment"];
+    const equipment = data?.["equipment"];
     if (!equipment) {
         return (<>
         <div className="container text-center mt-4">
@@ -92,8 +102,8 @@ function Interventions() {
     return <Accordion className="container">
         {interventions.map(({ ["@id"]: key,/* type, details,*/ interventionDate, ...rest }, index) => (
             <Accordion.Item key={key} eventKey={index.toString()}>
-                <Accordion.Header>{new Date(interventionDate).toLocaleDateString()} - {rest.interventionTypes[0].type}</Accordion.Header>
-                <Accordion.Body>{""/* details */}</Accordion.Body>
+                <Accordion.Header>{new Date(interventionDate).toLocaleDateString()} - {rest.interventionType.type}</Accordion.Header>
+                <Accordion.Body><LazyLoadingIntervention url={key} /></Accordion.Body>
             </Accordion.Item>
         ))}
     </Accordion>
@@ -116,9 +126,10 @@ function LazyLoadingIntervention({url}: {url: string}) {
         case "loading":
             return <Spinner />;
         case "error":
-            return ;
+            return "Impossible de charger les info de l'intervention";
         case "success":
-            return;
+            console.log(data);
+            return data.technician; 
     }
 }
 
