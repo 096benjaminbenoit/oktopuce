@@ -41,7 +41,7 @@ const Scan = () => {
                 console.log(`Error! Scan failed to start: ${error}.`);
             };
         }
-    });
+    }, [navigate]);
 
     const onReading = ({ message, serialNumber }) => {
         setSerialNumber(serialNumber);
