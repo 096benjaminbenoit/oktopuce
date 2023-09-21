@@ -41,6 +41,7 @@ function isCompatible(interventionType: InterventionType, equipment: Equipment) 
 }
 
 export default function CreateIntervention() {
+  const goBack = () => navigate(`/equipment/${nfcTag}`);
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation({
     async mutationFn(form: CreateInterForm) {
@@ -58,7 +59,7 @@ export default function CreateIntervention() {
       return await res.json();
     },
     onSuccess() {
-      navigate(`/equipment/${nfcTag}`);
+      goBack();
     }
   });
   const {
@@ -125,8 +126,9 @@ export default function CreateIntervention() {
               options={choices}
             />
           </Form.Group>
-          <div className="container text-center mt-3">
-            <Button type="submit" className="text-uppercase btnHome mb-3" variant="primary">
+          <div className="container text-center my-3 d-flex gap-3 justify-content-center">
+            <Button type="button" className="text-uppercase btnHome" variant="warning" onClick={goBack}>Retour au infos...</Button>
+            <Button type="submit" className="text-uppercase btnHome" variant="primary">
               Valider
             </Button>
           </div>
@@ -146,7 +148,7 @@ export default function CreateIntervention() {
           (q, i) => <QuestionField key={q['@id']} question={q} registration={register(`answers.${i}`)} />
         )}
 
-        <div className='container text-center mt-3'>
+        <div className='container text-center my-3 d-flex gap-3 justify-content-center'>
           <Button disabled={isLoading} type="button" onClick={() => setStep(1)} className='text-uppercase btnHome' variant="warning">Retour</Button>
           <Button disabled={isLoading} type="submit" className='text-uppercase btnHome' variant="primary">Valider</Button>
         </div>
