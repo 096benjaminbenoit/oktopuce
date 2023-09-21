@@ -26,7 +26,7 @@ interface Question {
   "@id": string;
   "@type": string;
   question: string;
-  questionType: "checkbox" | "select" | "multiple" | (string & {});
+  questionType: "checkbox" | "select" | "multiple" | "optionalText" | (string & {});
   choices: Record<string, string> | { [key: number]: string };
   required: boolean;
 }
@@ -142,5 +142,8 @@ function QuestionField(
           <Form.Check {...registration} key={choice} type="checkbox" value={question.choices[choice]} label={question.choices[choice]} />
         ))}
       </Form.Group>;
+    // TODO: optional text support ...
+    case "optionalText":
+      return;
   }
 }

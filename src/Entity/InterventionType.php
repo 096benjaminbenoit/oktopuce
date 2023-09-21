@@ -30,9 +30,10 @@ class InterventionType
     #[Groups(['interventionType'])]
     private Collection $questions;
 
-    #[ORM\ManyToMany(targetEntity: EquipmentType::class, inversedBy: 'interventionTypes')]
+    #[ORM\ManyToMany(targetEntity: EquipmentType::class)]
     #[Groups(['interventionType'])]
     private Collection $equipmentTypes;
+
 
     public function __toString()
     {
@@ -43,6 +44,7 @@ class InterventionType
     {
         $this->questions = new ArrayCollection();
         $this->interventions = new ArrayCollection();
+        $this->equipmentTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +120,30 @@ class InterventionType
                 $intervention->setInterventionType(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EquipmentType>
+     */
+    public function getEquipmentTypes(): Collection
+    {
+        return $this->equipmentTypes;
+    }
+
+    public function addEquipmentType(EquipmentType $equipmentType): static
+    {
+        if (!$this->equipmentTypes->contains($equipmentType)) {
+            $this->equipmentTypes->add($equipmentType);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipmentType(EquipmentType $equipmentType): static
+    {
+        $this->equipmentTypes->removeElement($equipmentType);
 
         return $this;
     }

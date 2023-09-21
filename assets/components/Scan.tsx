@@ -29,6 +29,7 @@ const Scan = () => {
                                 if (url.origin == window.location.origin) {
                                     const match = url.pathname.match(/equipment\/([0-9a-f]{8}(?:-[0-9a-f]{4}){4}[0-9a-f]{8}$)$/i);
                                     if(match) {
+                                        event.preventDefault();
                                         const uuid = match[1];
                                         navigate(`/equipment/${uuid}`);
                                     }
@@ -65,14 +66,7 @@ const Scan = () => {
     }, [scan]);
 
     return (
-        <>
-            {actions.scan === 'scanned' ?
-                <div>
-                    <p>Serial Number: {serialNumber}</p>
-                    <p>Message: {message}</p>
-                </div>
-                : <Scanner status={actions.scan}></Scanner>}
-        </>
+        <></>
     );
 };
 
