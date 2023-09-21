@@ -6,7 +6,7 @@ import { SubmitHandler, UseFormRegisterReturn, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FormGroup, Spinner } from 'react-bootstrap';
 import Button from './Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEquipment, Equipment } from '../api/NFCEquipment';
 import { getId } from '../utils/requests';
 
@@ -41,6 +41,7 @@ function isCompatible(interventionType: InterventionType, equipment: Equipment) 
 }
 
 export default function CreateIntervention() {
+  const navigate = useNavigate();
   const { mutate, isLoading } = useMutation({
     async mutationFn(form: CreateInterForm) {
       const res = await fetch("/api/interventions.jsonld", {
@@ -57,7 +58,7 @@ export default function CreateIntervention() {
       return await res.json();
     },
     onSuccess() {
-
+      navigate(`/equipment/${nfcTag}`);
     }
   });
   const {
