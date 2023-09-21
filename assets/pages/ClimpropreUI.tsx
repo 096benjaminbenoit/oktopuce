@@ -8,41 +8,8 @@ import { useParams } from "react-router-dom";
 import { getQueryKey } from "../utils/requests";
 import { Spinner } from "react-bootstrap";
 import Button from "../components/Button";
+import { useNFC } from "../api/NFCEquipment";
 
-
-export interface NfcTag {
-    "@context": string;
-    "@id":      string;
-    "@type":    string;
-    equipment:  Equipment;
-}
-
-export interface Equipment {
-    "@id":            string;
-    "@type":          string;
-    id:               number;
-    serialNumber:     string;
-    // equipment:        any[];
-    nfcTag:           string;
-    brand:            string;
-    gas:              Gas;
-    hasLeakDetection: boolean;
-    finality:         any[];
-    interventions:    Intervention[];
-}
-
-export interface Gas {
-    "@id":   string;
-    "@type": string;
-    name:    string;
-}
-
-export interface Intervention {
-    "@id":            string;
-    "@type":          string;
-    interventionDate: Date;
-    interventionType: {type: string};
-}
 
 export interface InterventionFull {
     "technician": string,
@@ -64,17 +31,8 @@ function useIsSelected() {
 
 const lorem = "Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato";
 
-function Interventions() {
-    const params = useParams();
-    console.log(params);
-
-    const { status, error, data } = useQuery({
-        queryKey: ['nfc_tags', params.nfcTag],
-        queryFn: ({ queryKey: [type, id] }) =>
-            fetch(`/api/${type}/${id}.jsonld`).then(
-                async (res) => await res.json() as NfcTag
-            ),
-    })
+function Interventions({nfcTag}: {nfcTag: string}) {
+    const { status, error, data } = useNFC(nfcTag);
     const { status: interventionType, data: interventionTypeData } = useQuery({
         queryKey: ["intervention_types"],
         queryFn: ({queryKey: [type]}) =>
@@ -99,14 +57,17 @@ function Interventions() {
     const interventions = equipment["interventions"];
     // console.log(data);
 
-    return <Accordion className="container">
-        {interventions.map(({ ["@id"]: key,/* type, details,*/ interventionDate, ...rest }, index) => (
-            <Accordion.Item key={key} eventKey={index.toString()}>
-                <Accordion.Header>{new Date(interventionDate).toLocaleDateString()} - {rest.interventionType.type}</Accordion.Header>
-                <Accordion.Body><LazyLoadingIntervention url={key} /></Accordion.Body>
-            </Accordion.Item>
-        ))}
-    </Accordion>
+    return <>
+        <Accordion className="container">
+            {interventions.map(({ ["@id"]: key,/* type, details,*/ interventionDate, ...rest }, index) => (
+                <Accordion.Item key={key} eventKey={index.toString()}>
+                    <Accordion.Header>{new Date(interventionDate).toLocaleDateString()} - {rest.interventionType.type}</Accordion.Header>
+                    <Accordion.Body><LazyLoadingIntervention url={key} /></Accordion.Body>
+                </Accordion.Item>
+            ))}
+        </Accordion>
+        <Button.Link path={`/create_inter/${nfcTag}`} className="px-3 py-2 fixed-bottom mx-auto mb-3 w-50" variant="primary">Ajouter une intervention</Button.Link>
+    </>
 }
 
 function LazyLoadingIntervention({url}: {url: string}) {    
@@ -134,11 +95,11 @@ function LazyLoadingIntervention({url}: {url: string}) {
 }
 
 export default function ClimpropreUI() {
+    const {nfcTag} = useParams();
 
     return (
         <Page.WithNavbar>
-            <Interventions />
-            <Button.Link path='/create_inter' className="px-3 py-2 fixed-bottom mx-auto mb-3 w-50" variant="primary">PLUS</Button.Link>
+            <Interventions nfcTag={nfcTag} />
         </Page.WithNavbar>
     )
 }

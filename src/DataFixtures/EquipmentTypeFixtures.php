@@ -3,13 +3,14 @@
 namespace App\DataFixtures;
 
 use App\Entity\EquipmentType;
-use App\Entity\InterventionQuestion;
 use App\Entity\InterventionType;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\InterventionQuestion;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
 
-class EquipmentTypeFixtures extends Fixture
+class EquipmentTypeFixtures extends Fixture implements FixtureGroupInterface
 {
     public function createQuestion($question)
     {
@@ -130,7 +131,6 @@ class EquipmentTypeFixtures extends Fixture
                     ["Nouvelle intervention à prévoir", "checkbox"],
                 ],
             ]
-
         ];
         $depose = [
             [
@@ -285,6 +285,7 @@ class EquipmentTypeFixtures extends Fixture
                 $manager->persist($typeEquipement);
             }
         }
+
         $climatisations = $typeEquipements["Climatisation"];
         $this->createIntervetion($manager, $climatisations, "Mise en Service", $miseEnService);
         $this->createIntervetion($manager, $climatisations, "Entretien", $entretien);
@@ -292,6 +293,11 @@ class EquipmentTypeFixtures extends Fixture
         $this->createIntervetion($manager, $climatisations, "Dépose", $depose);
         $this->createIntervetion($manager, $climatisations, "Repose", $repose);
         $this->createIntervetion($manager, $climatisations, "Dépose Définitive", $deposeDefinitive);
+        
         $manager->flush();
+    }
+
+    public static function getGroups(): array {
+        return ["prod"];
     }
 }

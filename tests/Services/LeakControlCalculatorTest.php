@@ -5,6 +5,7 @@ namespace App\Tests\Services;
 use App\Entity\equipment;
 use App\Entity\GasType;
 use App\Services\LeakControlCalculator;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LeakControlCalculatorTest extends WebTestCase
@@ -71,12 +72,12 @@ class LeakControlCalculatorTest extends WebTestCase
     public function testNextControlDate(): void
     {
         $equipment = $this->getEquipment(675, 1.6, true);
-        $this->assertNull(LeakControlCalculator::getNextLeakControlDate($equipment));
+        $this->assertNull(LeakControlCalculator::getNextLeakControlDate($equipment, new DateTimeImmutable("now")));
 
         $equipment = $this->getEquipment(2100, 2.6, false);
-        $this->assertEquals((new \DateTimeImmutable('now + 6 months'))->format("d/m/Y"), LeakControlCalculator::getNextLeakControlDate($equipment)->format('d/m/Y'));
+        $this->assertEquals((new \DateTimeImmutable('now + 6 months'))->format("d/m/Y"), LeakControlCalculator::getNextLeakControlDate($equipment, new DateTimeImmutable("now"))->format('d/m/Y'));
 
         $equipment = $this->getEquipment(2100, 2.6, true);
-        $this->assertEquals((new \DateTimeImmutable('now + 2 years'))->format("d/m/Y"), LeakControlCalculator::getNextLeakControlDate($equipment)->format('d/m/Y'));
+        $this->assertEquals((new \DateTimeImmutable('now + 2 years'))->format("d/m/Y"), LeakControlCalculator::getNextLeakControlDate($equipment, new DateTimeImmutable("now"))->format('d/m/Y'));
     }
 }

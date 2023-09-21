@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Input from '../components/Input';
 import Select from '../components/Select';
@@ -6,6 +6,9 @@ import { SubmitHandler, UseFormRegisterReturn, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FormGroup, Spinner } from 'react-bootstrap';
 import Button from './Button';
+import { useParams } from 'react-router-dom';
+import { useEquipment, Equipment } from '../api/NFCEquipment';
+import { getId } from '../utils/requests';
 
 type CreateInterForm = {
   entreprise: string;
@@ -31,39 +34,52 @@ interface Question {
   required: boolean;
 }
 
+function isCompatible(interventionType: InterventionType, equipment: Equipment) {
+  return interventionType.equipmentTypes.some(
+    (equipmentType) => getId(equipmentType) == getId(equipment.equipmentType) 
+  )
+}
+
 export default function CreateIntervention() {
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     async mutationFn(form: CreateInterForm) {
-      const res = await fetch("/", {
+      const res = await fetch("/api/interventions.jsonld", {
         method: "POST",
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          equipment: getId(equipment),
+        }),
         headers: {
-          "Content-Type": "json",
+          "Content-Type": "application/ld+json",
         },
       });
+      if (400 <= res.status) throw await res.json();
+      return await res.json();
     },
+    onSuccess() {
 
+    }
   });
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-    reset
+    setValue,
   } = useForm<CreateInterForm>({ shouldUseNativeValidation: true, });
 
 
   const onSubmit: SubmitHandler<CreateInterForm> = data => mutate(data)
-
+  
+  const {nfcTag} = useParams();
+  const { isLoading: isEquipmentLoading, error: equipmentError, data: equipment} = useEquipment(nfcTag);
   const { isLoading: isInterventionTypeLoading, error: interventionTypeError, data: interventionTypeHydra } = useQuery({
     queryKey: ['intervention_types'],
     queryFn: ({ queryKey: [interventionTypes] }) =>
-      fetch(`/api/${interventionTypes}.jsonld`).then(
+    fetch(`/api/${interventionTypes}.jsonld`).then(
         res => res.json(),
       ),
   });
-
-
 
   const [step, setStep] = useState(1);
 
@@ -74,13 +90,20 @@ export default function CreateIntervention() {
   const interventionTypes: InterventionType[] = interventionTypeHydra?.["hydra:member"];
 
   const choices = useMemo(() => {
-    if (interventionTypes)
+    if (interventionTypes && equipment)
       return [{ label: "Sélectionner un type d'intervention", value: "" }].concat(
-        interventionTypes.map((interventionType) => ({ label: interventionType.type, value: interventionType['@id'] }))
-      )
-  }, [interventionTypes])
+        interventionTypes
+          .filter(interventionType => isCompatible(interventionType, equipment))
+          .map((interventionType) => ({ label: interventionType.type, value: interventionType['@id'] }))
+      );
+  }, [interventionTypes, equipment])
 
-  if (isInterventionTypeLoading) {
+  useEffect(() => {
+    setValue("answers", []);
+  }, [interventionTypeForm]);
+
+
+  if (isInterventionTypeLoading || isEquipmentLoading) {
     return <Spinner />;
   }
 
@@ -109,15 +132,22 @@ export default function CreateIntervention() {
         </form>
       </React.Fragment>;
     case 2:
+      console.group("Yeet");
+      console.log(interventionTypeForm);
+      console.log(interventionTypes);
       const interventionType = interventionTypes.find(({ ["@id"]: id }) => id == interventionTypeForm);
+      console.log(interventionType)
+      console.groupEnd();
 
       return <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>{interventionType.type}</h2>
         {interventionType.questions.map(
           (q, i) => <QuestionField key={q['@id']} question={q} registration={register(`answers.${i}`)} />
         )}
 
         <div className='container text-center mt-3'>
-          <Button type="submit" className='text-uppercase btnHome' variant="primary">Valider</Button>
+          <Button disabled={isLoading} type="button" onClick={() => setStep(1)} className='text-uppercase btnHome' variant="warning">Retour</Button>
+          <Button disabled={isLoading} type="submit" className='text-uppercase btnHome' variant="primary">Valider</Button>
         </div>
       </form>;
   }
@@ -126,10 +156,10 @@ export default function CreateIntervention() {
 function QuestionField(
   { question, registration }: { question: Question, registration: UseFormRegisterReturn<string> }
 ) {
-  const choices = Object.values(question.choices);
+  const choices = Object.values(question.choices ?? {});
   switch (question.questionType) {
     case "checkbox":
-      return <Form.Check type="switch" label={question.question} {...registration} />;
+      return <Form.Check type="switch" value="oui" label={question.question} {...registration} />;
     case "select":
       return <Form.Group>
         <Form.Label>{question.question}</Form.Label>

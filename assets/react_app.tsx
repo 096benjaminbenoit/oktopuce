@@ -79,7 +79,7 @@ const router = createBrowserRouter([
     element: <ProfilChoice />
   },
   {
-    path: "/create_inter",
+    path: "/create_inter/:nfcTag",
     element: <CreateInterEtape1/>,
   },
   {

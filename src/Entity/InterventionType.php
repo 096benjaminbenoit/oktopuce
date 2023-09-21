@@ -30,10 +30,9 @@ class InterventionType
     #[Groups(['interventionType'])]
     private Collection $questions;
 
-    #[ORM\ManyToMany(targetEntity: EquipmentType::class)]
+    #[ORM\ManyToMany(targetEntity: EquipmentType::class, inversedBy: 'interventionTypes')]
     #[Groups(['interventionType'])]
     private Collection $equipmentTypes;
-
 
     public function __toString()
     {
