@@ -7,8 +7,9 @@ use Faker\Factory;
 use App\Entity\GasType;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class GasTypeFixtures extends Fixture
+class GasTypeFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -29,6 +30,9 @@ class GasTypeFixtures extends Fixture
             $manager->persist($GasType); 
         }
         $manager->flush();
+    }
+    public static function getGroups(): array {
+        return ["prod"];
     }
 
     //apres dans le terminale :   bin/console doctrine:fixtures:load

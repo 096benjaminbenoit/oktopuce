@@ -6,18 +6,18 @@ import { Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 type Site = {
-    "@context": string,
-    "@id": string,
-    "@type": string,
-    "id": number,
-    "address": string,
-    "city": string,
-    "postCode": string,
-    "name": string,
-    "client": string,
-    "contacts": [
-      string
-    ]
+  "@context": string,
+  "@id": string,
+  "@type": string,
+  "id": number,
+  "address": string,
+  "city": string,
+  "postCode": string,
+  "name": string,
+  "client": string,
+  "contacts": [
+    string
+  ]
 }
 
 export default function SiteList() {
@@ -42,15 +42,15 @@ export default function SiteList() {
       <div className="container mt-4">
         <div className="card m-auto " style={{ maxWidth: "500px" }}>
           <div className="card-body p-5">
-            {sites.map(site => (
-              <div key={site['@id']} className="site-item">
-                <ul>
-                  <li>
-                  <Link to={'/equipementlist'}>{site.name}</Link>
+            <div>
+              <ul>
+                {sites.map(site => (
+                  <li key={site['@id']} className="site-item">
+                    <Link to={'/equipementlist'}>{site.name}</Link>
                   </li>
-                </ul>
-              </div>
-            ))}
+                ))}
+              </ul>
+            </div>
             <Link to={''}></Link>
           </div>
         </div>

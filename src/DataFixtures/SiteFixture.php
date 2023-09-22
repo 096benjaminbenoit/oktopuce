@@ -7,6 +7,7 @@ use App\Entity\Site;
 use App\Entity\Client;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class SiteFixture extends Fixture implements DependentFixtureInterface

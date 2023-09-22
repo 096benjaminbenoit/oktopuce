@@ -8,40 +8,17 @@ import { useParams } from "react-router-dom";
 import { getQueryKey } from "../utils/requests";
 import { Spinner } from "react-bootstrap";
 import Button from "../components/Button";
+import { useNFC } from "../api/NFCEquipment";
 
 
-export interface NfcTag {
-    "@context": string;
-    "@id":      string;
-    "@type":    string;
-    equipment:  Equipment;
-}
-
-export interface Equipment {
-    "@id":            string;
-    "@type":          string;
-    id:               number;
-    serialNumber:     string;
-    // equipment:        any[];
-    nfcTag:           string;
-    brand:            string;
-    gas:              Gas;
-    hasLeakDetection: boolean;
-    finality:         any[];
-    interventions:    Intervention[];
-}
-
-export interface Gas {
-    "@id":   string;
-    "@type": string;
-    name:    string;
-}
-
-export interface Intervention {
-    "@id":            string;
-    "@type":          string;
-    interventionDate: Date;
-    interventionTypes: {type: string}[];
+export interface InterventionFull {
+    "technician": string,
+    "enterprise": string,
+    "person": string,
+    "equipment": string,
+    "interventionDate": Date,
+    "interventionType": string,
+    "answers": [{}] 
 }
 
 
@@ -54,31 +31,22 @@ function useIsSelected() {
 
 const lorem = "Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato Potato";
 
-function Interventions() {
-    const params = useParams();
-    console.log(params);
-
-    const { status, error, data } = useQuery({
-        queryKey: ['nfc_tags', params.nfcTag],
-        queryFn: ({ queryKey: [type, id] }) =>
-            fetch(`/api/${type}/${id}.jsonld`).then(
-                async (res) => await res.json() as NfcTag
-            ),
-    })
+function Interventions({nfcTag}: {nfcTag: string}) {
+    const { status, error, data } = useNFC(nfcTag);
     const { status: interventionType, data: interventionTypeData } = useQuery({
         queryKey: ["intervention_types"],
         queryFn: ({queryKey: [type]}) =>
             fetch(`/api/${type}.jsonld`).then(
                 async (res) => await res.json() /* as {"hydra:member": InterventionType[]} */
             ),
-    })
+    });
 
     switch (status) {
         case "error": return "Oups, une erreur est survenue.";
         case "loading": return <Spinner />;
         case "success": // fallthrough
     }
-    const equipment = data["equipment"];
+    const equipment = data?.["equipment"];
     if (!equipment) {
         return (<>
         <div className="container text-center mt-4">
@@ -89,14 +57,17 @@ function Interventions() {
     const interventions = equipment["interventions"];
     // console.log(data);
 
-    return <Accordion className="container">
-        {interventions.map(({ ["@id"]: key,/* type, details,*/ interventionDate, ...rest }, index) => (
-            <Accordion.Item key={key} eventKey={index.toString()}>
-                <Accordion.Header>{new Date(interventionDate).toLocaleDateString()} - {rest.interventionTypes[0].type}</Accordion.Header>
-                <Accordion.Body>{""/* details */}</Accordion.Body>
-            </Accordion.Item>
-        ))}
-    </Accordion>
+    return <>
+        <Accordion className="container">
+            {interventions.map(({ ["@id"]: key,/* type, details,*/ interventionDate, ...rest }, index) => (
+                <Accordion.Item key={key} eventKey={index.toString()}>
+                    <Accordion.Header>{new Date(interventionDate).toLocaleDateString()} - {rest.interventionType.type}</Accordion.Header>
+                    <Accordion.Body><LazyLoadingIntervention url={key} /></Accordion.Body>
+                </Accordion.Item>
+            ))}
+        </Accordion>
+        <Button.Link path={`/create_inter/${nfcTag}`} className="px-3 py-2 fixed-bottom mx-auto mb-3 w-50" variant="primary">Ajouter une intervention</Button.Link>
+    </>
 }
 
 function LazyLoadingIntervention({url}: {url: string}) {    
@@ -116,18 +87,19 @@ function LazyLoadingIntervention({url}: {url: string}) {
         case "loading":
             return <Spinner />;
         case "error":
-            return ;
+            return "Impossible de charger les info de l'intervention";
         case "success":
-            return;
+            console.log(data);
+            return data.technician; 
     }
 }
 
 export default function ClimpropreUI() {
+    const {nfcTag} = useParams();
 
     return (
         <Page.WithNavbar>
-            <Interventions />
-            <Button.Link path='/create_inter' className="px-3 py-2 fixed-bottom mx-auto mb-3 w-50" variant="primary">PLUS</Button.Link>
+            <Interventions nfcTag={nfcTag} />
         </Page.WithNavbar>
     )
 }

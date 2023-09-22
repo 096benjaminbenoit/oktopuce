@@ -1,17 +1,20 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Input from '../components/Input';
 import Select from '../components/Select';
-import { UseFormRegisterReturn, useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
+import { SubmitHandler, UseFormRegisterReturn, useForm } from 'react-hook-form';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { FormGroup, Spinner } from 'react-bootstrap';
 import Button from './Button';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEquipment, Equipment } from '../api/NFCEquipment';
+import { getId } from '../utils/requests';
 
 type CreateInterForm = {
   entreprise: string;
-  interventionType: [string],
-  technicien: string;
-  response: string[];
+  interventionType: string,
+  technician: string;
+  answers: string[];
 }
 
 interface InterventionType {
@@ -26,44 +29,82 @@ interface Question {
   "@id": string;
   "@type": string;
   question: string;
-  questionType: string | "checkbox" | "select" | "multiple";
+  questionType: "checkbox" | "select" | "multiple" | "optionalText" | (string & {});
   choices: Record<string, string> | { [key: number]: string };
   required: boolean;
 }
 
+function isCompatible(interventionType: InterventionType, equipment: Equipment) {
+  return interventionType.equipmentTypes.some(
+    (equipmentType) => getId(equipmentType) == getId(equipment.equipmentType) 
+  )
+}
+
 export default function CreateIntervention() {
+  const navigate = useNavigate();
+  const { mutate, isLoading } = useMutation({
+    async mutationFn(form: CreateInterForm) {
+      const res = await fetch("/api/interventions.jsonld", {
+        method: "POST",
+        body: JSON.stringify({
+          ...form,
+          equipment: getId(equipment),
+        }),
+        headers: {
+          "Content-Type": "application/ld+json",
+        },
+      });
+      if (400 <= res.status) throw await res.json();
+      return await res.json();
+    },
+    onSuccess() {
+      navigate(`/equipment/${nfcTag}`);
+    }
+  });
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-    reset
-  } = useForm<CreateInterForm>({ shouldUseNativeValidation: true });
+    setValue,
+  } = useForm<CreateInterForm>({ shouldUseNativeValidation: true, });
 
+
+  const onSubmit: SubmitHandler<CreateInterForm> = data => mutate(data)
+  
+  const {nfcTag} = useParams();
+  const { isLoading: isEquipmentLoading, error: equipmentError, data: equipment} = useEquipment(nfcTag);
   const { isLoading: isInterventionTypeLoading, error: interventionTypeError, data: interventionTypeHydra } = useQuery({
     queryKey: ['intervention_types'],
     queryFn: ({ queryKey: [interventionTypes] }) =>
-      fetch(`/api/${interventionTypes}.jsonld`).then(
-        (res) => res.json(),
+    fetch(`/api/${interventionTypes}.jsonld`).then(
+        res => res.json(),
       ),
   });
 
   const [step, setStep] = useState(1);
 
-  const interventionTypeForm = watch("interventionType.0");
+  const interventionTypeForm = watch("interventionType");
   console.log(interventionTypeForm);
 
 
   const interventionTypes: InterventionType[] = interventionTypeHydra?.["hydra:member"];
 
   const choices = useMemo(() => {
-    if (interventionTypes)
+    if (interventionTypes && equipment)
       return [{ label: "Sélectionner un type d'intervention", value: "" }].concat(
-        interventionTypes.map((interventionType) => ({ label: interventionType.type, value: interventionType['@id'] }))
-      )
-  }, [interventionTypes])
+        interventionTypes
+          .filter(interventionType => isCompatible(interventionType, equipment))
+          .map((interventionType) => ({ label: interventionType.type, value: interventionType['@id'] }))
+      );
+  }, [interventionTypes, equipment])
 
-  if (isInterventionTypeLoading) {
+  useEffect(() => {
+    setValue("answers", []);
+  }, [interventionTypeForm]);
+
+
+  if (isInterventionTypeLoading || isEquipmentLoading) {
     return <Spinner />;
   }
 
@@ -72,18 +113,17 @@ export default function CreateIntervention() {
       return <React.Fragment key="1">
         {/* Picto du produit correspondant */}
         <hr />
-        <form onSubmit={handleSubmit(() => setStep(2))}>
+        <form onSubmit={handleSubmit(_ => setStep(2))}>
           <h2>Intervenant</h2>
-          <Input {...register("entreprise")} label="Nom de l'entreprise :" name=""></Input>
-          <Input {...register("technicien")} label="Nom du technicien :" name=""></Input>
+          <Input {...register("entreprise")} label="Nom de l'entreprise :"></Input>
+          <Input {...register("technician")} label="Nom du technicien :"></Input>
 
           <h2>Type d'intervention</h2>
 
           <Form.Group className="mb-3">
-            <Select {...register(("interventionType.0"), { required: true })}
-              options={choices
-                // [{value: 'Mise en service', label: 'Mise en service'}, {value: 'Entretien', label: 'Entretien'}, {value: 'Dépannage', label: 'Dépannage'}, {value: 'Dépose/Repose', label: 'Dépose/Repose Temporaire'}, {value: 'Dépose Définitive', label: 'Dépose Définitive'}]}
-              } />
+            <Select {...register(("interventionType"), { required: true })}
+              options={choices}
+            />
           </Form.Group>
           <div className="container text-center mt-3">
             <Button type="submit" className="text-uppercase btnHome mb-3" variant="primary">
@@ -93,42 +133,48 @@ export default function CreateIntervention() {
         </form>
       </React.Fragment>;
     case 2:
+      console.group("Yeet");
+      console.log(interventionTypeForm);
+      console.log(interventionTypes);
       const interventionType = interventionTypes.find(({ ["@id"]: id }) => id == interventionTypeForm);
+      console.log(interventionType)
+      console.groupEnd();
 
-      return <>
+      return <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>{interventionType.type}</h2>
         {interventionType.questions.map(
-          (q, i) => <QuestionField key={q['@id']} question={q} registration={register(`response.${i}`)} />
+          (q, i) => <QuestionField key={q['@id']} question={q} registration={register(`answers.${i}`)} />
         )}
-      
-      <div className='container text-center mt-3'>
-        <Button type="submit" className='text-uppercase btnHome' variant="primary">Valider</Button>
-      </div>
-      </>;
+
+        <div className='container text-center mt-3'>
+          <Button disabled={isLoading} type="button" onClick={() => setStep(1)} className='text-uppercase btnHome' variant="warning">Retour</Button>
+          <Button disabled={isLoading} type="submit" className='text-uppercase btnHome' variant="primary">Valider</Button>
+        </div>
+      </form>;
   }
 }
 
 function QuestionField(
   { question, registration }: { question: Question, registration: UseFormRegisterReturn<string> }
 ) {
+  const choices = Object.values(question.choices ?? {});
   switch (question.questionType) {
     case "checkbox":
-      return <Form.Check type="switch" label={question.question} {...registration} />
+      return <Form.Check type="switch" value="oui" label={question.question} {...registration} />;
     case "select":
       return <Form.Group>
         <Form.Label>{question.question}</Form.Label>
-        <Select {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
-      </Form.Group>
+        <Select {...registration} options={choices.map(label => ({ label, value: label }))} />
+      </Form.Group>;
     case "multiple":
-      return <Form.Group {...registration}>
-          <Form.Label>{question.question}</Form.Label>
-          { question !== undefined && Object.keys(question.choices).map(choice => (
-            <Form.Check key={choice} type="checkbox" label={question.choices[choice]}/>
-          )) }
-        </Form.Group>
-
-      // <Form.Group>
-      //   <Form.Label>{question.question}</Form.Label>
-      //   <Select multiple {...registration} options={Object.values(question.choices).map(label => ({ label, value: label }))} />
-      // </Form.Group>
+      return <Form.Group>
+        <Form.Label>{question.question}</Form.Label>
+        {Object.keys(question.choices).map(choice => (
+          <Form.Check {...registration} key={choice} type="checkbox" value={question.choices[choice]} label={question.choices[choice]} />
+        ))}
+      </Form.Group>;
+    // TODO: optional text support ...
+    case "optionalText":
+      return;
   }
 }

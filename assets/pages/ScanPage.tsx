@@ -16,7 +16,7 @@ export default function scanPage(){
             </div>
             <div className='m-4'>
                 <h2 className='subtitleScanPage text-uppercase'>Flashe ton poulpe oui</h2>
-                <Scan></Scan>
+                <Scan />
             </div>
         </section>
     </>

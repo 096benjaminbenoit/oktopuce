@@ -103,6 +103,9 @@ class LeakControlCalculator
      */
     public static function isControlMandatory(Equipment $equipment): bool
     {
-        return !($equipment->isHasLeakDetection() && self::calculTCO2($equipment) < 5000);
+        return !(
+            $equipment->isHasLeakDetection() 
+            && self::calculTCO2($equipment) < 5000
+        );
     }
 }

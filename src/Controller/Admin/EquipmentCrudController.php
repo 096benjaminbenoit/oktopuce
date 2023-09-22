@@ -33,7 +33,7 @@ class EquipmentCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('nfcTag')->setLabel('Id de la puce'),
-            // AssociationField::new('equipmentType')->setLabel('Type de produit'),
+            AssociationField::new('equipmentType')->setLabel('Type de produit'),
             AssociationField::new('brand')->setLabel('Marque'),
             AssociationField::new('location')->setLabel('Emplacement'),
             TextField::new('locationDetail')->setLabel('Detail de l\'emplacement')->hideOnIndex(),
