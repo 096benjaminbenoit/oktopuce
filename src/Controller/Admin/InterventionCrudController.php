@@ -137,7 +137,7 @@ class InterventionCrudController extends AbstractCrudController
                                 'intervention_type' => $question->getInterventionType()->getId(),
                                 // "prochaine_detection_de_fuite" => $equipment->getNextLeakDetection(),
                             ],
-                            'answer' => ''
+                            'answer' => $question->getQuestionType() == "checkbox" ? false : ''
                         ];
                     }, $answers);
                     $data->setAnswers($answers);

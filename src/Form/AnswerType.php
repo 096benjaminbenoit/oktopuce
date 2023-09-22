@@ -6,10 +6,11 @@ use App\Entity\InterventionQuestion;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class AnswerType extends AbstractType
 {
@@ -40,6 +41,15 @@ class AnswerType extends AbstractType
                         },
                     ]);
                     break;
+                case('checkbox'):
+                    $form->add('answer', CheckboxType::class, [
+                        'label' => $question['label'],
+                        'required' => false,
+                        // 'choices' => $question['choices'],
+                        // 'choice_label' => function ($choice, string $key, mixed $value) {
+                        //     return $value;
+                        // },
+                    ]);
             }
         });
     }

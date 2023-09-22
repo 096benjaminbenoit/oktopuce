@@ -50,6 +50,10 @@ export default function CreateIntervention() {
         body: JSON.stringify({
           ...form,
           equipment: getId(equipment),
+          answers: form.answers.map((value, index) => ({
+            question: interventionType.questions[index],
+            answer: value 
+          })),
         }),
         headers: {
           "Content-Type": "application/ld+json",
@@ -99,6 +103,10 @@ export default function CreateIntervention() {
           .map((interventionType) => ({ label: interventionType.type, value: interventionType['@id'] }))
       );
   }, [interventionTypes, equipment])
+  const interventionType = useMemo(
+    () => interventionTypes?.find(({ ["@id"]: id }) => id == interventionTypeForm)
+  , [interventionTypes, interventionTypeForm]);
+
 
   useEffect(() => {
     setValue("answers", []);
@@ -135,13 +143,6 @@ export default function CreateIntervention() {
         </form>
       </React.Fragment>;
     case 2:
-      console.group("Yeet");
-      console.log(interventionTypeForm);
-      console.log(interventionTypes);
-      const interventionType = interventionTypes.find(({ ["@id"]: id }) => id == interventionTypeForm);
-      console.log(interventionType)
-      console.groupEnd();
-
       return <form onSubmit={handleSubmit(onSubmit)}>
         <h2>{interventionType.type}</h2>
         {interventionType.questions.map(
