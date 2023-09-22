@@ -28,7 +28,7 @@ const Scan = () => {
         <div>
             <p>Serial Number: {serialNumber}</p>
             <p>Message: {message}</p>
-            <button onClick={handleButtonClick}>oui</button>
+            <button onClick={handleButtonClick}>Scan</button>
         </div>
     );
 };
